@@ -1,0 +1,27 @@
+@media only screen and (max-width: 768px) {
+    .login-page {
+        text-align: center;
+        .overlay, .home-vector{
+            visibility: hidden;
+        }
+        .logo, .footer{
+            position: relative;
+            top:auto;
+            left:auto;
+            transform: none; 
+        }
+        .logo{
+            padding:1.5em 6px;
+        }
+        .form-group{
+            position: relative;
+            margin: auto auto;
+            top: auto;
+            left:auto;
+            transform: none; 
+            max-width:90%;
+            box-sizing: border-box;
+            margin-bottom: 2em;
+        }
+    }
+}
