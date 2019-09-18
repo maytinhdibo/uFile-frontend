@@ -1,4 +1,5 @@
 import React from 'react';
+import ProgressBar from './../../components/ProgressBar';
 import { Link } from "react-router-dom";
 
 class Main extends React.Component {
@@ -21,6 +22,15 @@ class Main extends React.Component {
                         <li>Favorites</li>
                         <li>Trash</li>
                     </ul>
+
+                    <div className="storage">
+                        <h3>Storage</h3>
+                        <br/>
+                        <ProgressBar value={0.4} style={{
+                            width: "100%"
+                        }} />
+                    </div>
+
                 </div>
                 <div className="app-main">
                     <header>Home</header>
