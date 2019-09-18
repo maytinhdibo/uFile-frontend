@@ -4,22 +4,84 @@ import { Link } from "react-router-dom";
 class Main extends React.Component {
     render() {
         return (
-                <form className="form-group">
-                    <h1>Login</h1>
-                    <p>To access awesome things</p>
-                    <br/>
-                    <div className="input-group">
-                        <input className="me-input" placeholder="@username" />
-                        <input className="me-input" placeholder="@email" />
-                        
-                        <input className="me-input" placeholder="@password" type="password" />
-                        <input className="me-input" placeholder="@re-password" type="password" />
+            <div className="app-page">
+                <div className="sidebar">
+                    <div className="account">
+                        <span className="profile-picture"></span>
+                        Cuong Tran
                     </div>
-                    <button className="me-btn">Login</button>
-                    <button className="me-btn invert">Login with Google ID</button>
-                    <p className="signup-text">Don't have an account? 
-                    <Link to="/signup">Signup</Link></p>
-                </form>
+
+                    <div className="upload">
+                        <button>Upload new file</button>
+                    </div>
+                    <ul>
+                        <li>My drive</li>
+                        <li>Photos</li>
+                        <li>Shared with me</li>
+                        <li>Favorites</li>
+                        <li>Trash</li>
+                    </ul>
+                </div>
+                <div className="app-main">
+                    <header>Home</header>
+                    <div className="filebrowser">
+                        <div className="explore">
+                            <div className="file-list">
+                                List file Recent
+                            <div className="recent">
+                                    <div className="flex-row">
+                                        <div className="recent-item"></div>
+                                        <div className="recent-item"></div>
+                                    </div>
+                                    <div className="flex-row">
+                                        <div className="recent-item"></div>
+                                        <div className="recent-item"></div>
+                                    </div>
+                                </div>
+                                <div className="flex header">
+                                    <div className="name">Name</div>
+                                    <div>Type</div>
+                                    <div>Date</div>
+                                    <div>Size</div>
+                                </div>
+
+                                <div className="file-item">
+                                    <div className="name">birthday.png</div>
+                                    <div>Image</div>
+                                    <div>14/07/2019</div>
+                                    <div>30 MB</div>
+                                </div>
+
+                                <div className="file-item">
+                                    <div className="name">birthday.png</div>
+                                    <div>Image</div>
+                                    <div>14/07/2019</div>
+                                    <div>30 MB</div>
+                                </div>
+
+                                <div className="file-item">
+                                    <div className="name">birthday.png</div>
+                                    <div>Image</div>
+                                    <div>14/07/2019</div>
+                                    <div>30 MB</div>
+                                </div>
+                            </div>
+
+                            <div className="notibar">
+                                <span>Activity</span>
+                                <span>Detail</span>
+                                <div className="noti tab">
+                                    <div className="noti-item">
+                                        Cuong added new file to your folder
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
         )
     }
 }
