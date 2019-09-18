@@ -11,7 +11,7 @@ class Main extends React.Component {
                     <div className="input-group">
                         <input className="me-input" placeholder="@username" />
                         <input className="me-input" placeholder="@email" />
-                        <input className="me-input" placeholder="@fullname" />
+                        
                         <input className="me-input" placeholder="@password" type="password" />
                         <input className="me-input" placeholder="@re-password" type="password" />
                     </div>

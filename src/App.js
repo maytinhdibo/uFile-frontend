@@ -2,6 +2,8 @@ import React from 'react';
 import logo from './logo.svg';
 import './styles/app.scss';
 import './styles/responsive.scss';
+import './styles/grid.scss';
+
 import AccountRouter from './pages/account/AccountRouter';
 import Main from './pages/main/Main';
 
@@ -13,7 +15,6 @@ function App() {
       <Router>
       <Route exact path="/" component={AccountRouter} />
       <Route exact path="/signup" component={AccountRouter} />
-
       <Route path="/main" component={Main} />
       </Router>
     </div>
