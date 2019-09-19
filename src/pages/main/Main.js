@@ -2,6 +2,13 @@ import React from 'react';
 import ProgressBar from '../../components/ProgressBar';
 
 class Main extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isGrid: true
+    };
+  }
+
   render() {
     return (
       <div className="app-page">
@@ -35,9 +42,22 @@ class Main extends React.Component {
         </div>
         <div className="app-main">
           <header>Home</header>
+          <button
+            onClick={() =>
+              this.setState({
+                isGrid: !this.state.isGrid
+              })}
+          >
+AHihi
+
+          </button>
           <div className="filebrowser">
             <div className="explore">
-              <div className="file-list">
+              <div
+                className={
+                  this.state.isGrid ? 'file-list grid' : 'file-list list'
+                }
+              >
                 List file Recent
                 <div className="recent">
                   <div className="flex-row">
@@ -55,40 +75,52 @@ class Main extends React.Component {
                   <div>Date</div>
                   <div>Size</div>
                 </div>
-                <label htmlFor="item-0">
+                <label className="file-block" htmlFor="item-0">
                   <input id="item-0" type="checkbox" />
                   <div className="file-item">
                     <div className="name">
                       <span className="entry-icon" />
-                      birthday.png
+                      <span className="entry-name">birthday.png</span>
                     </div>
-                    <div>Image</div>
-                    <div>14/07/2019</div>
-                    <div>30 MB</div>
+                    <div className="type">Image</div>
+                    <div className="date">14/07/2019</div>
+                    <div className="size">30 MB</div>
                   </div>
                 </label>
-                <label htmlFor="item-1">
+                <label className="file-block" htmlFor="item-1">
                   <input id="item-1" type="checkbox" />
                   <div className="file-item">
                     <div className="name">
                       <span className="entry-icon" />
-                      birthday.png
+                      <span className="entry-name">birthday.png</span>
                     </div>
-                    <div>Image</div>
-                    <div>14/07/2019</div>
-                    <div>30 MB</div>
+                    <div className="type">Image</div>
+                    <div className="date">14/07/2019</div>
+                    <div className="size">30 MB</div>
                   </div>
                 </label>
-                <label htmlFor="item-2">
+                <label className="file-block" htmlFor="item-2">
                   <input id="item-2" type="checkbox" />
                   <div className="file-item">
                     <div className="name">
                       <span className="entry-icon" />
-                      birthday.png
+                      <span className="entry-name">birthday.png</span>
                     </div>
-                    <div>Image</div>
-                    <div>14/07/2019</div>
-                    <div>30 MB</div>
+                    <div className="type">Image</div>
+                    <div className="date">14/07/2019</div>
+                    <div className="size">30 MB</div>
+                  </div>
+                </label>
+                <label className="file-block" htmlFor="item-0">
+                  <input id="item-0" type="checkbox" />
+                  <div className="file-item">
+                    <div className="name">
+                      <span className="entry-icon" />
+                      <span className="entry-name">birthday.png</span>
+                    </div>
+                    <div className="type">Image</div>
+                    <div className="date">14/07/2019</div>
+                    <div className="size">30 MB</div>
                   </div>
                 </label>
               </div>
