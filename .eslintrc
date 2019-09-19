@@ -9,10 +9,11 @@
       },  
     "rules": 
       {    
-        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],    
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],   
+        "react/destructuring-assignment": "never", 
         "implicit-arrow-linebreak": "off",    
         "comma-dangle": "off",    
         "indent": "off",    
-        "no-trailing-spaces": "off"  
+        "no-trailing-spaces": "off"
       }
     }
