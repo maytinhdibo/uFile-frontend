@@ -10,7 +10,7 @@
     "rules": 
       {    
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],   
-        "react/destructuring-assignment": "never", 
+        "react/prefer-stateless-function": "off",
         "implicit-arrow-linebreak": "off",    
         "comma-dangle": "off",    
         "indent": "off",    

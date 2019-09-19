@@ -55,24 +55,42 @@ class Main extends React.Component {
                   <div>Date</div>
                   <div>Size</div>
                 </div>
-                <div className="file-item">
-                  <div className="name">birthday.png</div>
-                  <div>Image</div>
-                  <div>14/07/2019</div>
-                  <div>30 MB</div>
-                </div>
-                <div className="file-item">
-                  <div className="name">birthday.png</div>
-                  <div>Image</div>
-                  <div>14/07/2019</div>
-                  <div>30 MB</div>
-                </div>
-                <div className="file-item">
-                  <div className="name">birthday.png</div>
-                  <div>Image</div>
-                  <div>14/07/2019</div>
-                  <div>30 MB</div>
-                </div>
+                <label htmlFor="item-0">
+                  <input id="item-0" type="checkbox" />
+                  <div className="file-item">
+                    <div className="name">
+                      <span className="entry-icon" />
+                      birthday.png
+                    </div>
+                    <div>Image</div>
+                    <div>14/07/2019</div>
+                    <div>30 MB</div>
+                  </div>
+                </label>
+                <label htmlFor="item-1">
+                  <input id="item-1" type="checkbox" />
+                  <div className="file-item">
+                    <div className="name">
+                      <span className="entry-icon" />
+                      birthday.png
+                    </div>
+                    <div>Image</div>
+                    <div>14/07/2019</div>
+                    <div>30 MB</div>
+                  </div>
+                </label>
+                <label htmlFor="item-2">
+                  <input id="item-2" type="checkbox" />
+                  <div className="file-item">
+                    <div className="name">
+                      <span className="entry-icon" />
+                      birthday.png
+                    </div>
+                    <div>Image</div>
+                    <div>14/07/2019</div>
+                    <div>30 MB</div>
+                  </div>
+                </label>
               </div>
 
               <div className="notibar">
