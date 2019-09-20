@@ -3,7 +3,7 @@ import '../styles/loader.scss';
 
 class Loader extends React.Component {
   render() {
-    let { color, size } = this.props;
+    const { color, size } = this.props;
     return (
       <div style={{ transform: `scale(${size / 112})` }} className="me-loader">
         <div style={{ borderColor: color }} className="box1" />

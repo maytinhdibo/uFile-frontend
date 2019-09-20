@@ -10,7 +10,7 @@ import {
   faPhotoVideo,
   faUniversalAccess,
   faStar,
-  faTrashAlt
+  faTrashAlt,
 } from '@fortawesome/free-solid-svg-icons';
 
 import ProgressBar from '../../components/ProgressBar';
@@ -19,13 +19,14 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isGrid: false
+      isGrid: false,
     };
   }
 
   gridChange = () => {
+    const { isGrid } = this.state;
     this.setState({
-      isGrid: !this.state.isGrid
+      isGrid: !isGrid,
     });
   };
 
@@ -84,7 +85,7 @@ class Main extends React.Component {
             <ProgressBar
               value={0.4}
               style={{
-                width: '100%'
+                width: '100%',
               }}
             />
           </div>
@@ -93,16 +94,8 @@ class Main extends React.Component {
           <div className="block flex">
             <h1>uFile Drive</h1>
             <div className="action-group">
-              <span
-                onClick={this.gridChange}
-                role="presentation"
-                className="me-mini-btn"
-              >
-                {this.state.isGrid ? (
-                  <FontAwesomeIcon icon={faThList} />
-                ) : (
-                  <FontAwesomeIcon icon={faThLarge} />
-                )}
+              <span onClick={this.gridChange} role="presentation" className="me-mini-btn">
+                {this.state.isGrid ? <FontAwesomeIcon icon={faThList} /> : <FontAwesomeIcon icon={faThLarge} />}
               </span>
               <span className="me-mini-btn">
                 <FontAwesomeIcon icon={faCut} />
@@ -115,9 +108,7 @@ class Main extends React.Component {
               </span>
             </div>
           </div>
-          <div className="path-breadcrumb block">
-            folder1 &gt; folder2 &gt; folder3
-          </div>
+          <div className="path-breadcrumb block">folder1 &gt; folder2 &gt; folder3</div>
           {/* <button
             onClick={() =>
               this.setState({
@@ -130,11 +121,7 @@ AHihi
 
           <div className="filebrowser">
             <div className="explore">
-              <div
-                className={
-                  this.state.isGrid ? 'file-list grid' : 'file-list list'
-                }
-              >
+              <div className={this.state.isGrid ? 'file-list grid' : 'file-list list'}>
                 <div className="recent">
                   <div className="flex-row">
                     <div className="recent-item" />
@@ -205,9 +192,7 @@ AHihi
                 <span>Activity</span>
                 <span>Detail</span>
                 <div className="noti tab">
-                  <div className="noti-item">
-                    Cuong added new file to your folder
-                  </div>
+                  <div className="noti-item">Cuong added new file to your folder</div>
                 </div>
               </div>
             </div>
