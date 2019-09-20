@@ -1,19 +1,36 @@
-{  
-    "extends": "airbnb",  
-    "parser": "babel-eslint",  
-    "env": 
-      {    
-        "node": true,    
-        "es6": true,    
-        "browser": true  
-      },  
-    "rules": 
-      {    
-        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],   
-        "react/prefer-stateless-function": "off",
-        "implicit-arrow-linebreak": "off",    
-        "comma-dangle": "off",    
-        "indent": "off",    
-        "no-trailing-spaces": "off"
+{
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module",
+    "allowImportExportEverywhere": false,
+    "codeFrame": false
+  },
+  "extends": ["airbnb"],
+  "env": {
+    "browser": true,
+    "jest": true
+  },
+  "rules": {
+    "max-len": ["error", { "code": 120 }],
+    "prefer-promise-reject-errors": ["off"],
+    "react/jsx-filename-extension": ["off"],
+    "react/prop-types": ["off"],
+    "no-return-assign": ["off"],
+    "react/prefer-stateless-function": ["off"],
+    "react/destructuring-assignment": ["off"],
+    "react/no-did-update-set-state": ["off"],
+    "import/prefer-default-export": ["off"],
+    "import/no-extraneous-dependencies": ["off"],
+    "implicit-arrow-linebreak": "off",    
+    "comma-dangle": "off",    
+    "indent": "off",    
+    "no-trailing-spaces": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["src"]
       }
     }
+  }
+}
