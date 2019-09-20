@@ -6,10 +6,12 @@
 
 :root {
   --primary-color: #1e88e5;
+  --second-color: #0f6bbb;
   --light-text-color: #fff;
   --primary-bg: #f6f6f6;
   --sidebar-width: 250px;
   --notibar-width: 325px;
+  --block-padding: 6px;
 }
 
 html,
@@ -19,6 +21,7 @@ body,
   width: 100%;
   height: 100%;
   font-size: 14px;
+  color: #345;
 }
 
 a {
@@ -65,6 +68,10 @@ a {
     height: 100%;
     border-radius: 2px;
   }
+}
+
+.flex {
+  display: flex;
 }
 
 .login-page {
@@ -228,7 +235,11 @@ a {
     height: 100%;
     background: #fff;
     padding-top: 32px;
-
+    .icon {
+      width: 3em;
+      display: inline-block;
+      color: var(--second-color);
+    }
     .account {
       font-weight: 900;
       padding: 16px 32px;
@@ -269,6 +280,7 @@ a {
     }
 
     ul {
+      margin-top: 1.5em;
       width: 100%;
 
       li + li {
@@ -298,11 +310,67 @@ a {
     top: 0;
     bottom: 0;
     padding: 9px 28px;
-    padding-left:20px;
+    padding-left: 20px;
     padding-bottom: 0;
     user-select: none;
+
     header {
-      font-size: 2em;
+      font-size: 1.5em;
+    }
+
+    .block {
+      padding: 6px 18px;
+    }
+
+    .action-group {
+      flex-grow: 1;
+      text-align: right;
+      align-self: center;
+    }
+
+    .path-breadcrumb {
+      color: #555;
+      font-weight: 900;
+    }
+
+    .me-mini-btn {
+      display: inline-block;
+      height: 33px;
+      width: 33px;
+      line-height: 33px;
+      color: #345;
+      background: #fff;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      border-radius: 100%;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.5s;
+      &:hover {
+        box-shadow: 0 0 5px rgba(95, 145, 255, 0.3);
+        transform: rotate(360deg);
+      }
+      &:active {
+        transition: 0s;
+        background: var(--second-color);
+        color: #fff;
+      }
+    }
+
+    .me-mini-btn[disabled] {
+      color: #999;
+      opacity: 0.8;
+      &:hover {
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        transform: rotate(0deg);
+      }
+      &:active {
+        transition: 0s;
+        background: #fff;
+        color: #999;
+      }
+    }
+    .me-mini-btn + .me-mini-btn {
+      margin-left: 0.75em;
     }
 
     .filebrowser {
@@ -318,7 +386,7 @@ a {
         height: 100%;
 
         .recent {
-            padding: 6px;
+          padding: 6px;
           .flex-row + .flex-row {
             margin-top: 0.75em;
           }
@@ -379,6 +447,7 @@ a {
             padding: 12px 9px;
             color: #777;
             font-weight: 900;
+            overflow: hidden;
           }
 
           .file-item {
@@ -448,11 +517,11 @@ a {
           }
         }
         .file-list.grid {
-            .flex.header{
-                width: 100%;
-                height: 9px;
-                opacity: 0;
-            }
+          .flex.header {
+            width: 100%;
+            height: 9px;
+            opacity: 0;
+          }
           label.file-block {
             display: inline-block;
             width: 25%;
@@ -486,14 +555,14 @@ a {
               }
             }
             input:checked + .file-item {
-                box-shadow: 0 0 8px rgba(30, 136, 229, 0.6);
-                .name{
-                    .entry-name {
-                        background: var(--primary-color);
-                        color: #fff;
-                    }
+              box-shadow: 0 0 8px rgba(30, 136, 229, 0.6);
+              .name {
+                .entry-name {
+                  background: var(--primary-color);
+                  color: #fff;
                 }
               }
+            }
           }
         }
       }

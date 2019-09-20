@@ -1,13 +1,33 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faThLarge,
+  faThList,
+  faCopy,
+  faCut,
+  faClipboard,
+  faHdd,
+  faPhotoVideo,
+  faUniversalAccess,
+  faStar,
+  faTrashAlt
+} from '@fortawesome/free-solid-svg-icons';
+
 import ProgressBar from '../../components/ProgressBar';
 
 class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isGrid: true
+      isGrid: false
     };
   }
+
+  gridChange = () => {
+    this.setState({
+      isGrid: !this.state.isGrid
+    });
+  };
 
   render() {
     return (
@@ -22,11 +42,40 @@ class Main extends React.Component {
             <button type="button">Upload new file</button>
           </div>
           <ul>
-            <li>My drive</li>
-            <li>Photos</li>
-            <li>Shared with me</li>
-            <li>Favorites</li>
-            <li>Trash</li>
+            <li>
+              <span className="icon">
+                <FontAwesomeIcon icon={faHdd} />
+              </span>
+              My drive
+            </li>
+            <li>
+              {' '}
+              <span className="icon">
+                <FontAwesomeIcon icon={faPhotoVideo} />
+              </span>
+              Photos
+            </li>
+            <li>
+              {' '}
+              <span className="icon">
+                <FontAwesomeIcon icon={faUniversalAccess} />
+              </span>
+              Shared with me
+            </li>
+            <li>
+              {' '}
+              <span className="icon">
+                <FontAwesomeIcon icon={faStar} />
+              </span>
+              Favorites
+            </li>
+            <li>
+              {' '}
+              <span className="icon">
+                <FontAwesomeIcon icon={faTrashAlt} />
+              </span>
+              Trash
+            </li>
           </ul>
 
           <div className="storage">
@@ -41,8 +90,35 @@ class Main extends React.Component {
           </div>
         </div>
         <div className="app-main">
-          <header>Home</header>
-          <button
+          <div className="block flex">
+            <h1>uFile Drive</h1>
+            <div className="action-group">
+              <span
+                onClick={this.gridChange}
+                role="presentation"
+                className="me-mini-btn"
+              >
+                {this.state.isGrid ? (
+                  <FontAwesomeIcon icon={faThList} />
+                ) : (
+                  <FontAwesomeIcon icon={faThLarge} />
+                )}
+              </span>
+              <span className="me-mini-btn">
+                <FontAwesomeIcon icon={faCut} />
+              </span>
+              <span className="me-mini-btn">
+                <FontAwesomeIcon icon={faCopy} />
+              </span>
+              <span className="me-mini-btn" disabled>
+                <FontAwesomeIcon icon={faClipboard} />
+              </span>
+            </div>
+          </div>
+          <div className="path-breadcrumb block">
+            folder1 &gt; folder2 &gt; folder3
+          </div>
+          {/* <button
             onClick={() =>
               this.setState({
                 isGrid: !this.state.isGrid
@@ -50,7 +126,8 @@ class Main extends React.Component {
           >
 AHihi
 
-          </button>
+          </button> */}
+
           <div className="filebrowser">
             <div className="explore">
               <div
@@ -58,7 +135,6 @@ AHihi
                   this.state.isGrid ? 'file-list grid' : 'file-list list'
                 }
               >
-                List file Recent
                 <div className="recent">
                   <div className="flex-row">
                     <div className="recent-item" />
