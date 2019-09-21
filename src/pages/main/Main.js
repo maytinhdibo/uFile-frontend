@@ -7,8 +7,8 @@ import {
   faCut,
   faClipboard,
   faHdd,
-  faPhotoVideo,
-  faUniversalAccess,
+  faCamera,
+  faUserFriends,
   faStar,
   faTrashAlt
 } from '@fortawesome/free-solid-svg-icons';
@@ -51,14 +51,14 @@ class Main extends React.Component {
             <li>
               {' '}
               <span className="icon">
-                <FontAwesomeIcon icon={faPhotoVideo} />
+                <FontAwesomeIcon icon={faCamera} />
               </span>
               Photos
             </li>
             <li>
               {' '}
               <span className="icon">
-                <FontAwesomeIcon icon={faUniversalAccess} />
+                <FontAwesomeIcon icon={faUserFriends} />
               </span>
               Shared with me
             </li>
@@ -90,7 +90,7 @@ class Main extends React.Component {
           </div>
         </div>
         <div className="app-main">
-          <div className="block flex">
+          <div id="header" className="block flex">
             <h1>uFile Drive</h1>
             <div className="action-group">
               <span
@@ -202,8 +202,10 @@ AHihi
               </div>
 
               <div className="notibar">
-                <span>Activity</span>
-                <span>Detail</span>
+                <div className="noti-tab">
+                  <span>Activity</span>
+                  <span>Detail</span>
+                </div>
                 <div className="noti tab">
                   <div className="noti-item">
                     Cuong added new file to your folder

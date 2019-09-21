@@ -1,32 +1,80 @@
 @media only screen and (max-width: 768px) {
-    .login-page {
-        text-align: center;
-        .overlay, .home-vector{
-            visibility: hidden;
-        }
-        .logo, .footer{
-            position: relative;
-            top:auto;
-            left:auto;
-            transform: none; 
-        }
-        .logo{
-            padding:1.5em 6px;
-        }
-        .form-group{
-            position: relative;
-            margin: auto auto;
-            top: auto;
-            left:auto;
-            transform: none; 
-            max-width:90%;
-            box-sizing: border-box;
-            margin-bottom: 2em;
-        }
+  .login-page {
+    text-align: center;
+    .overlay,
+    .home-vector {
+      visibility: hidden;
     }
+    .logo,
+    .footer {
+      position: relative;
+      top: auto;
+      left: auto;
+      transform: none;
+    }
+    .logo {
+      padding: 1.5em 6px;
+    }
+    .form-group {
+      position: relative;
+      margin: auto auto;
+      top: auto;
+      left: auto;
+      transform: none;
+      max-width: 90%;
+      box-sizing: border-box;
+      margin-bottom: 2em;
+    }
+  }
+  .app-page {
+    .app-main {
+      left: 0;
+      padding: 9px 0;
+      .filebrowser {
+        .explore {
+          .file-list {
+            width: 100%;
+          }
+          .notibar {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}
+@media only screen and (max-width: 960px) {
+  .app-page {
+    .sidebar {
+      left: calc(0px - var(--sidebar-width));
+    }
+    .app-main {
+      left: 0;
+      .me-mini-btn {
+        height: 100%;
+        border-radius: 0;
+        box-shadow: none;
+      }
+      #header {
+        top: 0;
+        left: 0;
+        right: 0;
+        position: fixed;
+        background: #fff;
+        box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1), 0 -1px 0 rgba(0, 0, 0, 0.07);
+        padding: 0px;
+        height: 50px;
+        padding: 0 9px;
+        align-items: center;
+        h1 {
+          font-size: 1.5em;
+        }
+      }
+    }
+  }
 }
 @media only screen and (max-width: 1140px) {
-    .app-page .app-main .filebrowser .explore .file-list.grid label.file-block{
-        width: 33.33%;
-    }
+  .app-page .app-main .filebrowser .explore .file-list.grid label.file-block {
+    width: 33.33%;
+  }
 }

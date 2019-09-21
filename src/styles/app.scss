@@ -376,7 +376,7 @@ a {
     .filebrowser {
       position: fixed;
       top: 90px;
-      left: var(--sidebar-width);
+      left: inherit;
       right: 0;
       bottom: 0;
       padding: inherit;
@@ -420,7 +420,29 @@ a {
           width: var(--notibar-width);
           padding-left: 20px;
           box-sizing: border-box;
-
+          .noti-tab {
+            span {
+              padding: 16px;
+              padding-right: 32px;
+              padding-left:0;
+              padding-bottom: 6px;
+              margin-bottom: 12px;
+              font-size:1.25em;
+              font-weight: 900;
+              display: inline-block;
+              cursor: pointer;
+              position: relative;
+              &::before{
+                  content: ' ';
+                  position: absolute;
+                  bottom:0;
+                  width:32px;
+                  height: 2px;
+                  border-radius: 2px;
+                  background: var(--primary-color);
+              }
+            }
+          }
           .tab {
             background: #fff;
             box-shadow: 0 0 18px rgba(0, 108, 108, 0.1);
