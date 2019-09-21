@@ -3,7 +3,7 @@ import '../styles/loader.scss';
 
 class ProgressBar extends React.Component {
   render() {
-    let { color, value, style } = this.props;
+    const { color, value, style } = this.props;
     return (
       <div style={style} className="me-progress-bar">
         <div
