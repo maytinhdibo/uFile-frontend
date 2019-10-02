@@ -1,7 +1,7 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Quicksand', sans-serif;
 }
 
 :root {
@@ -235,6 +235,8 @@ a {
     height: 100%;
     background: #fff;
     padding-top: 32px;
+    transition: 0.25s;
+    z-index: 1;
     .icon {
       width: 3em;
       display: inline-block;
@@ -250,7 +252,7 @@ a {
         width: 40px;
         vertical-align: middle;
         background-color: #ccc;
-        background-image: url("/img/avt.jpg");
+        background-image: url('/img/avt.jpg');
         background-size: cover;
         border-radius: 100%;
         margin-right: 0.75em;
@@ -316,6 +318,15 @@ a {
 
     header {
       font-size: 1.5em;
+    }
+
+    #header {
+      .app-nav-icon {
+        width: 25px;
+        font-size: 1.15em;
+        padding-left: 5px;
+        display: none;
+      }
     }
 
     .block {
@@ -424,22 +435,22 @@ a {
             span {
               padding: 16px;
               padding-right: 32px;
-              padding-left:0;
+              padding-left: 0;
               padding-bottom: 6px;
               margin-bottom: 12px;
-              font-size:1.25em;
+              font-size: 1.25em;
               font-weight: 900;
               display: inline-block;
               cursor: pointer;
               position: relative;
-              &::before{
-                  content: ' ';
-                  position: absolute;
-                  bottom:0;
-                  width:32px;
-                  height: 2px;
-                  border-radius: 2px;
-                  background: var(--primary-color);
+              &::before {
+                content: ' ';
+                position: absolute;
+                bottom: 0;
+                width: 32px;
+                height: 2px;
+                border-radius: 2px;
+                background: var(--primary-color);
               }
             }
           }
@@ -495,7 +506,7 @@ a {
             border-radius: 12px;
             border: 1px solid #eee;
             margin-right: 0.5em;
-            background-image: url("/img/pdf.png");
+            background-image: url('/img/pdf.png');
             background-size: 55% 55%;
             background-position: center;
             background-repeat: no-repeat;
@@ -506,7 +517,7 @@ a {
           label.file-block + label.file-block {
             margin-top: 8px;
           }
-          label.file-block input[type="checkbox"] {
+          label.file-block input[type='checkbox'] {
             display: none;
           }
         }
@@ -534,7 +545,7 @@ a {
             .entry-icon {
               opacity: 0.9;
               background-size: 50%;
-              background-image: url("/img/checked.png");
+              background-image: url('/img/checked.png');
             }
           }
         }

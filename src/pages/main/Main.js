@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -11,6 +13,7 @@ import {
   faUserFriends,
   faStar,
   faTrashAlt,
+  faBars,
 } from '@fortawesome/free-solid-svg-icons';
 
 import ProgressBar from '../../components/ProgressBar';
@@ -20,6 +23,7 @@ class Main extends React.Component {
     super(props);
     this.state = {
       isGrid: false,
+      navOpen: false,
     };
   }
 
@@ -30,10 +34,16 @@ class Main extends React.Component {
     });
   };
 
+  collapseNav = () => {
+    this.setState({
+      navOpen: !this.state.navOpen
+    });
+  };
+
   render() {
     return (
       <div className="app-page">
-        <div className="sidebar">
+        <div data-opened={this.state.navOpen} className="sidebar">
           <div className="account">
             <span className="profile-picture" />
             Cuong Tran
@@ -92,6 +102,9 @@ class Main extends React.Component {
         </div>
         <div className="app-main">
           <div id="header" className="block flex">
+            <div onClick={this.collapseNav} className="app-nav-icon">
+              <FontAwesomeIcon icon={faBars} />
+            </div>
             <h1>uFile Drive</h1>
             <div className="action-group">
               <span onClick={this.gridChange} role="presentation" className="me-mini-btn">
