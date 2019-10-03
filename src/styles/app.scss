@@ -4,6 +4,19 @@
   font-family: 'Quicksand', sans-serif;
 }
 
+@keyframes zoomIn {
+  from {
+    transform: scale(0.7);
+    opacity: 0.9;
+    margin-top: -600px;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+    margin-top: 0px;
+  }
+}
+
 :root {
   --primary-color: #1e88e5;
   --second-color: #0f6bbb;
@@ -54,6 +67,75 @@ a {
 
   &:focus {
     box-shadow: 0 0 8px rgba(85, 161, 248, 0.4);
+  }
+}
+
+.me-hidden-desktop {
+  display: none;
+}
+.me-hidden-mobile {
+  display: auto;
+}
+
+.me-search-assistant-overlay {
+  position: fixed;
+  background: rgba(0, 0, 0, 0.2);
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+
+.me-search-assistant-overlay.opened {
+  display: block;
+}
+.me-search-assistant-overlay.opened + .me-search-assistant {
+  display: block;
+  animation: zoomIn 0.5s;
+}
+
+.me-search-assistant {
+  position: absolute;
+  display: none;
+  width: calc(100% - 68px - var(--notibar-width));
+//   height: 400px;
+  max-width: 100%;
+  top: 60px;
+  left: 30px;
+  background: rgba(255, 255, 255, 0.98);
+  border-radius: 5px;
+  z-index: 3;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1);
+  overflow-x: hidden;
+  header {
+    font-size: 14px;
+    border-bottom: 1px solid #eee;
+    input.input-search {
+      flex: 1;
+      height: 50px;
+      padding: 9px 16px;
+      padding-right: 0;
+      border: none;
+      outline: none;
+      font-size: 14px;
+      background: none;
+      box-sizing: border-box;
+    }
+    .btn-close {
+      cursor: pointer;
+      transition: 0.25s;
+      width: 50px;
+      line-height: 50px;
+      text-align: center;
+      font-size: 15px;
+      outline: none;
+      &:hover {
+        background: rgba(0, 0, 0, 0.1);
+      }
+    }
   }
 }
 
@@ -325,7 +407,6 @@ a {
         width: 25px;
         font-size: 1.15em;
         padding-left: 5px;
-        display: none;
       }
     }
 
@@ -398,27 +479,19 @@ a {
 
         .recent {
           padding: 6px;
-          .flex-row + .flex-row {
-            margin-top: 0.75em;
-          }
           .flex-row {
             display: flex;
             .recent-item {
               height: 160px;
-              width: 160px;
-              background: rgb(126, 126, 126);
+              flex: 1;
+              background: rgb(222, 222, 222);
               box-shadow: 0 0 18px rgba(0, 0, 0, 0.05) inset;
               border-radius: 20px;
               overflow: hidden;
             }
-          }
-          .flex-row:nth-child(1) .recent-item:nth-child(1) {
-            margin-right: 0.75em;
-            flex-grow: 2;
-          }
-          .flex-row:nth-child(2) .recent-item:nth-child(2) {
-            margin-left: 0.75em;
-            flex-grow: 2;
+            .recent-item+.recent-item{
+                margin-left: 0.75rem;
+            }
           }
         }
 

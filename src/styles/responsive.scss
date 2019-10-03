@@ -44,6 +44,12 @@
   }
 }
 @media only screen and (max-width: 960px) {
+  .me-hidden-mobile {
+    display: none;
+  }
+  .me-hidden-desktop {
+    display: auto;
+  }
   .app-page {
     .sidebar {
       left: calc(0px - var(--sidebar-width));

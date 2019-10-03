@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
@@ -14,9 +15,11 @@ import {
   faStar,
   faTrashAlt,
   faBars,
+  faSearch,
 } from '@fortawesome/free-solid-svg-icons';
 
 import ProgressBar from '../../components/ProgressBar';
+import SearchAssistant from '../../components/SearchAssistant';
 
 class Main extends React.Component {
   constructor(props) {
@@ -24,8 +27,17 @@ class Main extends React.Component {
     this.state = {
       isGrid: false,
       navOpen: false,
+      sa_modal: true,
     };
   }
+
+  closeSearchAssistant = () => {
+    this.setState({ sa_modal: false });
+  };
+
+  openSearchAssistant = () => {
+    this.setState({ sa_modal: true });
+  };
 
   gridChange = () => {
     const { isGrid } = this.state;
@@ -36,7 +48,7 @@ class Main extends React.Component {
 
   collapseNav = () => {
     this.setState({
-      navOpen: !this.state.navOpen
+      navOpen: !this.state.navOpen,
     });
   };
 
@@ -58,6 +70,13 @@ class Main extends React.Component {
                 <FontAwesomeIcon icon={faHdd} />
               </span>
               My drive
+            </li>
+            <li onClick={this.openSearchAssistant}>
+              {' '}
+              <span className="icon">
+                <FontAwesomeIcon icon={faSearch} />
+              </span>
+              Search
             </li>
             <li>
               {' '}
@@ -101,8 +120,9 @@ class Main extends React.Component {
           </div>
         </div>
         <div className="app-main">
+          <SearchAssistant close={this.closeSearchAssistant} opened={this.state.sa_modal} />
           <div id="header" className="block flex">
-            <div onClick={this.collapseNav} className="app-nav-icon">
+            <div onClick={this.collapseNav} className="app-nav-icon me-hidden-desktop">
               <FontAwesomeIcon icon={faBars} />
             </div>
             <h1>uFile Drive</h1>
@@ -139,8 +159,6 @@ AHihi
                   <div className="flex-row">
                     <div className="recent-item" />
                     <div className="recent-item" />
-                  </div>
-                  <div className="flex-row">
                     <div className="recent-item" />
                     <div className="recent-item" />
                   </div>
