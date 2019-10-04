@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   font-family: 'Quicksand', sans-serif;
+  -webkit-tap-highlight-color: transparent;
 }
 
 @keyframes zoomIn {
@@ -35,6 +36,13 @@ body,
   height: 100%;
   font-size: 14px;
   color: #345;
+  overflow-y: hidden;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 a {
@@ -70,13 +78,6 @@ a {
   }
 }
 
-.me-hidden-desktop {
-  display: none;
-}
-.me-hidden-mobile {
-  display: auto;
-}
-
 .me-search-assistant-overlay {
   position: fixed;
   background: rgba(0, 0, 0, 0.2);
@@ -101,7 +102,7 @@ a {
   position: absolute;
   display: none;
   width: calc(100% - 68px - var(--notibar-width));
-//   height: 400px;
+  //   height: 400px;
   max-width: 100%;
   top: 60px;
   left: 30px;
@@ -110,6 +111,7 @@ a {
   z-index: 3;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1);
   overflow-x: hidden;
+  cursor: pointer;
   header {
     font-size: 14px;
     border-bottom: 1px solid #eee;
@@ -134,6 +136,37 @@ a {
       outline: none;
       &:hover {
         background: rgba(0, 0, 0, 0.1);
+      }
+    }
+  }
+}
+
+.me-context-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  //   background: rgba(0, 0, 0, 0.2);
+  z-index: 3;
+  display: block;
+  cursor: default;
+  .me-context-menu {
+    position: fixed;
+    z-index: 3;
+    background: #fff;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+    max-width: 250px;
+    min-height: 50px;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 6px 0;
+    .item {
+      display: block;
+      padding: 9px 15px;
+      transition: 0.25s;
+      &:hover {
+        background: rgba(0, 0, 0, 0.05);
       }
     }
   }
@@ -307,7 +340,7 @@ a {
 }
 
 .app-page {
-  background: #f9f9f9;
+  background: #e9ebee;
   height: 100%;
 
   .sidebar {
@@ -437,15 +470,6 @@ a {
       text-align: center;
       cursor: pointer;
       transition: 0.5s;
-      &:hover {
-        box-shadow: 0 0 5px rgba(95, 145, 255, 0.3);
-        transform: rotate(360deg);
-      }
-      &:active {
-        transition: 0s;
-        background: var(--second-color);
-        color: #fff;
-      }
     }
 
     .me-mini-btn[disabled] {
@@ -481,16 +505,43 @@ a {
           padding: 6px;
           .flex-row {
             display: flex;
+            overflow-y: auto;
             .recent-item {
+              position: relative;
               height: 160px;
+              min-width: 160px;
               flex: 1;
-              background: rgb(222, 222, 222);
-              box-shadow: 0 0 18px rgba(0, 0, 0, 0.05) inset;
+              background: #fff;
+              box-shadow: 0 0 18px rgba(0, 0, 0, 0.05) inset 0 0 6px rgba(0, 0, 0, 0.3);
               border-radius: 20px;
               overflow: hidden;
+              background-image: url('https://tour.dulichvietnam.com.vn/uploads/tour/1554714181_tour-ha-long-11.jpg');
+              background-size: cover;
+              cursor: pointer;
+              transition: 0.25s;
+              &:hover {
+                box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+              }
+              .info {
+                position: absolute;
+                background: rgba(0, 0, 0, 0.7);
+                bottom: 0;
+                width: 100%;
+                padding: 6px 9px;
+                color: #fff;
+              }
             }
-            .recent-item+.recent-item{
-                margin-left: 0.75rem;
+            .recent-item:nth-child(odd) {
+              background-image: url('https://cdn3-www.dogtime.com/assets/uploads/2013/07/file_18073_safe-dog-encounters.jpg');
+            }
+            .recent-item.audio {
+              background-image: url('/img/audiotrack.png');
+              background-position: 50% 45%;
+              background-size: 50% 75%;
+              background-repeat: repeat-x;
+            }
+            .recent-item + .recent-item {
+              margin-left: 0.75rem;
             }
           }
         }
@@ -558,12 +609,11 @@ a {
 
           .file-item {
             background: #fff;
-            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.06);
             padding: 9px;
             border-radius: 9px;
             cursor: pointer;
-            transition: 0.25s;
-
+            transition: 0.25s background-color, 0.25s box-shadow;
             &:hover {
               //   background: #1e88e5;
               //   color: #fff;
@@ -600,18 +650,26 @@ a {
             display: flex;
             align-items: center;
 
-            div {
+            .type {
               flex-basis: 120px;
+            }
+            .date {
+              flex-basis: 75px;
+            }
+            .size {
+              flex-basis: 70px;
+              text-align: right;
             }
 
             .name {
               flex: auto;
+              min-width: 120px;
               text-overflow: ellipsis;
               white-space: nowrap;
               overflow: hidden;
             }
           }
-          input:checked + .file-item {
+          .file-item.selected {
             background: #1e88e5;
             color: #fff;
             box-shadow: 0 0 11px rgba(30, 136, 229, 0.7686274509803922);
@@ -624,9 +682,7 @@ a {
         }
         .file-list.grid {
           .flex.header {
-            width: 100%;
-            height: 9px;
-            opacity: 0;
+            display: none;
           }
           label.file-block {
             display: inline-block;
@@ -660,7 +716,7 @@ a {
                 }
               }
             }
-            input:checked + .file-item {
+            .file-item.selected {
               box-shadow: 0 0 8px rgba(30, 136, 229, 0.6);
               .name {
                 .entry-name {

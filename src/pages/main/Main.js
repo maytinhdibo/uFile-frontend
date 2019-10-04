@@ -20,14 +20,20 @@ import {
 
 import ProgressBar from '../../components/ProgressBar';
 import SearchAssistant from '../../components/SearchAssistant';
+import RecentItem from '../../components/RecentItem';
+import FileBlock from '../../components/FileBlock';
+import ContextMenu from '../../components/ContextMenu';
 
 class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      selectedEntry: [],
       isGrid: false,
       navOpen: false,
-      sa_modal: true,
+      sa_modal: false,
+      contextPosition: { x: 100, y: 100 },
+      contextVisible: false,
     };
   }
 
@@ -37,6 +43,20 @@ class Main extends React.Component {
 
   openSearchAssistant = () => {
     this.setState({ sa_modal: true });
+  };
+
+  openContextMenu = (position) => {
+    const { x, y } = position;
+    this.setState({
+      contextPosition: { x, y },
+      contextVisible: true,
+    });
+  };
+
+  closeContextMenu = () => {
+    this.setState({
+      contextVisible: false,
+    });
   };
 
   gridChange = () => {
@@ -52,9 +72,44 @@ class Main extends React.Component {
     });
   };
 
+  selectEntry = (entry, isRemove) => {
+    const { selectedEntry } = this.state;
+    if (!isRemove) {
+      selectedEntry.push(entry);
+    } else {
+      const index = selectedEntry.indexOf(entry);
+      if (index !== -1) selectedEntry.splice(index, 1);
+    }
+    this.setState({
+      selectedEntry,
+    });
+  };
+
   render() {
+    const recent = {
+      name: 'phongcanh.jpg',
+      type: 'image',
+      thumbmail: 'http://dulichnhanhnhat.com/wp-content/uploads/2017/08/23/05/ISDRM.jpg',
+      size: '2 MB',
+    };
+    const recentAudio = {
+      name: 'hello.mp3',
+      type: 'audio',
+      size: '9 MB',
+    };
+    const recentFile = {
+      name: 'chuong1.pdf',
+      type: 'pdf',
+      size: '32 MB',
+    };
     return (
       <div className="app-page">
+        <ContextMenu
+          opened={this.state.contextVisible}
+          closeContextMenu={this.closeContextMenu}
+          position={this.state.contextPosition}
+        />
+
         <div data-opened={this.state.navOpen} className="sidebar">
           <div className="account">
             <span className="profile-picture" />
@@ -71,7 +126,7 @@ class Main extends React.Component {
               </span>
               My drive
             </li>
-            <li onClick={this.openSearchAssistant}>
+            <li className="me-hidden-mobile" onClick={this.openSearchAssistant}>
               {' '}
               <span className="icon">
                 <FontAwesomeIcon icon={faSearch} />
@@ -130,6 +185,9 @@ class Main extends React.Component {
               <span onClick={this.gridChange} role="presentation" className="me-mini-btn">
                 {this.state.isGrid ? <FontAwesomeIcon icon={faThList} /> : <FontAwesomeIcon icon={faThLarge} />}
               </span>
+              <span onClick={this.openSearchAssistant} className="me-mini-btn me-hidden-desktop">
+                <FontAwesomeIcon icon={faSearch} />
+              </span>
               <span className="me-mini-btn">
                 <FontAwesomeIcon icon={faCut} />
               </span>
@@ -157,66 +215,34 @@ AHihi
               <div className={this.state.isGrid ? 'file-list grid' : 'file-list list'}>
                 <div className="recent">
                   <div className="flex-row">
-                    <div className="recent-item" />
-                    <div className="recent-item" />
-                    <div className="recent-item" />
-                    <div className="recent-item" />
+                    <RecentItem data={recent} />
+                    <RecentItem data={recentFile} />
+                    <RecentItem data={recentAudio} />
+                    <RecentItem data={recent} />
                   </div>
                 </div>
                 <div className="flex header">
                   <div className="name">Name</div>
-                  <div>Type</div>
-                  <div>Date</div>
-                  <div>Size</div>
+                  <div className="type">Type</div>
+                  <div className="date">Date</div>
+                  <div className="size">Size</div>
                 </div>
-                <label className="file-block" htmlFor="item-0">
-                  <input id="item-0" type="checkbox" />
-                  <div className="file-item">
-                    <div className="name">
-                      <span className="entry-icon" />
-                      <span className="entry-name">birthday.png</span>
-                    </div>
-                    <div className="type">Image</div>
-                    <div className="date">14/07/2019</div>
-                    <div className="size">30 MB</div>
-                  </div>
-                </label>
-                <label className="file-block" htmlFor="item-1">
-                  <input id="item-1" type="checkbox" />
-                  <div className="file-item">
-                    <div className="name">
-                      <span className="entry-icon" />
-                      <span className="entry-name">birthday.png</span>
-                    </div>
-                    <div className="type">Image</div>
-                    <div className="date">14/07/2019</div>
-                    <div className="size">30 MB</div>
-                  </div>
-                </label>
-                <label className="file-block" htmlFor="item-2">
-                  <input id="item-2" type="checkbox" />
-                  <div className="file-item">
-                    <div className="name">
-                      <span className="entry-icon" />
-                      <span className="entry-name">birthday.png</span>
-                    </div>
-                    <div className="type">Image</div>
-                    <div className="date">14/07/2019</div>
-                    <div className="size">30 MB</div>
-                  </div>
-                </label>
-                <label className="file-block" htmlFor="item-0">
-                  <input id="item-0" type="checkbox" />
-                  <div className="file-item">
-                    <div className="name">
-                      <span className="entry-icon" />
-                      <span className="entry-name">birthday.png</span>
-                    </div>
-                    <div className="type">Image</div>
-                    <div className="date">14/07/2019</div>
-                    <div className="size">30 MB</div>
-                  </div>
-                </label>
+                <FileBlock
+                  selectFile={this.selectEntry}
+                  openContextMenu={this.openContextMenu}
+                  data={{
+                    id: 1,
+                    name: 'a.pdf',
+                  }}
+                />
+                <FileBlock
+                  selectFile={this.selectEntry}
+                  openContextMenu={this.openContextMenu}
+                  data={{
+                    id: 2,
+                    name: 'hinhanh.png',
+                  }}
+                />
               </div>
 
               <div className="notibar">
