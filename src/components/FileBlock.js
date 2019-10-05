@@ -13,6 +13,12 @@ class FileBlock extends React.Component {
     alert('Opening...');
   };
 
+  dbClickEntry = () => {
+    if (!('ontouchstart' in window || navigator.msMaxTouchPoints)) {
+      this.openEntry();
+    }
+  };
+
   contextMenu = (e) => {
     e.preventDefault();
     this.props.openContextMenu({ x: e.clientX, y: e.clientY });
@@ -44,7 +50,7 @@ class FileBlock extends React.Component {
         {/* <input id="item-0" type="checkbox" /> */}
         <div
           className={this.state.isSelected ? 'file-item selected' : 'file-item'}
-          onDoubleClick={this.openEntry}
+          onDoubleClick={this.dbClickEntry}
           onClick={(e) => this.clickEntry(e)}
           onContextMenu={(e) => this.contextMenu(e)}
         >

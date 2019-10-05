@@ -1,51 +1,6 @@
-@media only screen and (max-width: 768px) {
-  .me-search-assistant {
-    left: 10px;
-    right: 10px;
-    width: auto;
-  }
-  .login-page {
-    text-align: center;
-    .overlay,
-    .home-vector {
-      visibility: hidden;
-    }
-    .logo,
-    .footer {
-      position: relative;
-      top: auto;
-      left: auto;
-      transform: none;
-    }
-    .logo {
-      padding: 1.5em 6px;
-    }
-    .form-group {
-      position: relative;
-      margin: auto auto;
-      top: auto;
-      left: auto;
-      transform: none;
-      max-width: 90%;
-      box-sizing: border-box;
-      margin-bottom: 2em;
-    }
-  }
-  .app-page {
-    .app-main {
-      left: 0;
-      padding: 9px 0;
-      .filebrowser {
-        .explore {
-          .file-list {
-            width: 100%;
-          }
-          .notibar {
-            display: none;
-          }
-        }
-      }
-    }
+@media only screen and (min-width: 768px) {
+  .me-display-mobile-sm {
+    display: none !important;
   }
 }
 //just desktop
@@ -126,6 +81,7 @@
     .sidebar {
       left: calc(0px - var(--sidebar-width));
       top: 50px;
+      padding-top: 6px;
     }
     .sidebar[data-opened='true'] {
       left: 0;
@@ -168,6 +124,105 @@
         .app-nav-icon {
           display: block;
           cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .me-display-mobile-sm {
+    display: auto !important;
+  }
+  .me-search-assistant {
+    left: 10px;
+    right: 10px;
+    width: auto;
+  }
+  .login-page {
+    text-align: center;
+    .overlay,
+    .home-vector {
+      visibility: hidden;
+    }
+    .logo,
+    .footer {
+      position: relative;
+      top: auto;
+      left: auto;
+      transform: none;
+    }
+    .logo {
+      padding: 1.5em 6px;
+    }
+    .form-group {
+      position: relative;
+      margin: auto auto;
+      top: auto;
+      left: auto;
+      transform: none;
+      max-width: 90%;
+      box-sizing: border-box;
+      margin-bottom: 2em;
+    }
+  }
+  .app-page {
+    .app-main {
+      left: 0;
+      padding: 9px 0;
+      .filebrowser {
+        .explore {
+          .file-list {
+            width: 100%;
+          }
+          .notibar.opened {
+            top: 100px;
+          }
+          .notibar {
+            // display: none;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            // top: 100px;
+            // bottom: 50px;
+            top: -100%;
+            height: calc(100% - 150px);
+            overflow: auto;
+            left: 50%;
+            right: 0;
+            padding-left: 0;
+            width: 400px;
+            max-width: 95%;
+            border-radius: 9px;
+            background: #fff;
+            box-shadow: 0 0 64px rgba(0, 0, 0, 0.2);
+            transform: translateX(-50%);
+            transition: 0.25s;
+            .noti-tab {
+              padding: 1em;
+              span {
+                margin: 0;
+                padding: 0;
+                padding-bottom: 0.25em;
+              }
+              span + span {
+                margin-left: 1.5em;
+              }
+              .noti-close {
+                display: inline-block;
+                border: none;
+                background: transparent;
+                float: right;
+                width: 30px;
+                text-align: right;
+                font-size: 0.9em;
+                /* background: #f00; */
+                line-height: 20px;
+                color: #345;
+                outline: none;
+              }
+            }
+          }
         }
       }
     }

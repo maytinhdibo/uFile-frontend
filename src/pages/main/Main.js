@@ -20,6 +20,7 @@ import {
   faEllipsisV,
   faCheckSquare,
   faShare,
+  faTimes,
   faSquare,
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -36,6 +37,7 @@ class Main extends React.Component {
       selectedEntry: [],
       isGrid: false,
       navOpen: false,
+      notiOpen: false,
       isTouchSelector: false,
       sa_modal: false,
       ex_menu: false,
@@ -49,7 +51,10 @@ class Main extends React.Component {
   };
 
   openSearchAssistant = () => {
-    this.setState({ sa_modal: true });
+    this.setState({
+      sa_modal: true,
+      navOpen: false,
+    });
   };
 
   openExtendMenu = () => {
@@ -68,6 +73,17 @@ class Main extends React.Component {
     this.setState({
       contextVisible: false,
     });
+  };
+
+  openNoti = () => {
+    this.setState({
+      notiOpen: true,
+      navOpen: false,
+    });
+  };
+
+  closeNoti = () => {
+    this.setState({ notiOpen: false });
   };
 
   gridChange = () => {
@@ -154,7 +170,7 @@ class Main extends React.Component {
               </span>
               Search
             </li>
-            <li className="me-hidden-desktop" onClick={this.openSearchAssistant}>
+            <li className="me-display-mobile-sm" onClick={this.openNoti}>
               {' '}
               <span className="icon">
                 <FontAwesomeIcon icon={faEnvelopeOpenText} />
@@ -218,7 +234,7 @@ class Main extends React.Component {
               </span>
 
               <span className="me-h-seperate me-hidden-mobile" />
-             
+
               <span className="me-mini-btn me-hidden-mobile">
                 <FontAwesomeIcon icon={faCut} />
               </span>
@@ -320,13 +336,53 @@ AHihi
                 />
               </div>
 
-              <div className="notibar">
+              <div className={this.state.notiOpen ? 'notibar opened' : 'notibar'}>
                 <div className="noti-tab">
                   <span>Activity</span>
                   <span>Detail</span>
+                  <button type="button" onClick={this.closeNoti} className="noti-close">
+                    {' '}
+                    <FontAwesomeIcon icon={faTimes} />
+                  </button>
                 </div>
                 <div className="noti tab">
-                  <div className="noti-item">Cuong added new file to your folder</div>
+                  <div className="noti-item">
+                    <div
+                      className="noti-thumb"
+                      style={{
+                        backgroundImage: 'url(https://c.tribune.com.pk/2018/10/1830234-emmadirfani-1540029568.png)',
+                      }}
+                    />
+                    <span>
+                      Cuong Tran 
+{' '}
+<b>added</b>
+{' '}
+new file to your folder last day
+</span>
+                    <span className="time">12 mins ago</span>
+                  </div>
+                  <div className="noti-item">
+                    <div
+                      className="noti-thumb"
+                      style={{
+                        backgroundImage: 'url(https://c.tribune.com.pk/2018/10/1830234-emmadirfani-1540029568.png)',
+                      }}
+                    />
+                    <span>
+                      Cuong Tran 
+{' '}
+<b>share</b>
+{' '}
+a file with you
+<span className="time">4 weeks ago</span>
+                    </span>
+
+                    <div className="noti-action">
+                      <button className="confirm">Accept</button>
+                      <button>Decline</button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

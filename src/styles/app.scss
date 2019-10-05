@@ -584,18 +584,65 @@ a {
                 background: var(--primary-color);
               }
             }
+            .noti-close{
+                display: none;
+            }
           }
-          .tab {
+          .noti.tab {
             background: #fff;
             box-shadow: 0 0 18px rgba(0, 108, 108, 0.1);
             width: 100%;
             height: 100%;
             border-radius: 9px;
+            overflow-y: auto;
           }
 
           .noti {
+            overflow: hidden;
             .noti-item {
-              padding: 12px 9px;
+              padding: 16px 1em;
+              transition: 0.25s;
+              &:hover {
+                background: rgba(0, 0, 0, 0.05);
+              }
+              .noti-thumb {
+                background-size: cover;
+                background-position: center;
+                height: 40px;
+                width: 40px;
+                float: left;
+                display: inline-block;
+                border-radius: 100%;
+                margin-right: 0.75em;
+              }
+              .time{
+                display: block;
+                padding-top:0.25em;
+                font-size: 0.75em;
+                color: grey;
+              }
+              .noti-action {
+                clear: both;
+                padding: 0.5em 0 0 0;
+                display: flex;
+                button {
+                  flex: 1;
+                  height: 30px;
+                  border-radius: 5px;
+                  outline: none;
+                  cursor: pointer;
+                  font-weight: 900;
+                  border:1px solid #eee;
+                }
+                button.confirm {
+                  background: var(--primary-color);
+                  color: #fff;
+                  border-color: var(--primary-color);
+                }
+                button + button {
+                  margin-left: 5px;
+                }
+              }
             }
           }
         }
