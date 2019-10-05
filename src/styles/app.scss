@@ -50,6 +50,12 @@ a {
   font-weight: 700;
 }
 
+.me-h-seperate {
+  display: inline;
+  margin: 0 15px;
+  border-left: 1px solid #ccc;
+}
+
 .me-btn {
   background-color: var(--primary-color);
   color: var(--light-text-color);
@@ -163,7 +169,7 @@ a {
     padding: 6px 0;
     .item {
       display: block;
-      padding: 9px 15px;
+      padding: 9px 24px;
       transition: 0.25s;
       &:hover {
         background: rgba(0, 0, 0, 0.05);
@@ -445,6 +451,7 @@ a {
 
     .block {
       padding: 6px 18px;
+      padding-right: 3px;
     }
 
     .action-group {

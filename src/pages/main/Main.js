@@ -16,6 +16,11 @@ import {
   faTrashAlt,
   faBars,
   faSearch,
+  faEnvelopeOpenText,
+  faEllipsisV,
+  faCheckSquare,
+  faShare,
+  faSquare,
 } from '@fortawesome/free-solid-svg-icons';
 
 import ProgressBar from '../../components/ProgressBar';
@@ -31,7 +36,9 @@ class Main extends React.Component {
       selectedEntry: [],
       isGrid: false,
       navOpen: false,
+      isTouchSelector: false,
       sa_modal: false,
+      ex_menu: false,
       contextPosition: { x: 100, y: 100 },
       contextVisible: false,
     };
@@ -43,6 +50,10 @@ class Main extends React.Component {
 
   openSearchAssistant = () => {
     this.setState({ sa_modal: true });
+  };
+
+  openExtendMenu = () => {
+    this.setState({ ex_menu: true });
   };
 
   openContextMenu = (position) => {
@@ -85,6 +96,16 @@ class Main extends React.Component {
     });
   };
 
+  handerEntryTouch = () => {
+    this.setState({ isTouchSelector: !this.state.isTouchSelector });
+  };
+
+  wrapperClick = () => {
+    if (this.state.ex_menu) {
+      this.setState({ ex_menu: false });
+    }
+  };
+
   render() {
     const recent = {
       name: 'phongcanh.jpg',
@@ -103,7 +124,7 @@ class Main extends React.Component {
       size: '32 MB',
     };
     return (
-      <div className="app-page">
+      <div onClick={this.wrapperClick} className="app-page">
         <ContextMenu
           opened={this.state.contextVisible}
           closeContextMenu={this.closeContextMenu}
@@ -132,6 +153,13 @@ class Main extends React.Component {
                 <FontAwesomeIcon icon={faSearch} />
               </span>
               Search
+            </li>
+            <li className="me-hidden-desktop" onClick={this.openSearchAssistant}>
+              {' '}
+              <span className="icon">
+                <FontAwesomeIcon icon={faEnvelopeOpenText} />
+              </span>
+              Notification
             </li>
             <li>
               {' '}
@@ -188,15 +216,60 @@ class Main extends React.Component {
               <span onClick={this.openSearchAssistant} className="me-mini-btn me-hidden-desktop">
                 <FontAwesomeIcon icon={faSearch} />
               </span>
-              <span className="me-mini-btn">
+
+              <span className="me-h-seperate me-hidden-mobile" />
+             
+              <span className="me-mini-btn me-hidden-mobile">
                 <FontAwesomeIcon icon={faCut} />
               </span>
-              <span className="me-mini-btn">
+              <span className="me-mini-btn me-hidden-mobile">
                 <FontAwesomeIcon icon={faCopy} />
               </span>
               <span className="me-mini-btn" disabled>
                 <FontAwesomeIcon icon={faClipboard} />
               </span>
+
+              <span className="me-h-seperate me-hidden-mobile" />
+
+              <span className="me-mini-btn me-hidden-mobile">
+                <FontAwesomeIcon icon={faStar} />
+              </span>
+              <span className="me-mini-btn me-hidden-mobile">
+                <FontAwesomeIcon icon={faShare} />
+              </span>
+
+              <span onClick={this.openExtendMenu} className="me-mini-btn me-hidden-desktop">
+                <FontAwesomeIcon icon={faEllipsisV} />
+              </span>
+
+              <div
+                className={
+                  this.state.ex_menu ? 'me-extend-menu me-hidden-desktop opened' : 'me-extend-menu me-hidden-desktop'
+                }
+              >
+                <div onClick={this.handerEntryTouch} className="item">
+                  <span className="icon">
+                    {this.state.isTouchSelector ? (
+                      <FontAwesomeIcon style={{ color: '#349af0' }} icon={faCheckSquare} />
+                    ) : (
+                      <FontAwesomeIcon style={{ color: '#ccc' }} icon={faSquare} />
+                    )}
+                  </span>
+                  <span>Select item</span>
+                </div>
+                <div className="item">
+                  <span style={{ marginLeft: '-2px' }} className="icon">
+                    <FontAwesomeIcon icon={faStar} />
+                  </span>
+                  <span>Add folder to favorites</span>
+                </div>
+                <div className="item">
+                  <span style={{ marginLeft: '-2px' }} className="icon">
+                    <FontAwesomeIcon icon={faShare} />
+                  </span>
+                  <span>Share this folder</span>
+                </div>
+              </div>
             </div>
           </div>
           <div className="path-breadcrumb block">folder1 &gt; folder2 &gt; folder3</div>
@@ -230,6 +303,7 @@ AHihi
                 <FileBlock
                   selectFile={this.selectEntry}
                   openContextMenu={this.openContextMenu}
+                  isTouchSelector={this.state.isTouchSelector}
                   data={{
                     id: 1,
                     name: 'a.pdf',
@@ -237,6 +311,7 @@ AHihi
                 />
                 <FileBlock
                   selectFile={this.selectEntry}
+                  isTouchSelector={this.state.isTouchSelector}
                   openContextMenu={this.openContextMenu}
                   data={{
                     id: 2,

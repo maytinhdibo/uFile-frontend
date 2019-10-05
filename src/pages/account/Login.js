@@ -12,16 +12,13 @@ class Login extends React.Component {
           <input className="me-input" placeholder="@username" />
           <input className="me-input" placeholder="@password" type="password" />
         </div>
-        <button
-          type="button"
-          onClick={() => this.props.setLoading(true)}
-          className="me-btn"
-        >
+
+        <button type="button" onClick={() => this.props.setLoading(true)} className="me-btn">
           Login
         </button>
 
         <button type="button" className="me-btn invert">
-          Login with Google ID
+          <a href="/main">Login with Google ID</a>
         </button>
         <p className="signup-text">
           Don&apos;t have an account?&nbsp;

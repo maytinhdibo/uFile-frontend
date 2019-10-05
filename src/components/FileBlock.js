@@ -19,7 +19,7 @@ class FileBlock extends React.Component {
   };
 
   clickEntry = (e) => {
-    if ('ontouchstart' in window || navigator.msMaxTouchPoints) {
+    if (('ontouchstart' in window || navigator.msMaxTouchPoints) && !this.props.isTouchSelector) {
       // mobile
       this.openEntry();
     } else {
