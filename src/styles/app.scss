@@ -603,7 +603,7 @@ a {
               padding: 16px 1em;
               transition: 0.25s;
               &:hover {
-                background: rgba(0, 0, 0, 0.05);
+                background: rgba(0, 0, 0, 0.03);
               }
               .noti-thumb {
                 background-size: cover;
@@ -632,6 +632,7 @@ a {
                   outline: none;
                   cursor: pointer;
                   font-weight: 900;
+                  background: #efefef;
                   border:1px solid #eee;
                 }
                 button.confirm {

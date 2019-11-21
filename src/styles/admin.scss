@@ -1,0 +1,81 @@
+#adm-page {
+  background: #fafafa;
+  height: 100%;
+  overflow: auto;
+  .adm-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+    border-bottom: 1px solid #ccc;
+    padding: 9px 16px;
+  }
+  .profile {
+    float: right;
+    color: #ccc;
+    cursor: pointer;
+    border-radius: 2px;
+    padding: 6px;
+    &:hover {
+      background: rgba($color: #5f5f5f, $alpha: 0.2);
+    }
+    .icon {
+      display: inline-block;
+      width: 1.25em;
+      font-size: 12px;
+      text-align: right;
+    }
+  }
+  .adm-search-form {
+    display: flex;
+    width: 90%;
+    margin: auto;
+    margin-top: 20px;
+    border-radius: 4px;
+    background: #fff;
+    input,
+    button {
+      border: none;
+      padding: 12px 9px;
+      font-size: 1em;
+      background: none;
+      outline: none;
+    }
+    input {
+      flex: 1;
+    }
+    button {
+      width: auto;
+    }
+  }
+  .adm-user-table {
+    margin:auto;
+    width:90%;
+    border-collapse: collapse;
+    box-shadow: 1px 1px 3px rgba(24, 24, 24, 0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top:12px;
+    th {
+      background: rgb(116, 116, 116);
+      color:#fff;
+      padding: 9px;
+    }
+    td{
+      border: none;
+      padding: 9px;
+    }
+    td.center{
+      text-align: center;
+    }
+  }
+  .admin-user-info{
+    th{
+      text-align: left;
+    }
+    td{
+      padding: 6px;
+    }
+  }
+}
