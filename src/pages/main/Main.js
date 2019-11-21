@@ -29,6 +29,7 @@ import SearchAssistant from '../../components/SearchAssistant';
 import RecentItem from '../../components/RecentItem';
 import FileBlock from '../../components/FileBlock';
 import ContextMenu from '../../components/ContextMenu';
+import Activity from 'components/home/Activity';
 
 class Main extends React.Component {
   constructor(props) {
@@ -61,7 +62,7 @@ class Main extends React.Component {
     this.setState({ ex_menu: true });
   };
 
-  openContextMenu = (position) => {
+  openContextMenu = position => {
     const { x, y } = position;
     this.setState({
       contextPosition: { x, y },
@@ -336,55 +337,9 @@ AHihi
                 />
               </div>
 
-              <div className={this.state.notiOpen ? 'notibar opened' : 'notibar'}>
-                <div className="noti-tab">
-                  <span>Activity</span>
-                  <span>Detail</span>
-                  <button type="button" onClick={this.closeNoti} className="noti-close">
-                    {' '}
-                    <FontAwesomeIcon icon={faTimes} />
-                  </button>
-                </div>
-                <div className="noti tab">
-                  <div className="noti-item">
-                    <div
-                      className="noti-thumb"
-                      style={{
-                        backgroundImage: 'url(https://c.tribune.com.pk/2018/10/1830234-emmadirfani-1540029568.png)',
-                      }}
-                    />
-                    <span>
-                      Cuong Tran 
-{' '}
-<b>added</b>
-{' '}
-new file to your folder last day
-</span>
-                    <span className="time">12 mins ago</span>
-                  </div>
-                  <div className="noti-item">
-                    <div
-                      className="noti-thumb"
-                      style={{
-                        backgroundImage: 'url(https://c.tribune.com.pk/2018/10/1830234-emmadirfani-1540029568.png)',
-                      }}
-                    />
-                    <span>
-                      Cuong Tran 
-{' '}
-<b>share</b>
-{' '}
-a file with you
-<span className="time">4 weeks ago</span>
-                    </span>
 
-                    <div className="noti-action">
-                      <button className="confirm">Accept</button>
-                      <button>Decline</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <Activity notiOpen={this.state.notiOpen} closeNoti={this.closeNoti}/>
+
             </div>
           </div>
         </div>

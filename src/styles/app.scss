@@ -574,6 +574,8 @@ a {
               display: inline-block;
               cursor: pointer;
               position: relative;
+            }
+            span.actived {
               &::before {
                 content: ' ';
                 position: absolute;
@@ -584,11 +586,12 @@ a {
                 background: var(--primary-color);
               }
             }
-            .noti-close{
-                display: none;
+            .noti-close {
+              display: none;
             }
           }
-          .noti.tab {
+          .noti.tab,
+          .detail.tab {
             background: #fff;
             box-shadow: 0 0 18px rgba(0, 108, 108, 0.1);
             width: 100%;
@@ -596,7 +599,42 @@ a {
             border-radius: 9px;
             overflow-y: auto;
           }
-
+          .detail {
+            padding: 16px 9px;
+            box-sizing: border-box;
+            .file-info {
+              text-align: center;
+              .preview {
+                margin: auto;
+                margin-top: 9px;
+                margin-bottom: 9px;
+                width: 120px;
+                height: 120px;
+                border: 1px solid #eee;
+                border-radius: 36px;
+                background-image: url(/img/pdf.png);
+                background-size: 55% 55%;
+                background-position: center;
+                background-repeat: no-repeat;
+              }
+              .file-name {
+                font-weight: 700;
+                padding: 6px;
+              }
+            }
+            .file-fulldetail {
+              margin-top: 32px;
+              table {
+                width: 100%;
+                margin: auto;
+                th,
+                td {
+                  text-align: left;
+                  padding: 6px;
+                }
+              }
+            }
+          }
           .noti {
             overflow: hidden;
             .noti-item {
@@ -615,9 +653,9 @@ a {
                 border-radius: 100%;
                 margin-right: 0.75em;
               }
-              .time{
+              .time {
                 display: block;
-                padding-top:0.25em;
+                padding-top: 0.25em;
                 font-size: 0.75em;
                 color: grey;
               }
@@ -633,7 +671,7 @@ a {
                   cursor: pointer;
                   font-weight: 900;
                   background: #efefef;
-                  border:1px solid #eee;
+                  border: 1px solid #eee;
                 }
                 button.confirm {
                   background: var(--primary-color);
