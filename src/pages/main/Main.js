@@ -25,6 +25,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 import ProgressBar from '../../components/ProgressBar';
+import Breadcumb from '../../components/home/Breadcrumb';
 import SearchAssistant from '../../components/SearchAssistant';
 import RecentItem from '../../components/RecentItem';
 import FileBlock from '../../components/FileBlock';
@@ -289,7 +290,7 @@ class Main extends React.Component {
               </div>
             </div>
           </div>
-          <div className="path-breadcrumb block">folder1 &gt; folder2 &gt; folder3</div>
+          <Breadcumb/>
           {/* <button
             onClick={() =>
               this.setState({
