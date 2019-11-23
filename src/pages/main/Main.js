@@ -46,6 +46,7 @@ class Main extends React.Component {
       ex_menu: false,
       contextPosition: { x: 100, y: 100 },
       contextVisible: false,
+      modalViewer:false
     };
   }
 
@@ -125,6 +126,12 @@ class Main extends React.Component {
     }
   };
 
+  closeViewerModal=()=>{
+    this.setState({
+      modalViewer:false
+    });
+  }
+
   render() {
     const recent = {
       name: 'phongcanh.jpg',
@@ -144,8 +151,7 @@ class Main extends React.Component {
     };
     return (
       <div onClick={this.wrapperClick} className="app-page">
-
-<Viewer/>
+       {this.state.modalViewer? <Viewer modal={true} closeModal={this.closeViewerModal} />:null}
 
         <ContextMenu
           opened={this.state.contextVisible}
@@ -159,7 +165,7 @@ class Main extends React.Component {
             Cuong Tran
           </div>
 
-          <div className="upload">
+          <div onClick={()=>{this.setState({modalViewer:true})}} className="upload">
             <button type="button">Upload new file</button>
           </div>
           <ul>
