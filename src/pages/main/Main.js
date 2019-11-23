@@ -31,6 +31,7 @@ import RecentItem from '../../components/RecentItem';
 import FileBlock from '../../components/FileBlock';
 import ContextMenu from '../../components/ContextMenu';
 import Activity from 'components/home/Activity';
+import Viewer from 'pages/viewer/Viewer';
 
 class Main extends React.Component {
   constructor(props) {
@@ -144,7 +145,7 @@ class Main extends React.Component {
     return (
       <div onClick={this.wrapperClick} className="app-page">
 
-
+<Viewer/>
 
         <ContextMenu
           opened={this.state.contextVisible}
