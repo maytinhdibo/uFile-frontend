@@ -143,6 +143,9 @@ class Main extends React.Component {
     };
     return (
       <div onClick={this.wrapperClick} className="app-page">
+
+
+
         <ContextMenu
           opened={this.state.contextVisible}
           closeContextMenu={this.closeContextMenu}
