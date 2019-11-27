@@ -1,0 +1,40 @@
+#account-page {
+  background: #eaebee;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  .main {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    // width: 768px;
+    max-width: 95%;
+    box-sizing: border-box;
+    background: #fbfbfb;
+    padding: 32px;
+    border-radius: 16px;
+    box-shadow: 0 0 13px rgba(0, 0, 0, 0.1);
+    h2 {
+      margin-bottom: 1em;
+    }
+    table {
+      tr td {
+        padding: 6px 0;
+        min-width: 150px;
+      }
+    }
+    .me-btn.change-pass {
+      outline: none;
+      box-shadow: none;
+      border-radius: 7px;
+      border: none;
+      padding: 9px;
+      font-size: 1em;
+      margin-top: 1em;
+      align-self: flex-end;
+    }
+  }
+}

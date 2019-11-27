@@ -303,7 +303,13 @@ a {
     .account {
       font-weight: 900;
       padding: 16px 32px;
-
+      padding-left: 26px;
+      max-height: 40px;
+      overflow: hidden;
+      transition: 0.5s;
+      &:hover{
+        max-height:170px;
+      }
       .profile-picture {
         display: inline-block;
         height: 40px;
@@ -314,6 +320,18 @@ a {
         background-size: cover;
         border-radius: 100%;
         margin-right: 0.75em;
+        margin-left:6px;
+      }
+      ul{
+        margin-top: 6px;
+        list-style-type: none;
+        li{
+          padding: 9px 6px;
+          border-radius: 6px;
+          &:hover{
+            background: rgba(0, 0, 0, 0.03);
+          }
+        }
       }
     }
 

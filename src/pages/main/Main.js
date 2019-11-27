@@ -46,7 +46,7 @@ class Main extends React.Component {
       ex_menu: false,
       contextPosition: { x: 100, y: 100 },
       contextVisible: false,
-      modalViewer:false
+      modalViewer: false,
     };
   }
 
@@ -126,11 +126,11 @@ class Main extends React.Component {
     }
   };
 
-  closeViewerModal=()=>{
+  closeViewerModal = () => {
     this.setState({
-      modalViewer:false
+      modalViewer: false,
     });
-  }
+  };
 
   render() {
     const recent = {
@@ -151,7 +151,7 @@ class Main extends React.Component {
     };
     return (
       <div onClick={this.wrapperClick} className="app-page">
-       {this.state.modalViewer? <Viewer modal={true} closeModal={this.closeViewerModal} />:null}
+        {this.state.modalViewer ? <Viewer modal={true} closeModal={this.closeViewerModal} /> : null}
 
         <ContextMenu
           opened={this.state.contextVisible}
@@ -163,9 +163,19 @@ class Main extends React.Component {
           <div className="account">
             <span className="profile-picture" />
             Cuong Tran
+            <ul>
+              <li>Account</li>
+              <li>Terms of service</li>
+              <li>Logout</li>
+            </ul>
           </div>
 
-          <div onClick={()=>{this.setState({modalViewer:true})}} className="upload">
+          <div
+            onClick={() => {
+              this.setState({ modalViewer: true });
+            }}
+            className="upload"
+          >
             <button type="button">Upload new file</button>
           </div>
           <ul>
@@ -300,7 +310,7 @@ class Main extends React.Component {
               </div>
             </div>
           </div>
-          <Breadcumb/>
+          <Breadcumb />
           {/* <button
             onClick={() =>
               this.setState({
@@ -348,9 +358,7 @@ AHihi
                 />
               </div>
 
-
-              <Activity notiOpen={this.state.notiOpen} closeNoti={this.closeNoti}/>
-
+              <Activity notiOpen={this.state.notiOpen} closeNoti={this.closeNoti} />
             </div>
           </div>
         </div>
