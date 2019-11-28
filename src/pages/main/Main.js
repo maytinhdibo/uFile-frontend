@@ -33,6 +33,8 @@ import ContextMenu from '../../components/ContextMenu';
 import Activity from 'components/home/Activity';
 import Viewer from 'pages/viewer/Viewer';
 
+import {Link} from "react-router-dom";
+
 class Main extends React.Component {
   constructor(props) {
     super(props);
@@ -164,7 +166,7 @@ class Main extends React.Component {
             <span className="profile-picture" />
             Cuong Tran
             <ul>
-              <li>Account</li>
+              <Link to="/account"><li>Account</li></Link>
               <li>Terms of service</li>
               <li>Logout</li>
             </ul>

@@ -325,6 +325,10 @@ a {
       ul{
         margin-top: 6px;
         list-style-type: none;
+        a{
+          color:#345;
+          text-decoration: none;
+        }
         li{
           padding: 9px 6px;
           border-radius: 6px;
