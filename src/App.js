@@ -17,7 +17,7 @@ function App() {
         <Route exact path="/" component={AccountRouter} />
         <Route exact path="/signup" component={AccountRouter} />
 
-        <Route path="/main" component={Main} />
+        <Route path="/drive/:path" component={Main} />
         <Route path="/viewer" component={Viewer} />
 
         <Route path="/admin/dashboard" component={Dashboard} />

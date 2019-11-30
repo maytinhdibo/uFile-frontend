@@ -33,7 +33,7 @@ import ContextMenu from '../../components/ContextMenu';
 import Activity from 'components/home/Activity';
 import Viewer from 'pages/viewer/Viewer';
 
-import {Link} from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 class Main extends React.Component {
   constructor(props) {
@@ -49,7 +49,23 @@ class Main extends React.Component {
       contextPosition: { x: 100, y: 100 },
       contextVisible: false,
       modalViewer: false,
+
+      //mouse
+      mouseState: 'UP',
+      mousePos: {
+        top: 0,
+        left: 0,
+        right: 'auto',
+        bottom: 'auto',
+      },
     };
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.params.path != this.props.match.params.path) {
+      alert(this.props.match.params.path);
+    }
+    // if(prevProps.)
   }
 
   closeSearchAssistant = () => {
@@ -134,6 +150,38 @@ class Main extends React.Component {
     });
   };
 
+  //mouse event
+
+  mouseMove = evt => {
+    if (this.state.mouseState == 'DOWN') {
+      console.log(evt);
+      this.setState({
+        mousePos: {
+          top: this.state.mousePos.top,
+          left: this.state.mousePos.left,
+          right: 1057 - evt.pageX + "px",
+          bottom: 758 - evt.pageY + "px",
+        },
+      });
+    }
+  };
+
+  mouseDown = evt => {
+    this.setState({ mouseState: 'DOWN' });
+    this.setState({
+      mousePos: {
+        top: evt.pageY + 'px',
+        left: evt.pageX + 'px',
+        right: "auto",
+        bottom: "auto",
+      },
+    });
+  };
+
+  mouseUp = evt => {
+    console.log('ahihi');
+  };
+
   render() {
     const recent = {
       name: 'phongcanh.jpg',
@@ -166,7 +214,9 @@ class Main extends React.Component {
             <span className="profile-picture" />
             Cuong Tran
             <ul>
-              <Link to="/account"><li>Account</li></Link>
+              <Link to="/account">
+                <li>Account</li>
+              </Link>
               <li>Terms of service</li>
               <li>Logout</li>
             </ul>
@@ -188,42 +238,38 @@ class Main extends React.Component {
               My drive
             </li>
             <li className="me-hidden-mobile" onClick={this.openSearchAssistant}>
-              {' '}
               <span className="icon">
                 <FontAwesomeIcon icon={faSearch} />
               </span>
               Search
             </li>
             <li className="me-display-mobile-sm" onClick={this.openNoti}>
-              {' '}
               <span className="icon">
                 <FontAwesomeIcon icon={faEnvelopeOpenText} />
               </span>
               Notification
             </li>
+            <Link to="/main/photos">
+              <li>
+                <span className="icon">
+                  <FontAwesomeIcon icon={faCamera} />
+                </span>
+                Photos
+              </li>
+            </Link>
             <li>
-              {' '}
-              <span className="icon">
-                <FontAwesomeIcon icon={faCamera} />
-              </span>
-              Photos
-            </li>
-            <li>
-              {' '}
               <span className="icon">
                 <FontAwesomeIcon icon={faUserFriends} />
               </span>
               Shared with me
             </li>
             <li>
-              {' '}
               <span className="icon">
                 <FontAwesomeIcon icon={faStar} />
               </span>
               Favorites
             </li>
             <li>
-              {' '}
               <span className="icon">
                 <FontAwesomeIcon icon={faTrashAlt} />
               </span>
@@ -334,30 +380,41 @@ AHihi
                     <RecentItem data={recent} />
                   </div>
                 </div>
-                <div className="flex header">
-                  <div className="name">Name</div>
-                  <div className="type">Type</div>
-                  <div className="date">Date</div>
-                  <div className="size">Size</div>
+                <div
+                  onMouseMove={evt => this.mouseMove(evt)}
+                  onMouseDown={evt => this.mouseDown(evt)}
+                  onMouseUp={evt => this.mouseUp(evt)}
+                  className="file-div"
+                >
+                  <div 
+                  style={this.state.mousePos}
+                  className="faker-selector"></div>
+                  
+                  <div className="flex header">
+                    <div className="name">Name</div>
+                    <div className="type">Type</div>
+                    <div className="date">Date</div>
+                    <div className="size">Size</div>
+                  </div>
+                  <FileBlock
+                    selectFile={this.selectEntry}
+                    openContextMenu={this.openContextMenu}
+                    isTouchSelector={this.state.isTouchSelector}
+                    data={{
+                      id: 1,
+                      name: 'a.pdf',
+                    }}
+                  />
+                  <FileBlock
+                    selectFile={this.selectEntry}
+                    isTouchSelector={this.state.isTouchSelector}
+                    openContextMenu={this.openContextMenu}
+                    data={{
+                      id: 2,
+                      name: 'hinhanh.png',
+                    }}
+                  />
                 </div>
-                <FileBlock
-                  selectFile={this.selectEntry}
-                  openContextMenu={this.openContextMenu}
-                  isTouchSelector={this.state.isTouchSelector}
-                  data={{
-                    id: 1,
-                    name: 'a.pdf',
-                  }}
-                />
-                <FileBlock
-                  selectFile={this.selectEntry}
-                  isTouchSelector={this.state.isTouchSelector}
-                  openContextMenu={this.openContextMenu}
-                  data={{
-                    id: 2,
-                    name: 'hinhanh.png',
-                  }}
-                />
               </div>
 
               <Activity notiOpen={this.state.notiOpen} closeNoti={this.closeNoti} />

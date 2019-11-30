@@ -307,8 +307,8 @@ a {
       max-height: 40px;
       overflow: hidden;
       transition: 0.5s;
-      &:hover{
-        max-height:170px;
+      &:hover {
+        max-height: 170px;
       }
       .profile-picture {
         display: inline-block;
@@ -320,19 +320,19 @@ a {
         background-size: cover;
         border-radius: 100%;
         margin-right: 0.75em;
-        margin-left:6px;
+        margin-left: 6px;
       }
-      ul{
+      ul {
         margin-top: 6px;
         list-style-type: none;
-        a{
-          color:#345;
+        a {
+          color: #345;
           text-decoration: none;
         }
-        li{
+        li {
           padding: 9px 6px;
           border-radius: 6px;
-          &:hover{
+          &:hover {
             background: rgba(0, 0, 0, 0.03);
           }
         }
@@ -364,7 +364,11 @@ a {
     ul {
       margin-top: 1.5em;
       width: 100%;
-
+      a {
+        color: #334455;
+        text-decoration: none;
+        font-weight: 400;
+      }
       li + li {
         margin-bottom: 4px;
       }
@@ -422,14 +426,14 @@ a {
     .path-breadcrumb {
       color: #555;
       font-weight: 900;
-      .item{
-        padding:0 4px ;
+      .item {
+        padding: 0 4px;
         color: #555;
         text-decoration: none;
-        &:hover{
+        &:hover {
           color: #000;
         }
-        .icon{
+        .icon {
           display: inline-block;
           text-align: center;
           width: 1.25em;
@@ -499,7 +503,7 @@ a {
               cursor: pointer;
               transition: 0.25s;
               &:hover {
-                .info{
+                .info {
                   height: 100%;
                   padding-top: 10px;
                   box-sizing: border-box;
@@ -514,7 +518,7 @@ a {
                 padding: 6px 9px;
                 color: #fff;
                 transition: 0.25s;
-                .size{
+                .size {
                   font-weight: 700;
                 }
               }
@@ -803,5 +807,14 @@ a {
         }
       }
     }
+  }
+}
+
+
+.file-div{
+  position: relative;
+  .faker-selector{
+    position: fixed;
+    background: rgba(41, 130, 209, 0.549);
   }
 }
