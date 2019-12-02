@@ -22,7 +22,7 @@ class ContextMenu extends React.Component {
           }}
         >
           <div className="item">Open</div>
-          <div className="item">Rename</div>
+          <div onClick={this.props.onRename} className="item">Rename</div>
           <div className="item">Cut</div>
           <div className="item">Copy</div>
           <div className="item">Paste</div>

@@ -34,6 +34,10 @@ import Activity from 'components/home/Activity';
 import Viewer from 'pages/viewer/Viewer';
 
 import { Link } from 'react-router-dom';
+import Modal from 'components/common/Modal';
+
+import '../../styles/popup.scss';
+import RenamePopup from 'components/home/RenamePopup';
 
 class Main extends React.Component {
   constructor(props) {
@@ -49,6 +53,8 @@ class Main extends React.Component {
       contextPosition: { x: 100, y: 100 },
       contextVisible: false,
       modalViewer: false,
+      //rename popup
+      renamePopup: false,
 
       //mouse
       mouseState: 'UP',
@@ -159,8 +165,8 @@ class Main extends React.Component {
         mousePos: {
           top: this.state.mousePos.top,
           left: this.state.mousePos.left,
-          right: 1057 - evt.pageX + "px",
-          bottom: 758 - evt.pageY + "px",
+          right: 1057 - evt.pageX + 'px',
+          bottom: 758 - evt.pageY + 'px',
         },
       });
     }
@@ -172,14 +178,14 @@ class Main extends React.Component {
       mousePos: {
         top: evt.pageY + 'px',
         left: evt.pageX + 'px',
-        right: "auto",
-        bottom: "auto",
+        right: 'auto',
+        bottom: 'auto',
       },
     });
   };
 
   mouseUp = evt => {
-    console.log('ahihi');
+    this.setState({ mouseState: 'UP' });
   };
 
   render() {
@@ -203,10 +209,13 @@ class Main extends React.Component {
       <div onClick={this.wrapperClick} className="app-page">
         {this.state.modalViewer ? <Viewer modal={true} closeModal={this.closeViewerModal} /> : null}
 
+        <RenamePopup onClose={() => this.setState({ renamePopup: false })} visible={this.state.renamePopup} />
+
         <ContextMenu
           opened={this.state.contextVisible}
           closeContextMenu={this.closeContextMenu}
           position={this.state.contextPosition}
+          onRename={() => this.setState({ renamePopup: true })}
         />
 
         <div data-opened={this.state.navOpen} className="sidebar">
@@ -380,42 +389,42 @@ AHihi
                     <RecentItem data={recent} />
                   </div>
                 </div>
-                <div
+                {/* <div
                   onMouseMove={evt => this.mouseMove(evt)}
                   onMouseDown={evt => this.mouseDown(evt)}
                   onMouseUp={evt => this.mouseUp(evt)}
                   className="file-div"
                 >
-                  <div 
-                  style={this.state.mousePos}
-                  className="faker-selector"></div>
-                  
-                  <div className="flex header">
-                    <div className="name">Name</div>
-                    <div className="type">Type</div>
-                    <div className="date">Date</div>
-                    <div className="size">Size</div>
-                  </div>
-                  <FileBlock
-                    selectFile={this.selectEntry}
-                    openContextMenu={this.openContextMenu}
-                    isTouchSelector={this.state.isTouchSelector}
-                    data={{
-                      id: 1,
-                      name: 'a.pdf',
-                    }}
-                  />
-                  <FileBlock
-                    selectFile={this.selectEntry}
-                    isTouchSelector={this.state.isTouchSelector}
-                    openContextMenu={this.openContextMenu}
-                    data={{
-                      id: 2,
-                      name: 'hinhanh.png',
-                    }}
-                  />
+                  {this.state.mouseState == 'DOWN' ? (
+                    <div style={this.state.mousePos} className="faker-selector"></div>
+                  ) : null} */}
+
+                <div className="flex header">
+                  <div className="name">Name</div>
+                  <div className="type">Type</div>
+                  <div className="date">Date</div>
+                  <div className="size">Size</div>
                 </div>
+                <FileBlock
+                  selectFile={this.selectEntry}
+                  openContextMenu={this.openContextMenu}
+                  isTouchSelector={this.state.isTouchSelector}
+                  data={{
+                    id: 1,
+                    name: 'a.pdf',
+                  }}
+                />
+                <FileBlock
+                  selectFile={this.selectEntry}
+                  isTouchSelector={this.state.isTouchSelector}
+                  openContextMenu={this.openContextMenu}
+                  data={{
+                    id: 2,
+                    name: 'hinhanh.png',
+                  }}
+                />
               </div>
+              {/* </div> */}
 
               <Activity notiOpen={this.state.notiOpen} closeNoti={this.closeNoti} />
             </div>
