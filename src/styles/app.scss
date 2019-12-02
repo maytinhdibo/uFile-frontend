@@ -50,6 +50,39 @@ a {
   font-weight: 700;
 }
 
+#alert {
+  display: block;
+  position: fixed;
+  top: 30px;
+  background: rgb(241, 91, 91);
+  color: #fff;
+  border-radius: 3px;
+  box-shadow: 0 0 16px rgba(53, 53, 53, 0.4);
+  padding: 12px 16px;
+  z-index: 9999;
+  width: 200px;
+  max-width: 90%;
+  right: 30px;
+  cursor: pointer;
+  transition: 1s;
+  &:hover {
+    opacity: 0.95;
+
+    .close {
+      opacity: 1;
+      color: #222;
+    }
+  }
+
+  .close {
+    float: right;
+    font-size: 14px;
+  }
+}
+#alert.hidden {
+  right: -350px;
+}
+
 .me-h-seperate {
   display: inline;
   margin: 0 15px;

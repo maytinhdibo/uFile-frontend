@@ -38,6 +38,7 @@ import Modal from 'components/common/Modal';
 
 import '../../styles/popup.scss';
 import RenamePopup from 'components/home/RenamePopup';
+import { alertText } from 'components/common/Alert';
 
 class Main extends React.Component {
   constructor(props) {
@@ -266,7 +267,7 @@ class Main extends React.Component {
                 Photos
               </li>
             </Link>
-            <li>
+            <li onClick={()=>{alertText("Just test message")}} >
               <span className="icon">
                 <FontAwesomeIcon icon={faUserFriends} />
               </span>
