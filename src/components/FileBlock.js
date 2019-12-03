@@ -21,7 +21,8 @@ class FileBlock extends React.Component {
 
   contextMenu = (e) => {
     e.preventDefault();
-    this.props.openContextMenu({ x: e.clientX, y: e.clientY });
+    e.stopPropagation();
+    this.props.openContextMenu({ x: e.clientX, y: e.clientY }, false);
   };
 
   clickEntry = (e) => {

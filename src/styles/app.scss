@@ -419,6 +419,12 @@ a {
 
     .storage {
       padding: 16px 32px;
+      .info{
+        padding: 9px 0;
+        font-size: 0.85em;
+        opacity: 0.8;
+        // text-align: right;
+      }
     }
   }
 
@@ -710,7 +716,7 @@ a {
           padding: 0 12px;
           overflow-y: auto;
           box-sizing: border-box;
-
+          padding-bottom: 12px;
           .flex.header {
             padding: 12px 9px;
             color: #777;
@@ -843,12 +849,11 @@ a {
   }
 }
 
-
-.file-div{
+.file-div {
   position: relative;
-  .faker-selector{
+  .faker-selector {
     position: fixed;
     background: rgba(41, 130, 209, 0.549);
-    border:1px solid #0f6bbb;
+    border: 1px solid #0f6bbb;
   }
 }

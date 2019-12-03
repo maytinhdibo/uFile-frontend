@@ -21,13 +21,25 @@ class ContextMenu extends React.Component {
             left: position.x,
           }}
         >
-          <div className="item">Open</div>
-          <div onClick={this.props.onRename} className="item">Rename</div>
-          <div className="item">Cut</div>
-          <div className="item">Copy</div>
-          <div className="item">Paste</div>
-          <div className="item">Move to trash</div>
-          <div className="item">Get info</div>
+          {!this.props.isFolder ? (
+            <div>
+              <div className="item">Open</div>
+              <div onClick={this.props.onRename} className="item">
+                Rename
+              </div>
+              <div className="item">Cut</div>
+              <div className="item">Copy</div>
+              <div className="item">Paste</div>
+              <div className="item">Move to trash</div>
+              <div className="item">Get info</div>
+            </div>
+          ) : (
+            <div>
+              <div className="item">This is outer</div>
+              <div className="item">Paste</div>
+              <div className="item">Get info</div>
+            </div>
+          )}
         </div>
       </div>
     );

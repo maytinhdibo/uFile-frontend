@@ -56,7 +56,8 @@ class Main extends React.Component {
       modalViewer: false,
       //rename popup
       renamePopup: false,
-
+      //context
+      isContextFolder: false,
       //mouse
       mouseState: 'UP',
       mousePos: {
@@ -90,12 +91,19 @@ class Main extends React.Component {
     this.setState({ ex_menu: true });
   };
 
-  openContextMenu = position => {
+  openContextMenu = (position, isFolder) => {
     const { x, y } = position;
     this.setState({
       contextPosition: { x, y },
       contextVisible: true,
+      isContextFolder: isFolder
     });
+  };
+
+  //folder context menu
+  folderMenu = evt => {
+    this.openContextMenu({ x: evt.clientX, y: evt.clientY }, true)
+    evt.preventDefault();
   };
 
   closeContextMenu = () => {
@@ -213,6 +221,7 @@ class Main extends React.Component {
         <RenamePopup onClose={() => this.setState({ renamePopup: false })} visible={this.state.renamePopup} />
 
         <ContextMenu
+          isFolder={this.state.isContextFolder}
           opened={this.state.contextVisible}
           closeContextMenu={this.closeContextMenu}
           position={this.state.contextPosition}
@@ -267,7 +276,11 @@ class Main extends React.Component {
                 Photos
               </li>
             </Link>
-            <li onClick={()=>{alertText("Just test message")}} >
+            <li
+              onClick={() => {
+                alertText('Just test message');
+              }}
+            >
               <span className="icon">
                 <FontAwesomeIcon icon={faUserFriends} />
               </span>
@@ -289,7 +302,8 @@ class Main extends React.Component {
 
           <div className="storage">
             <h3>Storage</h3>
-            <br />
+            <p className="info">5.4GB of 15GB used</p>
+
             <ProgressBar
               value={0.4}
               style={{
@@ -381,7 +395,10 @@ AHihi
 
           <div className="filebrowser">
             <div className="explore">
-              <div className={this.state.isGrid ? 'file-list grid' : 'file-list list'}>
+              <div
+                onContextMenu={evt => this.folderMenu(evt)}
+                className={this.state.isGrid ? 'file-list grid' : 'file-list list'}
+              >
                 <div className="recent">
                   <div className="flex-row">
                     <RecentItem data={recent} />
@@ -413,6 +430,79 @@ AHihi
                   data={{
                     id: 1,
                     name: 'a.pdf',
+                  }}
+                />
+                <FileBlock
+                  selectFile={this.selectEntry}
+                  isTouchSelector={this.state.isTouchSelector}
+                  openContextMenu={this.openContextMenu}
+                  data={{
+                    id: 2,
+                    name: 'hinhanh.png',
+                  }}
+                />
+                <FileBlock
+                  selectFile={this.selectEntry}
+                  isTouchSelector={this.state.isTouchSelector}
+                  openContextMenu={this.openContextMenu}
+                  data={{
+                    id: 2,
+                    name: 'hinhanh.png',
+                  }}
+                />
+
+                <FileBlock
+                  selectFile={this.selectEntry}
+                  isTouchSelector={this.state.isTouchSelector}
+                  openContextMenu={this.openContextMenu}
+                  data={{
+                    id: 2,
+                    name: 'hinhanh.png',
+                  }}
+                />
+                <FileBlock
+                  selectFile={this.selectEntry}
+                  isTouchSelector={this.state.isTouchSelector}
+                  openContextMenu={this.openContextMenu}
+                  data={{
+                    id: 2,
+                    name: 'hinhanh.png',
+                  }}
+                />
+                <FileBlock
+                  selectFile={this.selectEntry}
+                  isTouchSelector={this.state.isTouchSelector}
+                  openContextMenu={this.openContextMenu}
+                  data={{
+                    id: 2,
+                    name: 'hinhanh.png',
+                  }}
+                />
+                <FileBlock
+                  selectFile={this.selectEntry}
+                  isTouchSelector={this.state.isTouchSelector}
+                  openContextMenu={this.openContextMenu}
+                  data={{
+                    id: 2,
+                    name: 'hinhanh.png',
+                  }}
+                />
+                <FileBlock
+                  selectFile={this.selectEntry}
+                  isTouchSelector={this.state.isTouchSelector}
+                  openContextMenu={this.openContextMenu}
+                  data={{
+                    id: 2,
+                    name: 'hinhanh.png',
+                  }}
+                />
+                <FileBlock
+                  selectFile={this.selectEntry}
+                  isTouchSelector={this.state.isTouchSelector}
+                  openContextMenu={this.openContextMenu}
+                  data={{
+                    id: 2,
+                    name: 'hinhanh.png',
                   }}
                 />
                 <FileBlock
