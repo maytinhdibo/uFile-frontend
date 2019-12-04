@@ -39,6 +39,7 @@ import Modal from 'components/common/Modal';
 import '../../styles/popup.scss';
 import RenamePopup from 'components/home/RenamePopup';
 import { alertText } from 'components/common/Alert';
+import NewFolderPopup from 'components/home/NewFolderPopup';
 
 class Main extends React.Component {
   constructor(props) {
@@ -56,6 +57,8 @@ class Main extends React.Component {
       modalViewer: false,
       //rename popup
       renamePopup: false,
+      //new folder popup
+      newFolderPopup: false,
       //context
       isContextFolder: false,
       //mouse
@@ -96,13 +99,13 @@ class Main extends React.Component {
     this.setState({
       contextPosition: { x, y },
       contextVisible: true,
-      isContextFolder: isFolder
+      isContextFolder: isFolder,
     });
   };
 
   //folder context menu
   folderMenu = evt => {
-    this.openContextMenu({ x: evt.clientX, y: evt.clientY }, true)
+    this.openContextMenu({ x: evt.clientX, y: evt.clientY }, true);
     evt.preventDefault();
   };
 
@@ -165,6 +168,15 @@ class Main extends React.Component {
     });
   };
 
+  //open detail
+
+  openDetailTab = function() {};
+
+  getInfo = () => {
+    this.openNoti();
+    this.openDetailTab();
+  };
+
   //mouse event
 
   mouseMove = evt => {
@@ -214,18 +226,44 @@ class Main extends React.Component {
       type: 'pdf',
       size: '32 MB',
     };
+
+    const files=[{
+      id: 1,
+      name: 'a.pdf',
+      size: 100000,
+    },{
+      id: 2,
+      name: 'hinhanh.png',
+      thumbnail: 'http://truyenxuatichcu.com/medias/articles/img/2017/11/di-tich-chua-mot-cot.jpg',
+      size: 575303000,
+    },{
+      id: 2,
+      name: 'hinhanh.doc',
+      size: 30,
+    },{
+      isFolder: true,
+      id: 2,
+      name: 'hinhanh.png',
+      size: 30,
+    }];
+   
+          
+           
     return (
       <div onClick={this.wrapperClick} className="app-page">
         {this.state.modalViewer ? <Viewer modal={true} closeModal={this.closeViewerModal} /> : null}
 
         <RenamePopup onClose={() => this.setState({ renamePopup: false })} visible={this.state.renamePopup} />
+        <NewFolderPopup onClose={() => this.setState({ newFolderPopup: false })} visible={this.state.newFolderPopup} />
 
         <ContextMenu
           isFolder={this.state.isContextFolder}
           opened={this.state.contextVisible}
           closeContextMenu={this.closeContextMenu}
           position={this.state.contextPosition}
+          getInfo={this.getInfo}
           onRename={() => this.setState({ renamePopup: true })}
+          onNewFolder={() => this.setState({ newFolderPopup: true })}
         />
 
         <div data-opened={this.state.navOpen} className="sidebar">
@@ -423,101 +461,23 @@ AHihi
                   <div className="date">Date</div>
                   <div className="size">Size</div>
                 </div>
-                <FileBlock
+                
+               {files.map(ele=>{
+                return <FileBlock
                   selectFile={this.selectEntry}
                   openContextMenu={this.openContextMenu}
                   isTouchSelector={this.state.isTouchSelector}
-                  data={{
-                    id: 1,
-                    name: 'a.pdf',
-                  }}
+                  data={ele}
                 />
-                <FileBlock
-                  selectFile={this.selectEntry}
-                  isTouchSelector={this.state.isTouchSelector}
-                  openContextMenu={this.openContextMenu}
-                  data={{
-                    id: 2,
-                    name: 'hinhanh.png',
-                  }}
-                />
-                <FileBlock
-                  selectFile={this.selectEntry}
-                  isTouchSelector={this.state.isTouchSelector}
-                  openContextMenu={this.openContextMenu}
-                  data={{
-                    id: 2,
-                    name: 'hinhanh.png',
-                  }}
-                />
-
-                <FileBlock
-                  selectFile={this.selectEntry}
-                  isTouchSelector={this.state.isTouchSelector}
-                  openContextMenu={this.openContextMenu}
-                  data={{
-                    id: 2,
-                    name: 'hinhanh.png',
-                  }}
-                />
-                <FileBlock
-                  selectFile={this.selectEntry}
-                  isTouchSelector={this.state.isTouchSelector}
-                  openContextMenu={this.openContextMenu}
-                  data={{
-                    id: 2,
-                    name: 'hinhanh.png',
-                  }}
-                />
-                <FileBlock
-                  selectFile={this.selectEntry}
-                  isTouchSelector={this.state.isTouchSelector}
-                  openContextMenu={this.openContextMenu}
-                  data={{
-                    id: 2,
-                    name: 'hinhanh.png',
-                  }}
-                />
-                <FileBlock
-                  selectFile={this.selectEntry}
-                  isTouchSelector={this.state.isTouchSelector}
-                  openContextMenu={this.openContextMenu}
-                  data={{
-                    id: 2,
-                    name: 'hinhanh.png',
-                  }}
-                />
-                <FileBlock
-                  selectFile={this.selectEntry}
-                  isTouchSelector={this.state.isTouchSelector}
-                  openContextMenu={this.openContextMenu}
-                  data={{
-                    id: 2,
-                    name: 'hinhanh.png',
-                  }}
-                />
-                <FileBlock
-                  selectFile={this.selectEntry}
-                  isTouchSelector={this.state.isTouchSelector}
-                  openContextMenu={this.openContextMenu}
-                  data={{
-                    id: 2,
-                    name: 'hinhanh.png',
-                  }}
-                />
-                <FileBlock
-                  selectFile={this.selectEntry}
-                  isTouchSelector={this.state.isTouchSelector}
-                  openContextMenu={this.openContextMenu}
-                  data={{
-                    id: 2,
-                    name: 'hinhanh.png',
-                  }}
-                />
+               })}
               </div>
               {/* </div> */}
 
-              <Activity notiOpen={this.state.notiOpen} closeNoti={this.closeNoti} />
+              <Activity
+                openDetailTab={openDetailTab => (this.openDetailTab = openDetailTab)}
+                notiOpen={this.state.notiOpen}
+                closeNoti={this.closeNoti}
+              />
             </div>
           </div>
         </div>

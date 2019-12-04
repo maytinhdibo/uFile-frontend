@@ -12,6 +12,12 @@ export default class Activity extends React.Component {
       detailTab: false,
     };
   }
+  componentDidMount() {
+    this.props.openDetailTab(this.openDetailTab);
+ }
+  openDetailTab = () => {
+    this.setState({ detailTab: true });
+  };
   render() {
     const notiData = [
       {
@@ -22,7 +28,7 @@ export default class Activity extends React.Component {
         },
         action: 'added',
         suffix: 'new file to your folder',
-        time: "12 minutes ago"
+        time: '12 minutes ago',
       },
       {
         type: 'CONFIRM',
@@ -32,7 +38,7 @@ export default class Activity extends React.Component {
         },
         action: 'shared',
         suffix: 'a file with you',
-        time: "4 weeks ago"
+        time: '4 weeks ago',
       },
     ];
     return (

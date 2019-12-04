@@ -746,7 +746,7 @@ a {
             border-radius: 12px;
             border: 1px solid #eee;
             margin-right: 0.5em;
-            background-image: url('/img/pdf.png');
+            background-image: url('/img/mime-type/pdf.svg');
             background-size: 55% 55%;
             background-position: center;
             background-repeat: no-repeat;
@@ -792,8 +792,8 @@ a {
             box-shadow: 0 0 11px rgba(30, 136, 229, 0.7686274509803922);
             .entry-icon {
               opacity: 0.9;
-              background-size: 50%;
-              background-image: url('/img/checked.png');
+              background-size: 50% !important;
+              background-image: url('/img/checked.png') !important;
             }
           }
         }
@@ -824,6 +824,7 @@ a {
                   height: 0;
                   margin: 0;
                   border: none;
+                  border-radius: 0;
                   padding-top: 100%;
                 }
                 .entry-name {

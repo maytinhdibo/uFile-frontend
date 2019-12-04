@@ -1,5 +1,6 @@
 import React from 'react';
-import '../styles/loader.scss';
+import bytes from 'bytes';
+import {iconParse} from './../helpers/iconParse';
 
 class FileBlock extends React.Component {
   constructor(props) {
@@ -44,6 +45,22 @@ class FileBlock extends React.Component {
     e.preventDefault();
   };
 
+  renderIcon=()=>{
+    if(this.props.data.isFolder){
+      return {
+        backgroundImage:"url(/img/mime-type/folder.svg)"
+      }
+    }else if(this.props.data.thumbnail){
+      return {
+        backgroundImage:"url("+this.props.data.thumbnail+")",
+        backgroundSize:"cover"
+      }
+    }
+    return {
+      backgroundImage:"url("+iconParse(this.props.data.name)+")"
+    }
+  }
+
   render() {
     const { data } = this.props;
     return (
@@ -56,12 +73,12 @@ class FileBlock extends React.Component {
           onContextMenu={(e) => this.contextMenu(e)}
         >
           <div className="name">
-            <span className="entry-icon" />
+            <span style={this.renderIcon()} className="entry-icon" />
             <span className="entry-name">{data.name}</span>
           </div>
           <div className="type">Image</div>
           <div className="date">14/07/2019</div>
-          <div className="size">30 MB</div>
+          <div className="size">{bytes(data.size, {decimalPlaces: 0})}</div>
         </div>
       </label>
     );

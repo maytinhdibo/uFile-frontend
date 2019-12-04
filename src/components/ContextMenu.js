@@ -31,13 +31,13 @@ class ContextMenu extends React.Component {
               <div className="item">Copy</div>
               <div className="item">Paste</div>
               <div className="item">Move to trash</div>
-              <div className="item">Get info</div>
+              <div onClick={this.props.getInfo} className="item">Get info</div>
             </div>
           ) : (
             <div>
-              <div className="item">This is outer</div>
+              <div onClick={this.props.onNewFolder} className="item">New folder</div>
               <div className="item">Paste</div>
-              <div className="item">Get info</div>
+              <div onClick={this.props.getInfo} className="item">Get info</div>
             </div>
           )}
         </div>
