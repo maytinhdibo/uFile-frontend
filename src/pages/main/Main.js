@@ -22,6 +22,8 @@ import {
   faShare,
   faTimes,
   faSquare,
+  faArrowUp,
+  faArrowDown,
 } from '@fortawesome/free-solid-svg-icons';
 
 import ProgressBar from '../../components/ProgressBar';
@@ -40,6 +42,35 @@ import '../../styles/popup.scss';
 import RenamePopup from 'components/home/RenamePopup';
 import { alertText } from 'components/common/Alert';
 import NewFolderPopup from 'components/home/NewFolderPopup';
+
+const files = [
+  {
+    id: 1,
+    name: 'a.pdf',
+    size: 100000,
+    updated_at: '2015-03-04T00:00:00.000Z',
+  },
+  {
+    id: 2,
+    name: 'hinhanh.png',
+    thumbnail: 'http://truyenxuatichcu.com/medias/articles/img/2017/11/di-tich-chua-mot-cot.jpg',
+    size: 575303000,
+    updated_at: '2017-08-04T00:00:00.000Z',
+  },
+  {
+    id: 2,
+    name: 'hinhanh.doc',
+    size: 33,
+    updated_at: '2019-02-03T00:00:00.000Z',
+  },
+  {
+    isFolder: true,
+    id: 2,
+    name: 'hinhanh.png',
+    size: 30,
+    updated_at: '2015-03-04T00:00:00.000Z',
+  },
+];
 
 class Main extends React.Component {
   constructor(props) {
@@ -69,7 +100,49 @@ class Main extends React.Component {
         right: 'auto',
         bottom: 'auto',
       },
+      //
+      sortBySize: 0,
+      sortByName: 0,
+      sortByDate: 0,
+      entryData: files,
     };
+  }
+
+  removeSortState() {
+    this.setState({
+      sortBySize: 0,
+      sortByName: 0,
+      sortByDate: 0,
+    });
+  }
+
+  sortBySize() {
+    let sortBySize = this.state.sortBySize;
+    if (sortBySize == 0) sortBySize = 1;
+    else sortBySize = -sortBySize;
+    this.removeSortState();
+    this.setState({ sortBySize });
+    this.setState({ entryData: this.state.entryData.sort((a, b) => (a.size < b.size ? sortBySize : -sortBySize)) });
+  }
+
+  sortByName() {
+    let sortByName = this.state.sortByName;
+    if (sortByName == 0) sortByName = 1;
+    else sortByName = -sortByName;
+    this.removeSortState();
+    this.setState({ sortByName });
+    this.setState({ entryData: this.state.entryData.sort((a, b) => a.name.localeCompare(b.name) * sortByName) });
+  }
+
+  sortByDate() {
+    let sortByDate = this.state.sortByDate;
+    if (sortByDate == 0) sortByDate = 1;
+    else sortByDate = -sortByDate;
+    this.removeSortState();
+    this.setState({ sortByDate });
+    this.setState({
+      entryData: this.state.entryData.sort((a, b) => (new Date(b.updated_at) - new Date(a.updated_at)) * sortByDate),
+    });
   }
 
   componentDidUpdate(prevProps) {
@@ -227,28 +300,6 @@ class Main extends React.Component {
       size: '32 MB',
     };
 
-    const files=[{
-      id: 1,
-      name: 'a.pdf',
-      size: 100000,
-    },{
-      id: 2,
-      name: 'hinhanh.png',
-      thumbnail: 'http://truyenxuatichcu.com/medias/articles/img/2017/11/di-tich-chua-mot-cot.jpg',
-      size: 575303000,
-    },{
-      id: 2,
-      name: 'hinhanh.doc',
-      size: 30,
-    },{
-      isFolder: true,
-      id: 2,
-      name: 'hinhanh.png',
-      size: 30,
-    }];
-   
-          
-           
     return (
       <div onClick={this.wrapperClick} className="app-page">
         {this.state.modalViewer ? <Viewer modal={true} closeModal={this.closeViewerModal} /> : null}
@@ -456,20 +507,45 @@ AHihi
                   ) : null} */}
 
                 <div className="flex header">
-                  <div className="name">Name</div>
+                  <div onClick={() => this.sortByName()} className="name">
+                    Size
+                    {this.state.sortByName != 0 ? (
+                      <span className="sort-icon">
+                        <FontAwesomeIcon icon={this.state.sortByName > 0 ? faArrowDown : faArrowUp} />
+                      </span>
+                    ) : null}
+                  </div>
                   <div className="type">Type</div>
-                  <div className="date">Date</div>
-                  <div className="size">Size</div>
+
+                  <div onClick={() => this.sortByDate()} className="date">
+                    Date
+                    {this.state.sortByDate != 0 ? (
+                      <span className="sort-icon">
+                        <FontAwesomeIcon icon={this.state.sortByDate > 0 ? faArrowDown : faArrowUp} />
+                      </span>
+                    ) : null}
+                  </div>
+
+                  <div onClick={() => this.sortBySize()} className="size">
+                    Size
+                    {this.state.sortBySize != 0 ? (
+                      <span className="sort-icon">
+                        <FontAwesomeIcon icon={this.state.sortBySize > 0 ? faArrowDown : faArrowUp} />
+                      </span>
+                    ) : null}
+                  </div>
                 </div>
-                
-               {files.map(ele=>{
-                return <FileBlock
-                  selectFile={this.selectEntry}
-                  openContextMenu={this.openContextMenu}
-                  isTouchSelector={this.state.isTouchSelector}
-                  data={ele}
-                />
-               })}
+
+                {this.state.entryData.map(ele => {
+                  return (
+                    <FileBlock
+                      selectFile={this.selectEntry}
+                      openContextMenu={this.openContextMenu}
+                      isTouchSelector={this.state.isTouchSelector}
+                      data={ele}
+                    />
+                  );
+                })}
               </div>
               {/* </div> */}
 
