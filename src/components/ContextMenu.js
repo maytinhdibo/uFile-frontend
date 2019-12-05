@@ -30,7 +30,7 @@ class ContextMenu extends React.Component {
               <div className="item">Cut</div>
               <div className="item">Copy</div>
               <div className="item">Paste</div>
-              <div className="item">Share</div>
+              <div onClick={this.props.onShare} className="item">Share or get link</div>
               <div className="item">Move to trash</div>
               <div onClick={this.props.getInfo} className="item">Get info</div>
             </div>
@@ -38,6 +38,7 @@ class ContextMenu extends React.Component {
             <div>
               <div onClick={this.props.onNewFolder} className="item">New folder</div>
               <div className="item">Paste</div>
+              <div className="item">Share this folder</div>
               <div onClick={this.props.getInfo} className="item">Get info</div>
             </div>
           )}

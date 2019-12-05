@@ -42,6 +42,7 @@ import '../../styles/popup.scss';
 import RenamePopup from 'components/home/RenamePopup';
 import { alertText } from 'components/common/Alert';
 import NewFolderPopup from 'components/home/NewFolderPopup';
+import SharePopup from 'components/home/SharePopup';
 
 const files = [
   {
@@ -90,6 +91,7 @@ class Main extends React.Component {
       renamePopup: false,
       //new folder popup
       newFolderPopup: false,
+      sharePopup:true,
       //context
       isContextFolder: false,
       //mouse
@@ -306,6 +308,8 @@ class Main extends React.Component {
 
         <RenamePopup onClose={() => this.setState({ renamePopup: false })} visible={this.state.renamePopup} />
         <NewFolderPopup onClose={() => this.setState({ newFolderPopup: false })} visible={this.state.newFolderPopup} />
+        
+        <SharePopup onClose={() => this.setState({ sharePopup: false })} visible={this.state.sharePopup} />
 
         <ContextMenu
           isFolder={this.state.isContextFolder}
@@ -315,6 +319,7 @@ class Main extends React.Component {
           getInfo={this.getInfo}
           onRename={() => this.setState({ renamePopup: true })}
           onNewFolder={() => this.setState({ newFolderPopup: true })}
+          onShare={() => this.setState({ sharePopup: true })}
         />
 
         <div data-opened={this.state.navOpen} className="sidebar">
