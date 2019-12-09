@@ -36,6 +36,7 @@ class ContextMenu extends React.Component {
             </div>
           ) : (
             <div>
+              {this.props.location=="trash"? <div onClick={this.props.onNewFolder} className="item">Empty trash</div>:null}
               <div onClick={this.props.onNewFolder} className="item">New folder</div>
               <div className="item">Paste</div>
               <div className="item">Share this folder</div>

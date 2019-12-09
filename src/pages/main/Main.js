@@ -24,6 +24,7 @@ import {
   faSquare,
   faArrowUp,
   faArrowDown,
+  faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 
 import ProgressBar from '../../components/ProgressBar';
@@ -91,7 +92,7 @@ class Main extends React.Component {
       renamePopup: false,
       //new folder popup
       newFolderPopup: false,
-      sharePopup:true,
+      sharePopup: false,
       //context
       isContextFolder: false,
       //mouse
@@ -308,10 +309,11 @@ class Main extends React.Component {
 
         <RenamePopup onClose={() => this.setState({ renamePopup: false })} visible={this.state.renamePopup} />
         <NewFolderPopup onClose={() => this.setState({ newFolderPopup: false })} visible={this.state.newFolderPopup} />
-        
+
         <SharePopup onClose={() => this.setState({ sharePopup: false })} visible={this.state.sharePopup} />
 
         <ContextMenu
+          location={this.props.match.params.path}
           isFolder={this.state.isContextFolder}
           opened={this.state.contextVisible}
           closeContextMenu={this.closeContextMenu}
@@ -362,7 +364,7 @@ class Main extends React.Component {
               </span>
               Notification
             </li>
-            <Link to="/main/photos">
+            <Link to="/drive/photos">
               <li>
                 <span className="icon">
                   <FontAwesomeIcon icon={faCamera} />
@@ -386,12 +388,14 @@ class Main extends React.Component {
               </span>
               Favorites
             </li>
-            <li>
-              <span className="icon">
-                <FontAwesomeIcon icon={faTrashAlt} />
-              </span>
-              Trash
-            </li>
+            <Link to="/drive/trash">
+              <li>
+                <span className="icon">
+                  <FontAwesomeIcon icon={faTrashAlt} />
+                </span>
+                Trash
+              </li>
+            </Link>
           </ul>
 
           <div className="storage">
@@ -438,9 +442,15 @@ class Main extends React.Component {
               <span className="me-mini-btn me-hidden-mobile">
                 <FontAwesomeIcon icon={faStar} />
               </span>
-              <span className="me-mini-btn me-hidden-mobile">
-                <FontAwesomeIcon icon={faShare} />
-              </span>
+              {this.props.match.params.path != 'trash' ? (
+                <span className="me-mini-btn me-hidden-mobile">
+                  <FontAwesomeIcon icon={faShare} />
+                </span>
+              ) : (
+                <span className="me-mini-btn">
+                  <FontAwesomeIcon icon={faTrash} />
+                </span>
+              )}
 
               <span onClick={this.openExtendMenu} className="me-mini-btn me-hidden-desktop">
                 <FontAwesomeIcon icon={faEllipsisV} />
