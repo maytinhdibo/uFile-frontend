@@ -28,6 +28,7 @@ export default class Breadcrumb extends React.Component {
             </Link>
           );
         })}
+        {this.props.path}
       </div>
     );
   }

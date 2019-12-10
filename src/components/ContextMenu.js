@@ -4,6 +4,9 @@ import React from 'react';
 import '../styles/loader.scss';
 
 class ContextMenu extends React.Component {
+  isTrash = () => {
+    return this.props.isTrash;
+  };
   render() {
     const { position } = this.props;
     return (
@@ -23,24 +26,46 @@ class ContextMenu extends React.Component {
         >
           {!this.props.isFolder ? (
             <div>
-              <div className="item">Open</div>
-              <div onClick={this.props.onRename} className="item">
-                Rename
-              </div>
-              <div className="item">Cut</div>
-              <div className="item">Copy</div>
-              <div className="item">Paste</div>
-              <div onClick={this.props.onShare} className="item">Share or get link</div>
-              <div className="item">Move to trash</div>
-              <div onClick={this.props.getInfo} className="item">Get info</div>
+              {this.isTrash() ? (
+                <div>
+                  <div className="item">Put back</div>
+                  <div className="item">Get info</div>
+                </div>
+              ) : (
+                <div>
+                  <div className="item">Open</div>
+                  <div onClick={this.props.onRename} className="item">
+                    Rename
+                  </div>
+                  <div className="item">Cut</div>
+                  <div className="item">Copy</div>
+                  <div className="item">Paste</div>
+                  <div onClick={this.props.onShare} className="item">
+                    Share or get link
+                  </div>
+                  <div className="item">Move to trash</div>
+                  <div onClick={this.props.getInfo} className="item">
+                    Get info
+                  </div>
+                </div>
+              )}
             </div>
           ) : (
             <div>
-              {this.props.location=="trash"? <div onClick={this.props.onNewFolder} className="item">Empty trash</div>:null}
-              <div onClick={this.props.onNewFolder} className="item">New folder</div>
-              <div className="item">Paste</div>
-              <div className="item">Share this folder</div>
-              <div onClick={this.props.getInfo} className="item">Get info</div>
+              {this.isTrash() ? (
+                <div className="item">Empty trash</div>
+              ) : (
+                <div>
+                  <div onClick={this.props.onNewFolder} className="item">
+                    New folder
+                  </div>
+                  <div className="item">Paste</div>
+                  <div className="item">Share this folder</div>
+                  <div onClick={this.props.getInfo} className="item">
+                    Get info
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </div>

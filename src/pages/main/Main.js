@@ -150,7 +150,7 @@ class Main extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.match.params.path != this.props.match.params.path) {
-      alert(this.props.match.params.path);
+      // alert(this.props.match.params.path);
     }
     // if(prevProps.)
   }
@@ -285,6 +285,22 @@ class Main extends React.Component {
     this.setState({ mouseState: 'UP' });
   };
 
+  isTrashFolder = () => {
+    return this.props.match.params.path == 'trash';
+  };
+
+  isPhotoFolder = () => {
+    return this.props.match.params.path == 'photos';
+  };
+
+  isSharedFolder = () => {
+    return this.props.match.params.path == 'shared-with-me';
+  };
+
+  isFavFolder = () => {
+    return this.props.match.params.path == 'favorites';
+  };
+
   render() {
     const recent = {
       name: 'phongcanh.jpg',
@@ -313,7 +329,7 @@ class Main extends React.Component {
         <SharePopup onClose={() => this.setState({ sharePopup: false })} visible={this.state.sharePopup} />
 
         <ContextMenu
-          location={this.props.match.params.path}
+          isTrash={this.isTrashFolder()}
           isFolder={this.state.isContextFolder}
           opened={this.state.contextVisible}
           closeContextMenu={this.closeContextMenu}
@@ -346,12 +362,15 @@ class Main extends React.Component {
             <button type="button">Upload new file</button>
           </div>
           <ul>
-            <li>
-              <span className="icon">
-                <FontAwesomeIcon icon={faHdd} />
-              </span>
-              My drive
-            </li>
+            <Link to="/drive/home">
+              <li>
+                <span className="icon">
+                  <FontAwesomeIcon icon={faHdd} />
+                </span>
+                My drive
+              </li>
+            </Link>
+
             <li className="me-hidden-mobile" onClick={this.openSearchAssistant}>
               <span className="icon">
                 <FontAwesomeIcon icon={faSearch} />
@@ -372,6 +391,7 @@ class Main extends React.Component {
                 Photos
               </li>
             </Link>
+            <Link to="/drive/shared-with-me">
             <li
               onClick={() => {
                 alertText('Just test message');
@@ -382,12 +402,15 @@ class Main extends React.Component {
               </span>
               Shared with me
             </li>
+            </Link>
+            <Link to="/drive/favorites">
             <li>
               <span className="icon">
                 <FontAwesomeIcon icon={faStar} />
               </span>
               Favorites
             </li>
+            </Link>
             <Link to="/drive/trash">
               <li>
                 <span className="icon">
@@ -425,32 +448,41 @@ class Main extends React.Component {
                 <FontAwesomeIcon icon={faSearch} />
               </span>
 
-              <span className="me-h-seperate me-hidden-mobile" />
+              {!this.isTrashFolder() && !this.isPhotoFolder() && !this.isSharedFolder() && !this.isFavFolder() ? (
+                <span>
+                  <span className="me-h-seperate me-hidden-mobile" />
 
-              <span className="me-mini-btn me-hidden-mobile">
-                <FontAwesomeIcon icon={faCut} />
-              </span>
-              <span className="me-mini-btn me-hidden-mobile">
-                <FontAwesomeIcon icon={faCopy} />
-              </span>
-              <span className="me-mini-btn" disabled>
-                <FontAwesomeIcon icon={faClipboard} />
-              </span>
-
-              <span className="me-h-seperate me-hidden-mobile" />
-
-              <span className="me-mini-btn me-hidden-mobile">
-                <FontAwesomeIcon icon={faStar} />
-              </span>
-              {this.props.match.params.path != 'trash' ? (
-                <span className="me-mini-btn me-hidden-mobile">
-                  <FontAwesomeIcon icon={faShare} />
+                  <span className="me-mini-btn me-hidden-mobile">
+                    <FontAwesomeIcon icon={faCut} />
+                  </span>
+                  <span className="me-mini-btn me-hidden-mobile">
+                    <FontAwesomeIcon icon={faCopy} />
+                  </span>
+                  <span className="me-mini-btn" disabled>
+                    <FontAwesomeIcon icon={faClipboard} />
+                  </span>
                 </span>
-              ) : (
+              ) : null}
+
+              {!this.isPhotoFolder() && !this.isSharedFolder() && !this.isFavFolder()?<span className="me-h-seperate me-hidden-mobile" />:null}
+
+              {!this.isTrashFolder() && !this.isPhotoFolder() && !this.isSharedFolder() && !this.isFavFolder() ? (
+                <span>
+                  <span className="me-mini-btn me-hidden-mobile">
+                    <FontAwesomeIcon icon={faStar} />
+                  </span>
+
+                  <span className="me-mini-btn me-hidden-mobile">
+                    <FontAwesomeIcon icon={faShare} />
+                  </span>
+                </span>
+              ) : null}
+
+              {this.isTrashFolder() ? (
                 <span className="me-mini-btn">
                   <FontAwesomeIcon icon={faTrash} />
                 </span>
-              )}
+              ) : null}
 
               <span onClick={this.openExtendMenu} className="me-mini-btn me-hidden-desktop">
                 <FontAwesomeIcon icon={faEllipsisV} />
@@ -471,22 +503,26 @@ class Main extends React.Component {
                   </span>
                   <span>Select item</span>
                 </div>
-                <div className="item">
-                  <span style={{ marginLeft: '-2px' }} className="icon">
-                    <FontAwesomeIcon icon={faStar} />
-                  </span>
-                  <span>Add folder to favorites</span>
-                </div>
-                <div className="item">
-                  <span style={{ marginLeft: '-2px' }} className="icon">
-                    <FontAwesomeIcon icon={faShare} />
-                  </span>
-                  <span>Share this folder</span>
-                </div>
+                {!this.isTrashFolder() && !this.isPhotoFolder() && !this.isSharedFolder() && !this.isFavFolder() ? (
+                  <div>
+                    <div className="item">
+                      <span style={{ marginLeft: '-2px' }} className="icon">
+                        <FontAwesomeIcon icon={faStar} />
+                      </span>
+                      <span>Add folder to favorites</span>
+                    </div>
+                    <div className="item">
+                      <span style={{ marginLeft: '-2px' }} className="icon">
+                        <FontAwesomeIcon icon={faShare} />
+                      </span>
+                      <span>Share this folder</span>
+                    </div>
+                  </div>
+                ) : null}
               </div>
             </div>
           </div>
-          <Breadcumb />
+          <Breadcumb path={this.props.match.params.path} />
           {/* <button
             onClick={() =>
               this.setState({
