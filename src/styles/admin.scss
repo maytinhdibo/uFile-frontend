@@ -17,8 +17,29 @@
     cursor: pointer;
     border-radius: 2px;
     padding: 6px;
+    ul{
+      display: none;
+    }
     &:hover {
-      background: rgba($color: #5f5f5f, $alpha: 0.2);
+      background:rgba(0, 0, 0, 0.2);
+      ul{
+        display: block;
+        position: fixed;
+        background: #fff;
+        box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.219);
+        border-radius: 3px;;
+        padding: 6px 0;
+        top:40px;
+        right:16px;
+        li{
+          color:#345;
+          padding: 9px 12px;
+          list-style-type: none;
+          &:hover{
+            background:rgba(0, 0, 0, 0.1);
+          }
+        }
+      }
     }
     .icon {
       display: inline-block;
@@ -57,6 +78,7 @@
     border-radius: 4px;
     overflow: hidden;
     margin-top:12px;
+    box-sizing: border-box;
     th {
       background: rgb(116, 116, 116);
       color:#fff;
@@ -77,5 +99,9 @@
     td{
       padding: 6px;
     }
+  }
+  .icon{
+    margin-right: 9px;
+    cursor: pointer;
   }
 }

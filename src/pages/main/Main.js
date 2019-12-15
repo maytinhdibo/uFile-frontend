@@ -363,17 +363,20 @@ class Main extends React.Component {
 
   render() {
     const recent = {
+      id:1,
       name: 'phongcanh.jpg',
       type: 'image',
       thumbmail: 'http://dulichnhanhnhat.com/wp-content/uploads/2017/08/23/05/ISDRM.jpg',
       size: '2 MB',
     };
     const recentAudio = {
+      id:2,
       name: 'hello.mp3',
       type: 'audio',
       size: '9 MB',
     };
     const recentFile = {
+      id:3,
       name: 'chuong1.pdf',
       type: 'pdf',
       size: '32 MB',
@@ -619,10 +622,10 @@ AHihi
               >
                 <div className="recent">
                   <div className="flex-row">
-                    <RecentItem data={recent} />
-                    <RecentItem data={recentFile} />
-                    <RecentItem data={recentAudio} />
-                    <RecentItem data={recent} />
+                    <RecentItem onOpen={this.onOpen} data={recent} />
+                    <RecentItem onOpen={this.onOpen} data={recentFile} />
+                    <RecentItem onOpen={this.onOpen} data={recentAudio} />
+                    <RecentItem onOpen={this.onOpen} data={recent} />
                   </div>
                 </div>
                 {/* <div

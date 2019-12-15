@@ -12,7 +12,7 @@ export default class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      infoModal: true,
+      infoModal: false,
     };
   }
   render() {
@@ -22,27 +22,36 @@ export default class Dashboard extends React.Component {
           Administrator dashboard
           <span className="profile">
             <a>
-              Trần Cường
+              Tran Cuong
               <span className="icon">
                 <FontAwesomeIcon icon={faChevronDown} />
               </span>
             </a>
+
+            <ul>
+              <li>Account setting</li>
+              <li>Logout</li>
+            </ul>
           </span>
         </header>
         <div className="adm-search-form  me-input">
           <input />
-          <button>Tìm kiếm</button>
+          <button>Search</button>
         </div>
 
         <Modal onClose={() => this.setState({ infoModal: false })} visible={this.state.infoModal}>
           <div className="me-modal-header">
-            <h3>Thông tin người dùng</h3>
-            <FontAwesomeIcon onClick={() => this.setState({ infoModal: false })} style={{ cursor: 'pointer' }} icon={faTimes} />
+            <h3>User detail</h3>
+            <FontAwesomeIcon
+              onClick={() => this.setState({ infoModal: false })}
+              style={{ cursor: 'pointer' }}
+              icon={faTimes}
+            />
           </div>
           <div>
             <table className="admin-user-info">
               <tr>
-                <th>Tên:</th>
+                <th>Name:</th>
                 <td>Trần Cường</td>
               </tr>
               <tr>
@@ -61,8 +70,12 @@ export default class Dashboard extends React.Component {
                 <th>Update at:</th>
                 <td>26/10/2019</td>
               </tr>
+
+              <tr>
+                <th>Storage:</th>
+                <td>13/15GB</td>
+              </tr>
             </table>
-            Người dùng đang bị tạm khóa vô thời hạn
           </div>
         </Modal>
 
@@ -88,7 +101,7 @@ export default class Dashboard extends React.Component {
                     <FontAwesomeIcon icon={faLock} />
                   </span>
                   <span className="icon">
-                    <FontAwesomeIcon icon={faInfoCircle} />
+                    <FontAwesomeIcon onClick={() => this.setState({ infoModal: true })} icon={faInfoCircle} />
                   </span>
                 </td>
               </tr>

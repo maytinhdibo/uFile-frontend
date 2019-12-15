@@ -18,6 +18,9 @@ class RecentItem extends React.Component {
       this.setState({ class: 'audio' });
     }
   }
+  stopContext = e => {
+    e.stopPropagation();
+  };
 
   render() {
     const { data } = this.props;
@@ -25,6 +28,10 @@ class RecentItem extends React.Component {
       <div
         style={this.state.class === 'media' ? { backgroundImage: `url(${this.state.thumbmail})` } : {}}
         className={['recent-item', this.state.class].join(' ')}
+        onContextMenu={e => {
+          this.stopContext(e);
+        }}
+        onClick={() => this.props.onOpen(data)}
       >
         <div className="info">
           <div className="name">{data.name}</div>
