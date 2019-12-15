@@ -38,15 +38,19 @@ class ContextMenu extends React.Component {
                   <div onClick={this.props.onRename} className="item">
                     Rename
                   </div>
-                  <div onClick={this.props.onCut} className="item">Cut</div>
+                  <div onClick={this.props.onCut} className="item">
+                    Cut
+                  </div>
                   <div onClick={this.props.onCopy} className="item">
                     Copy
                   </div>
                   <div className="item">Paste</div>
                   <div className="item">Download</div>
-                  <div onClick={this.props.onShare} className="item">
-                    Share or get link
-                  </div>
+                  {this.props.selectedEntry.length == 1 ? (
+                    <div onClick={this.props.onShare} className="item">
+                      Share or get link
+                    </div>
+                  ) : null}
                   <div className="item">Move to trash</div>
                   <div onClick={this.props.getInfo} className="item">
                     Get info

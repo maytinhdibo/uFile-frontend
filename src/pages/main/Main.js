@@ -42,6 +42,8 @@ import { alertText } from 'components/common/Alert';
 import NewFolderPopup from 'components/home/NewFolderPopup';
 import SharePopup from 'components/home/SharePopup';
 
+import { canView } from '../../helpers/fileViewer';
+
 const files = [
   {
     id: 1,
@@ -60,6 +62,12 @@ const files = [
     id: 3,
     name: 'hinhanh.doc',
     size: 33,
+    updated_at: '2019-02-03T00:00:00.000Z',
+  },
+  {
+    id: 9,
+    name: 'hinhanh.rar',
+    size: 3567893,
     updated_at: '2019-02-03T00:00:00.000Z',
   },
   {
@@ -89,6 +97,8 @@ class Main extends React.Component {
       contextPosition: { x: 100, y: 100 },
       contextVisible: false,
       modalViewer: false,
+      //file
+      isViewing:null,
       //rename popup
       renamePopup: false,
       //new folder popup
@@ -303,6 +313,19 @@ class Main extends React.Component {
   };
 
   //entry action
+  onOpen = dataEntry => {
+    if (dataEntry.isFolder) {
+      alertText('Folder nè');
+    } else if (canView(dataEntry.name)) {
+      this.setState({
+        modalViewer: true,
+        isViewing: dataEntry
+      });
+    } else {
+      alertText('This file can not preview');
+    }
+  };
+
   onPaste = () => {
     console.log(this.state.clipboard);
     alertText('Pasted');
@@ -310,7 +333,7 @@ class Main extends React.Component {
       clipboard: {
         type: 'NONE',
         data: [],
-      }
+      },
     });
   };
 
@@ -356,7 +379,7 @@ class Main extends React.Component {
 
     return (
       <div onClick={this.wrapperClick} className="app-page">
-        {this.state.modalViewer ? <Viewer modal={true} closeModal={this.closeViewerModal} /> : null}
+        {this.state.modalViewer ? <Viewer modal={true} file={this.state.isViewing} closeModal={this.closeViewerModal} /> : null}
 
         <RenamePopup onClose={() => this.setState({ renamePopup: false })} visible={this.state.renamePopup} />
         <NewFolderPopup onClose={() => this.setState({ newFolderPopup: false })} visible={this.state.newFolderPopup} />
@@ -491,13 +514,21 @@ class Main extends React.Component {
                 <span>
                   <span className="me-h-seperate me-hidden-mobile" />
 
-                  <span onClick={this.onCut} disabled={this.state.selectedEntry==0} className="me-mini-btn me-hidden-mobile">
+                  <span
+                    onClick={this.onCut}
+                    disabled={this.state.selectedEntry == 0}
+                    className="me-mini-btn me-hidden-mobile"
+                  >
                     <FontAwesomeIcon icon={faCut} />
                   </span>
-                  <span onClick={this.onCut} disabled={this.state.selectedEntry==0} className="me-mini-btn me-hidden-mobile">
+                  <span
+                    onClick={this.onCut}
+                    disabled={this.state.selectedEntry == 0}
+                    className="me-mini-btn me-hidden-mobile"
+                  >
                     <FontAwesomeIcon icon={faCopy} />
                   </span>
-                  <span onClick={this.onPaste} className="me-mini-btn" disabled={this.state.clipboard.data.length==0}>
+                  <span onClick={this.onPaste} className="me-mini-btn" disabled={this.state.clipboard.data.length == 0}>
                     <FontAwesomeIcon icon={faClipboard} />
                   </span>
                 </span>
@@ -636,6 +667,7 @@ AHihi
                       openContextMenu={this.openContextMenu}
                       isTouchSelector={this.state.isTouchSelector}
                       data={ele}
+                      onOpen={this.onOpen}
                     />
                   );
                 })}

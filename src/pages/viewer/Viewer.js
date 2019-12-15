@@ -5,7 +5,7 @@ import bytes from 'bytes';
 
 import '../../styles/viewer.scss';
 import Media from './Media';
-import { faInfoCircle, faShare, faTimes, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { faInfoCircle, faShare, faTimes, faChevronRight, faDownload } from '@fortawesome/free-solid-svg-icons';
 
 export default class Viewer extends React.Component {
   constructor(props) {
@@ -25,8 +25,11 @@ export default class Viewer extends React.Component {
               </span>
             </div>
           ) : null}
-          <b>filename.mp4</b>
+          <b>{this.props.modal ? this.props.file.name : 'filename.mp4'}</b>
           <div className="tools">
+            <span>
+              <FontAwesomeIcon icon={faDownload} />
+            </span>
             <span
               onClick={() => {
                 this.setState({ openDetail: true });
@@ -50,9 +53,11 @@ export default class Viewer extends React.Component {
         >
           <header>
             <div className="tools">
-              <span onClick={() => {
-                this.setState({ openDetail: false });
-              }}>
+              <span
+                onClick={() => {
+                  this.setState({ openDetail: false });
+                }}
+              >
                 <FontAwesomeIcon icon={faChevronRight} />
               </span>
               <b>&nbsp;Details</b>
@@ -65,7 +70,7 @@ export default class Viewer extends React.Component {
             </tr>
             <tr>
               <th>Size:</th>
-              <td>{bytes(123443, {decimalPlaces: 0})}</td>
+              <td>{bytes(123443, { decimalPlaces: 0 })}</td>
             </tr>
             <tr>
               <th>File type:</th>

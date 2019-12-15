@@ -9,7 +9,7 @@ class FileBlock extends React.Component {
   }
 
   openEntry = () => {
-    alert('Opening...');
+    this.props.onOpen(this.props.data);
   };
 
   dbClickEntry = () => {

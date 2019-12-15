@@ -6,6 +6,7 @@ import './styles/grid.scss';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import AccountRouter from './pages/account/AccountRouter';
+import Account from './pages/account/Account';
 import Main from './pages/main/Main';
 import Dashboard from './pages/admin/Dashboard';
 import Viewer from './pages/viewer/Viewer';
@@ -27,8 +28,10 @@ class App extends React.Component {
           <Route exact path="/" component={AccountRouter} />
           <Route exact path="/signup" component={AccountRouter} />
 
+          <Route exact path="/account" component={Account} />
+
           <Route path="/drive/:path" component={Main} />
-          <Route path="/viewer" component={Viewer} />
+          <Route path="/viewer/:id" component={Viewer} />
 
           <Route path="/admin/dashboard" component={Dashboard} />
         </Router>
