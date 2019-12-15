@@ -88,6 +88,7 @@ class Main extends React.Component {
         type: '',
         data: [],
       },
+      uploadProcess: 0.3,
       isGrid: false,
       navOpen: false,
       notiOpen: false,
@@ -98,7 +99,7 @@ class Main extends React.Component {
       contextVisible: false,
       modalViewer: false,
       //file
-      isViewing:null,
+      isViewing: null,
       //rename popup
       renamePopup: false,
       //new folder popup
@@ -319,7 +320,7 @@ class Main extends React.Component {
     } else if (canView(dataEntry.name)) {
       this.setState({
         modalViewer: true,
-        isViewing: dataEntry
+        isViewing: dataEntry,
       });
     } else {
       alertText('This file can not preview');
@@ -379,7 +380,9 @@ class Main extends React.Component {
 
     return (
       <div onClick={this.wrapperClick} className="app-page">
-        {this.state.modalViewer ? <Viewer modal={true} file={this.state.isViewing} closeModal={this.closeViewerModal} /> : null}
+        {this.state.modalViewer ? (
+          <Viewer modal={true} file={this.state.isViewing} closeModal={this.closeViewerModal} />
+        ) : null}
 
         <RenamePopup onClose={() => this.setState({ renamePopup: false })} visible={this.state.renamePopup} />
         <NewFolderPopup onClose={() => this.setState({ newFolderPopup: false })} visible={this.state.newFolderPopup} />
@@ -415,13 +418,16 @@ class Main extends React.Component {
             </ul>
           </div>
 
-          <div
-            onClick={() => {
-              this.setState({ modalViewer: true });
-            }}
-            className="upload"
-          >
-            <button type="button">Upload new file</button>
+          <div onClick={() => this.refs.uploadIp.click()} className="upload">
+            <button type="button">
+             <span className="status">{(this.state.uploadProcess >=0 ? "Uploading " + this.state.uploadProcess * 100 + '%...' : 'Upload new file')}
+             </span> 
+              <span style={{
+                width:this.state.uploadProcess*100+"%"
+              }} className="overlay"></span>
+            </button>
+            
+            <input ref="uploadIp" type="file" />
           </div>
           <ul>
             <NavLink activeClassName="actived" to="/drive/home">
