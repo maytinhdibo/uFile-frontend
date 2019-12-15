@@ -40,6 +40,7 @@ class ContextMenu extends React.Component {
                   <div className="item">Cut</div>
                   <div className="item">Copy</div>
                   <div className="item">Paste</div>
+                  <div className="item">Download</div>
                   <div onClick={this.props.onShare} className="item">
                     Share or get link
                   </div>
