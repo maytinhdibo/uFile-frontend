@@ -8,13 +8,16 @@ class ContextMenu extends React.Component {
   isTrash = () => {
     return this.props.isTrash;
   };
+  isBlockFolder() {
+    return (this.props.isFolder && (this.props.isPhoto || this.props.isFav || this.props.isShared));
+  }
   render() {
     const { position } = this.props;
     return (
       <div
         onClick={this.props.closeContextMenu}
         style={{
-          display: this.props.opened ? 'block' : 'none',
+          display: this.props.opened && !this.isBlockFolder()? 'block' : 'none',
         }}
         className="me-context-menu-overlay"
       >
@@ -52,9 +55,11 @@ class ContextMenu extends React.Component {
                     </div>
                   ) : null}
                   <div className="item">Move to trash</div>
-                  <div onClick={this.props.getInfo} className="item">
-                    Get info
-                  </div>
+                  {this.props.selectedEntry.length == 1 ? (
+                    <div onClick={this.props.getInfo} className="item">
+                      Get info
+                    </div>
+                  ) : null}
                 </div>
               )}
             </div>

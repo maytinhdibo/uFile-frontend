@@ -317,6 +317,7 @@ class Main extends React.Component {
   onOpen = dataEntry => {
     if (dataEntry.isFolder) {
       alertText('Folder nè');
+      this.props.history.push("/drive/"+dataEntry.id)
     } else if (canView(dataEntry.name)) {
       this.setState({
         modalViewer: true,
@@ -391,6 +392,9 @@ class Main extends React.Component {
 
         <ContextMenu
           isTrash={this.isTrashFolder()}
+          isPhoto={this.isPhotoFolder()}
+          isShared={this.isSharedFolder()}
+          isFav={this.isFavFolder()}
           isFolder={this.state.isContextFolder}
           opened={this.state.contextVisible}
           closeContextMenu={this.closeContextMenu}
@@ -460,11 +464,7 @@ class Main extends React.Component {
               </li>
             </NavLink>
             <NavLink activeClassName="actived" to="/drive/shared-with-me">
-              <li
-                onClick={() => {
-                  alertText('Just test message');
-                }}
-              >
+              <li>
                 <span className="icon">
                   <FontAwesomeIcon icon={faUserFriends} />
                 </span>
