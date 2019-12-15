@@ -1,6 +1,3 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -36,7 +33,7 @@ import ContextMenu from '../../components/ContextMenu';
 import Activity from 'components/home/Activity';
 import Viewer from 'pages/viewer/Viewer';
 
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import Modal from 'components/common/Modal';
 
 import '../../styles/popup.scss';
@@ -60,14 +57,14 @@ const files = [
     updated_at: '2017-08-04T00:00:00.000Z',
   },
   {
-    id: 2,
+    id: 3,
     name: 'hinhanh.doc',
     size: 33,
     updated_at: '2019-02-03T00:00:00.000Z',
   },
   {
     isFolder: true,
-    id: 2,
+    id: 4,
     name: 'hinhanh.png',
     size: 30,
     updated_at: '2015-03-04T00:00:00.000Z',
@@ -79,6 +76,10 @@ class Main extends React.Component {
     super(props);
     this.state = {
       selectedEntry: [],
+      clipboard: {
+        type: '',
+        data: [],
+      },
       isGrid: false,
       navOpen: false,
       notiOpen: false,
@@ -301,6 +302,40 @@ class Main extends React.Component {
     return this.props.match.params.path == 'favorites';
   };
 
+  //entry action
+  onPaste = () => {
+    console.log(this.state.clipboard);
+    alertText('Pasted');
+    this.setState({
+      clipboard: {
+        type: 'NONE',
+        data: [],
+      }
+    });
+  };
+
+  onCopy = () => {
+    this.setState({
+      clipboard: {
+        type: 'COPY',
+        data: this.state.selectedEntry,
+      },
+      selectedEntry: [],
+    });
+    alertText('Copied to clipboard');
+  };
+
+  onCut = () => {
+    this.setState({
+      clipboard: {
+        type: 'CUT',
+        data: this.state.selectedEntry,
+      },
+      selectedEntry: [],
+    });
+    alertText('Save to clipboard');
+  };
+
   render() {
     const recent = {
       name: 'phongcanh.jpg',
@@ -338,6 +373,10 @@ class Main extends React.Component {
           onRename={() => this.setState({ renamePopup: true })}
           onNewFolder={() => this.setState({ newFolderPopup: true })}
           onShare={() => this.setState({ sharePopup: true })}
+          onPaste={() => this.onPaste()}
+          onCopy={() => this.onCopy()}
+          onCut={() => this.onCut()}
+          selectedEntry={this.state.selectedEntry}
         />
 
         <div data-opened={this.state.navOpen} className="sidebar">
@@ -362,14 +401,14 @@ class Main extends React.Component {
             <button type="button">Upload new file</button>
           </div>
           <ul>
-            <Link to="/drive/home">
+            <NavLink activeClassName="actived" to="/drive/home">
               <li>
                 <span className="icon">
                   <FontAwesomeIcon icon={faHdd} />
                 </span>
                 My drive
               </li>
-            </Link>
+            </NavLink>
 
             <li className="me-hidden-mobile" onClick={this.openSearchAssistant}>
               <span className="icon">
@@ -383,42 +422,42 @@ class Main extends React.Component {
               </span>
               Notification
             </li>
-            <Link to="/drive/photos">
+            <NavLink activeClassName="actived" to="/drive/photos">
               <li>
                 <span className="icon">
                   <FontAwesomeIcon icon={faCamera} />
                 </span>
                 Photos
               </li>
-            </Link>
-            <Link to="/drive/shared-with-me">
-            <li
-              onClick={() => {
-                alertText('Just test message');
-              }}
-            >
-              <span className="icon">
-                <FontAwesomeIcon icon={faUserFriends} />
-              </span>
-              Shared with me
-            </li>
-            </Link>
-            <Link to="/drive/favorites">
-            <li>
-              <span className="icon">
-                <FontAwesomeIcon icon={faStar} />
-              </span>
-              Favorites
-            </li>
-            </Link>
-            <Link to="/drive/trash">
+            </NavLink>
+            <NavLink activeClassName="actived" to="/drive/shared-with-me">
+              <li
+                onClick={() => {
+                  alertText('Just test message');
+                }}
+              >
+                <span className="icon">
+                  <FontAwesomeIcon icon={faUserFriends} />
+                </span>
+                Shared with me
+              </li>
+            </NavLink>
+            <NavLink activeClassName="actived" to="/drive/favorites">
+              <li>
+                <span className="icon">
+                  <FontAwesomeIcon icon={faStar} />
+                </span>
+                Favorites
+              </li>
+            </NavLink>
+            <NavLink activeClassName="actived" to="/drive/trash">
               <li>
                 <span className="icon">
                   <FontAwesomeIcon icon={faTrashAlt} />
                 </span>
                 Trash
               </li>
-            </Link>
+            </NavLink>
           </ul>
 
           <div className="storage">
@@ -452,19 +491,21 @@ class Main extends React.Component {
                 <span>
                   <span className="me-h-seperate me-hidden-mobile" />
 
-                  <span className="me-mini-btn me-hidden-mobile">
+                  <span onClick={this.onCut} disabled={this.state.selectedEntry==0} className="me-mini-btn me-hidden-mobile">
                     <FontAwesomeIcon icon={faCut} />
                   </span>
-                  <span className="me-mini-btn me-hidden-mobile">
+                  <span onClick={this.onCut} disabled={this.state.selectedEntry==0} className="me-mini-btn me-hidden-mobile">
                     <FontAwesomeIcon icon={faCopy} />
                   </span>
-                  <span className="me-mini-btn" disabled>
+                  <span onClick={this.onPaste} className="me-mini-btn" disabled={this.state.clipboard.data.length==0}>
                     <FontAwesomeIcon icon={faClipboard} />
                   </span>
                 </span>
               ) : null}
 
-              {!this.isPhotoFolder() && !this.isSharedFolder() && !this.isFavFolder()?<span className="me-h-seperate me-hidden-mobile" />:null}
+              {!this.isPhotoFolder() && !this.isSharedFolder() && !this.isFavFolder() ? (
+                <span className="me-h-seperate me-hidden-mobile" />
+              ) : null}
 
               {!this.isTrashFolder() && !this.isPhotoFolder() && !this.isSharedFolder() && !this.isFavFolder() ? (
                 <span>
@@ -590,6 +631,7 @@ AHihi
                 {this.state.entryData.map(ele => {
                   return (
                     <FileBlock
+                      selectedEntry={this.state.selectedEntry}
                       selectFile={this.selectEntry}
                       openContextMenu={this.openContextMenu}
                       isTouchSelector={this.state.isTouchSelector}

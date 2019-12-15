@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 import '../styles/loader.scss';
+import { alertText } from './common/Alert';
 
 class ContextMenu extends React.Component {
   isTrash = () => {
@@ -37,8 +38,10 @@ class ContextMenu extends React.Component {
                   <div onClick={this.props.onRename} className="item">
                     Rename
                   </div>
-                  <div className="item">Cut</div>
-                  <div className="item">Copy</div>
+                  <div onClick={this.props.onCut} className="item">Cut</div>
+                  <div onClick={this.props.onCopy} className="item">
+                    Copy
+                  </div>
                   <div className="item">Paste</div>
                   <div className="item">Download</div>
                   <div onClick={this.props.onShare} className="item">
@@ -60,7 +63,9 @@ class ContextMenu extends React.Component {
                   <div onClick={this.props.onNewFolder} className="item">
                     New folder
                   </div>
-                  <div className="item">Paste</div>
+                  <div onClick={this.props.onPaste} className="item">
+                    Paste
+                  </div>
                   <div className="item">Share this folder</div>
                   <div onClick={this.props.getInfo} className="item">
                     Get info
