@@ -8,11 +8,11 @@ export default class Breadcrumb extends React.Component {
     const data = [
       {
         name: 'picture',
-        path: '/picture',
+        id: 'adskfjsdfndslf'
       },
       {
         name: 'summer',
-        path: '/picture',
+        id: 'ksjenfsenfkslefn'
       },
     ];
     return (
@@ -20,7 +20,7 @@ export default class Breadcrumb extends React.Component {
         <Link to="/drive/home">My drive</Link>
         {data.map(item => {
           return (
-            <Link className="item" to={item.path}>
+            <Link className="item" to={"/drive/"+item.id}>
               <span className="icon">
                 <FontAwesomeIcon icon={faChevronRight} />
               </span>
@@ -28,7 +28,7 @@ export default class Breadcrumb extends React.Component {
             </Link>
           );
         })}
-        {this.props.path}
+        [id: {this.props.path}]
       </div>
     );
   }
