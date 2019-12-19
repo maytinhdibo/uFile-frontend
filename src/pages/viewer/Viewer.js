@@ -44,6 +44,8 @@ export default class Viewer extends React.Component {
             </span> */}
           </div>
         </header>
+        
+        <div className="viewer-block">
         {/* mp3, mp4, ogg */}
         {/* <Media src="https://www.w3schools.com/html/mov_bbb.mp4" /> */}
         {/* <Media src="https://www.w3schools.com/TagS/horse.ogg" type="audio"/> */}
@@ -56,7 +58,7 @@ export default class Viewer extends React.Component {
 
         {/*Image*/}
         {/* <img className="viewer" src="https://analyticsindiamag.com/wp-content/uploads/2019/07/image_rec_lib_banner.jpg"/> */}
-            
+        </div>
 
         <div
           style={{

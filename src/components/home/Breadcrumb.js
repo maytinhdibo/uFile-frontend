@@ -17,7 +17,7 @@ export default class Breadcrumb extends React.Component {
     ];
     return (
       <div className="path-breadcrumb block">
-        <span>My drive</span>
+        <Link to="/drive/home">My drive</Link>
         {data.map(item => {
           return (
             <Link className="item" to={item.path}>
