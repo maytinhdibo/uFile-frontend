@@ -73,7 +73,7 @@ const files = [
   {
     isFolder: true,
     id: 4,
-    name: 'hinhanh.png',
+    name: 'hinhanh',
     size: 30,
     updated_at: '2015-03-04T00:00:00.000Z',
   },
