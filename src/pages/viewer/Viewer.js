@@ -8,6 +8,7 @@ import Media from './Media';
 import Office from './Office';
 
 import { faInfoCircle, faShare, faTimes, faChevronRight, faDownload } from '@fortawesome/free-solid-svg-icons';
+import Zip from './Zip';
 
 export default class Viewer extends React.Component {
   constructor(props) {
@@ -44,20 +45,34 @@ export default class Viewer extends React.Component {
             </span> */}
           </div>
         </header>
-        
+
         <div className="viewer-block">
-        {/* mp3, mp4, ogg */}
-        {/* <Media src="https://www.w3schools.com/html/mov_bbb.mp4" /> */}
-        {/* <Media src="https://www.w3schools.com/TagS/horse.ogg" type="audio"/> */}
+          {/* mp3, mp4, ogg */}
+          {/* <Media src="https://www.w3schools.com/html/mov_bbb.mp4" /> */}
+          {/* <Media src="https://www.w3schools.com/TagS/horse.ogg" type="audio"/> */}
 
-        {/* office for docx, doc, ppt, pptx, xls, xlsx*/}
-        <Office src="https://easychair.org/publications/easychair.docx" />
+          {/* office for docx, doc, ppt, pptx, xls, xlsx*/}
+          {/* <Office src="https://easychair.org/publications/easychair.docx" /> */}
 
-        {/*txt, pdf*/}
-        {/* <iframe src=""></iframe> */}
+          {/*txt, pdf*/}
+          {/* <iframe src=""></iframe> */}
 
-        {/*Image*/}
-        {/* <img className="viewer" src="https://analyticsindiamag.com/wp-content/uploads/2019/07/image_rec_lib_banner.jpg"/> */}
+          {/*Image*/}
+          {/* <img className="viewer" src="https://analyticsindiamag.com/wp-content/uploads/2019/07/image_rec_lib_banner.jpg"/> */}
+
+          {/*Zip*/}
+          <Zip
+            data={[
+              {
+                name: 'hello',
+                isFolder: true,
+              },
+              {
+                name: 'a.mp4',
+                isFolder: false,
+              },
+            ]}
+          />
         </div>
 
         <div

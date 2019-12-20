@@ -72,6 +72,44 @@
     max-height: 100%;
   }
 
+  .zip-viewer {
+    height: 600px;
+    max-height: 90%;
+    width: 600px;
+    max-width: 90%;
+    border-radius: 15px;
+    background: rgb(255, 255, 255);
+    box-sizing: border-box;
+    padding: 18px;
+    header {
+      color: #345;
+      align-items: baseline;
+    }
+    .item {
+      &:first-of-type{
+        margin-top:1em;
+        border-top: 1px solid #ececec;
+      }
+      display: flex;
+      height: 40px;
+      align-items: center;
+      margin: 0 16px;
+      border-bottom: 1px solid #ececec;
+      .entry-icon {
+        display: inline-block;
+        height: 27px;
+        width: 27px;
+        vertical-align: middle;
+        border-radius: 12px;
+        border: 1px solid #eee;
+        margin-right: 0.5em;
+        background-size: 55% 55%;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+    }
+  }
+
   .video-wrapper.fullscreen {
     top: 50%;
     left: 50%;
