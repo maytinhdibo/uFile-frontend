@@ -28,7 +28,7 @@ export default class Activity extends React.Component {
         },
         action: 'added',
         suffix: 'new file to your folder',
-        time: '12 minutes ago',
+        time: '2019-12-20T07:20:00.000Z',
       },
       {
         type: 'CONFIRM',
@@ -38,7 +38,7 @@ export default class Activity extends React.Component {
         },
         action: 'shared',
         suffix: 'a file with you',
-        time: '4 weeks ago',
+        time: '2015-03-04T00:00:00.000Z',
       },
     ];
     return (
@@ -96,18 +96,6 @@ export default class Activity extends React.Component {
           }}
           className="noti tab"
         >
-          <div className="noti-item">
-            <div
-              className="noti-thumb"
-              style={{
-                backgroundImage: 'url(https://c.tribune.com.pk/2018/10/1830234-emmadirfani-1540029568.png)',
-              }}
-            />
-            <span>
-              Cuong Tran <b>added</b> new file to your folder last day
-            </span>
-            <span className="time">12 mins ago</span>
-          </div>
           {notiData.map(item => {
             return <NotiItem data={item} />;
           })}

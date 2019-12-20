@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 export default class NotiItem extends React.Component {
   render() {
@@ -13,7 +14,7 @@ export default class NotiItem extends React.Component {
         />
         <span>
           {data.user && data.user.name} <b>{data.action}</b> {data.suffix}
-          <span className="time">{data.time}</span>
+        <span className="time">{moment(data.time).fromNow()}</span>
         </span>
         {data.type == 'CONFIRM' ? (
           <div className="noti-action">
