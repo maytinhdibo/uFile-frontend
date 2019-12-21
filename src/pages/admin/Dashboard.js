@@ -30,7 +30,9 @@ export default class Dashboard extends React.Component {
 
             <ul>
               <li>Account setting</li>
-              <li>Logout</li>
+              <Link to="/">
+                <li>Logout</li>
+              </Link>
             </ul>
           </span>
         </header>

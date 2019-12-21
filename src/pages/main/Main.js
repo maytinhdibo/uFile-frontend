@@ -42,11 +42,16 @@ import { alertText } from 'components/common/Alert';
 import NewFolderPopup from 'components/home/NewFolderPopup';
 import SharePopup from 'components/home/SharePopup';
 
+//services
+import userServices from '../../services/users';
+import folderServices from '../../services/folders';
+import fileServices from '../../services/files';
+
 import { canView } from '../../helpers/fileViewer';
 
 const files = [
   {
-    id: 1,
+    id: '3-CB7492200A4A465FBBD1ACC837A69023',
     name: 'a.pdf',
     size: 100000,
     updated_at: '2015-03-04T00:00:00.000Z',
@@ -123,6 +128,47 @@ class Main extends React.Component {
     };
   }
 
+  loadFolder = async () => {
+    var folderData = [];
+
+    if (this.isPhotoFolder() || this.isFavFolder() || this.isTrashFolder() || this.isSharedFolder()) {
+      await fileServices
+        .searchDetails({
+          only_photo: this.isPhotoFolder(),
+          star: this.isFavFolder(),
+          trash: this.isTrashFolder(),
+          basic_info: false,
+        })
+        .then(data => {
+          console.log(data);
+          folderData = data.result.files;
+        });
+    }
+
+    folderData = folderData.map(item => {
+      return {
+        id: item.file_id,
+        name: item.file_title,
+        type: item.file_title,
+        size: item.size,
+        updated_at: item.updated_at,
+      };
+    });
+
+    this.setState({ entryData: folderData });
+
+    await folderServices.getDetails({ folder_id: '3' }).then(data => {
+      console.log(data);
+    });
+  };
+
+  logout = () => {
+    userServices.submitLogoutRequest().then(data => {
+      localStorage.clear();
+      this.props.history.push('/');
+    });
+  };
+
   removeSortState() {
     this.setState({
       sortBySize: 0,
@@ -163,6 +209,7 @@ class Main extends React.Component {
   componentDidUpdate(prevProps) {
     if (prevProps.match.params.path != this.props.match.params.path) {
       // alert(this.props.match.params.path);
+      this.loadFolder();
     }
     // if(prevProps.)
   }
@@ -313,11 +360,30 @@ class Main extends React.Component {
     return this.props.match.params.path == 'favorites';
   };
 
+  uploadToFolder = evt => {
+    const config = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      onUploadProgress: progressEvent => console.log(progressEvent.loaded),
+    };
+
+    console.log(evt.target.files[0]);
+
+    const formData = new FormData();
+    formData.set('parent_id', '3456rty');
+    formData.append('in_file', evt.target.files[0]);
+
+    fileServices.upload(formData, config).then(data => {
+      console.log(data);
+    });
+  };
+
   //entry action
   onOpen = dataEntry => {
     if (dataEntry.isFolder) {
       alertText('Folder nè');
-      this.props.history.push("/drive/"+dataEntry.id)
+      this.props.history.push('/drive/' + dataEntry.id);
     } else if (canView(dataEntry.name)) {
       this.setState({
         modalViewer: true,
@@ -363,20 +429,20 @@ class Main extends React.Component {
 
   render() {
     const recent = {
-      id:1,
+      id: 1,
       name: 'phongcanh.jpg',
       type: 'image',
       thumbmail: 'http://dulichnhanhnhat.com/wp-content/uploads/2017/08/23/05/ISDRM.jpg',
       size: '2 MB',
     };
     const recentAudio = {
-      id:2,
+      id: 2,
       name: 'hello.mp3',
       type: 'audio',
       size: '9 MB',
     };
     const recentFile = {
-      id:3,
+      id: 3,
       name: 'chuong1.pdf',
       type: 'pdf',
       size: '32 MB',
@@ -414,27 +480,38 @@ class Main extends React.Component {
 
         <div data-opened={this.state.navOpen} className="sidebar">
           <div className="account">
-            <span className="profile-picture" />
-            Cuong Tran
+            <span
+              style={{
+                backgroundImage: 'url(' + localStorage.avatar_url + ')',
+              }}
+              className="profile-picture"
+            />
+            {localStorage.fullname}
             <ul>
               <Link to="/account">
                 <li>Account</li>
               </Link>
               <li>Terms of service</li>
-              <li>Logout</li>
+              <li onClick={this.logout}>Logout</li>
             </ul>
           </div>
 
           <div onClick={() => this.refs.uploadIp.click()} className="upload">
             <button type="button">
-             <span className="status">{(this.state.uploadProcess >=0 ? "Uploading " + this.state.uploadProcess * 100 + '%...' : 'Upload new file')}
-             </span> 
-              <span style={{
-                width:this.state.uploadProcess*100+"%"
-              }} className="overlay"></span>
+              <span className="status">
+                {this.state.uploadProcess >= 0
+                  ? 'Uploading ' + this.state.uploadProcess * 100 + '%...'
+                  : 'Upload new file'}
+              </span>
+              <span
+                style={{
+                  width: this.state.uploadProcess * 100 + '%',
+                }}
+                className="overlay"
+              ></span>
             </button>
-            
-            <input ref="uploadIp" type="file" />
+
+            <input onChange={evt => this.uploadToFolder(evt)} ref="uploadIp" type="file" />
           </div>
           <ul>
             <NavLink activeClassName="actived" to="/drive/home">
@@ -490,6 +567,8 @@ class Main extends React.Component {
                 Trash
               </li>
             </NavLink>
+
+            <button onClick={this.loadFolder}>reload</button>
           </ul>
 
           <div className="storage">
@@ -505,7 +584,7 @@ class Main extends React.Component {
           </div>
         </div>
         <div className="app-main">
-          <SearchAssistant close={this.closeSearchAssistant} opened={this.state.sa_modal} />
+          <SearchAssistant close={this.closeSearchAssistant} onOpen={this.onOpen} opened={this.state.sa_modal} />
           <div id="header" className="block flex">
             <div onClick={this.collapseNav} className="app-nav-icon me-hidden-desktop">
               <FontAwesomeIcon icon={faBars} />
@@ -640,7 +719,7 @@ AHihi
 
                 <div className="flex header">
                   <div onClick={() => this.sortByName()} className="name">
-                    Size
+                    Name
                     {this.state.sortByName != 0 ? (
                       <span className="sort-icon">
                         <FontAwesomeIcon icon={this.state.sortByName > 0 ? faArrowDown : faArrowUp} />
@@ -687,6 +766,8 @@ AHihi
                 openDetailTab={openDetailTab => (this.openDetailTab = openDetailTab)}
                 notiOpen={this.state.notiOpen}
                 closeNoti={this.closeNoti}
+                selectedEntry={this.state.selectedEntry}
+                folder={23233}
               />
             </div>
           </div>

@@ -131,6 +131,11 @@
 }
 
 @media only screen and (max-width: 768px) {
+  .login-page.loading {
+    .form-group {
+      display: none;
+    }
+  }
   .me-display-mobile-sm {
     display: auto !important;
   }
@@ -145,8 +150,7 @@
     .home-vector {
       visibility: hidden;
     }
-    .logo,
-    .footer {
+    .logo {
       position: relative;
       top: auto;
       left: auto;
@@ -232,6 +236,9 @@
 @media only screen and (max-width: 540px) {
   .app-page .app-main .filebrowser .explore .file-list.grid label.file-block {
     width: 33.33%;
+  }
+  .app-page .app-main .filebrowser .explore .file-list.list .flex .type, .app-page .app-main .filebrowser .explore .file-list.list .file-item .type{
+    display: none;
   }
 }
 

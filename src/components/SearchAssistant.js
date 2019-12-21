@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { iconParse } from './../helpers/iconParse';
 
+import fileServices from './../services/files';
+
 import '../styles/search.scss';
 
 class SearchAssistant extends React.Component {
@@ -10,11 +12,31 @@ class SearchAssistant extends React.Component {
     super(props);
     this.state = {
       inputValue: '',
+      results:[]
     };
   }
   componentDidUpdate() {
     this.input.focus();
   }
+
+  onOpen = item => {
+    this.props.onOpen(item);
+    this.props.close();
+  };
+
+  inputChange = e => {
+    this.setState({ inputValue: e.target.value });
+    fileServices
+      .searchDetails({
+        q: this.state.inputValue,
+        user_id: '1',
+        basic_info: true,
+      })
+      .then(data => {
+        console.log(data);
+        this.setState({results:data.result.files});
+      });
+  };
 
   renderIcon = (name, isFolder, thumbnail) => {
     if (isFolder) {
@@ -65,7 +87,7 @@ class SearchAssistant extends React.Component {
             <input
               ref={c => (this.input = c)}
               value={this.state.inputValue}
-              onChange={e => this.setState({ inputValue: e.target.value })}
+              onChange={e => this.inputChange(e)}
               placeholder="Search by tag or by name...."
               className="input-search"
             />
@@ -75,12 +97,12 @@ class SearchAssistant extends React.Component {
           </header>
           {this.state.inputValue.length > 0 ? (
             <div>
-              {results.map(item => {
+              {this.state.results.map(item => {
                 return (
-                  <div class="file-item">
+                  <div onClick={() => this.onOpen(item)} class="file-item">
                     <div class="name">
-                      <span class="entry-icon" style={this.renderIcon(item.name, item.isFolder, item.thumbnail)}></span>
-                      <span class="entry-name">{item.name}</span>
+                      <span class="entry-icon" style={this.renderIcon(item.file_title, item.file_type=="folder", item.thumbnail)}></span>
+                      <span class="entry-name">{item.file_title}</span>
                     </div>
                   </div>
                 );

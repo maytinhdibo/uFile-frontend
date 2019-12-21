@@ -83,7 +83,7 @@ class FileBlock extends React.Component {
             <span className="entry-name">{data.name}</span>
           </div>
           <div className="type">Image</div>
-          <div className="date">{moment(data.updated_at).format('DD/MM/YYYY')}</div>
+          <div className="date">{data.updated_at.split(" ")[0]}</div>
           <div className="size">{bytes(data.size, { decimalPlaces: 0 })}</div>
         </div>
       </label>

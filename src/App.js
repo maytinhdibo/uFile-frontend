@@ -25,15 +25,15 @@ class App extends React.Component {
       <div className="app">
         <Alert ref={this.alert} />
         <Router>
+          <Route path="/admin/dashboard" component={Dashboard} />
+
+          <Route exact path="/drive/:path" component={Main} />
+          <Route path="/viewer/:id" component={Viewer} />
+
           <Route exact path="/" component={AccountRouter} />
           <Route exact path="/signup" component={AccountRouter} />
 
           <Route exact path="/account" component={Account} />
-
-          <Route path="/drive/:path" component={Main} />
-          <Route path="/viewer/:id" component={Viewer} />
-
-          <Route path="/admin/dashboard" component={Dashboard} />
         </Router>
       </div>
     );

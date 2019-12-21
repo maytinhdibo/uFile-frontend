@@ -10,7 +10,7 @@ const submitRegister = (param) => requestServices.customAxios.post(API_REGISTER,
 
 const submitLoginRequest = (param) => requestServices.customAxios.post(API_LOGIN, param).then((res) => res.data);
 
-const fetchUserStatus = () => requestServices.customAxios.get(API_FETCH_USER).then((res) => res.data);
+const fetchUserStatus = () => requestServices.statusAxios.get(API_FETCH_USER).then((res) => res.data);
 
 const submitLogoutRequest = () => requestServices.customAxios.post(API_LOGOUT).then((res) => res.data);
 

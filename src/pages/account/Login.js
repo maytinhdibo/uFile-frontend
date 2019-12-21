@@ -1,19 +1,69 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import userServices from '../../services/users';
 
 class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: '',
+      password: '',
+    };
+  }
+  componentWillMount() {
+    userServices.fetchUserStatus().then(data => {
+      this.props.history.push('/drive/home');
+    });
+  }
+  login = e => {
+    console.log('asdrtft');
+    const { username, password } = this.state;
+    this.props.setLoading(true);
+    setTimeout(() => {
+      userServices
+        .submitLoginRequest({ username, password })
+        .then(data => {
+          localStorage.avatar_url = data.avatar_url;
+          localStorage.user_id = data.user_id;
+          localStorage.fullname = data.fullname;
+          this.props.history.push('/drive/home');
+        })
+        .catch(() => {
+          this.props.setLoading(false);
+        });
+    }, 1000);
+
+    e.stopPropagation();
+  };
   render() {
+    const { state } = this;
+
     return (
       <form>
         <h1>Login</h1>
         <p>To access awesome things</p>
         <br />
         <div className="input-group">
-          <input className="me-input" placeholder="@username" />
-          <input className="me-input" placeholder="@password" type="password" />
+          <input
+            value={state.username}
+            onChange={e => {
+              this.setState({ username: e.target.value });
+            }}
+            className="me-input"
+            placeholder="@username"
+          />
+          <input
+            value={state.password}
+            onChange={e => {
+              this.setState({ password: e.target.value });
+            }}
+            className="me-input"
+            placeholder="@password"
+            type="password"
+          />
         </div>
 
-        <button type="button" onClick={() => this.props.setLoading(true)} className="me-btn">
+        <button type="button" onClick={e => this.login(e)} className="me-btn">
           Login
         </button>
 

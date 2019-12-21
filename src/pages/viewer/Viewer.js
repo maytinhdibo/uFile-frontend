@@ -15,8 +15,41 @@ export default class Viewer extends React.Component {
     super(props);
     this.state = {
       openDetail: false,
+      fileName: 'ahihi.mp4',
+      fileStream: 'https://analyticsindiamag.com/wp-content/uploads/2019/07/image_rec_lib_banner.jpg',
     };
   }
+  viewerRender = () => {
+    const name = this.props.file.name;
+    const ext = name.split('.')[name.split('.').length - 1];
+
+    if (['mp4', 'ogg'].indexOf(ext) != -1) {
+      return <Media src={this.state.fileStream} type="video" />;
+    } else if (ext == 'mp3') {
+      return <Media src={this.state.fileStream} type="audio" />;
+    } else if (['docx', 'doc', 'ppt', 'pptx', 'xls', 'xlsx'].indexOf(ext) != -1) {
+      return <Office src={this.state.fileStream} />;
+    } else if (['png', 'jpg', 'svg'].indexOf(ext) != -1) {
+      return <img className="viewer" src={this.state.fileStream} />;
+    } else if (ext == 'pdf') {
+      return <iframe className="viewer" src={this.state.fileStream}></iframe>;
+    } else if (ext == 'zip') {
+      return (
+        <Zip
+          data={[
+            {
+              name: 'hello',
+              isFolder: true,
+            },
+            {
+              name: 'a.mp4',
+              isFolder: false,
+            },
+          ]}
+        />
+      );
+    }
+  };
   render() {
     return (
       <div className="me-viewer">
@@ -47,6 +80,7 @@ export default class Viewer extends React.Component {
         </header>
 
         <div className="viewer-block">
+          {this.viewerRender()}
           {/* mp3, mp4, ogg */}
           {/* <Media src="https://www.w3schools.com/html/mov_bbb.mp4" /> */}
           {/* <Media src="https://www.w3schools.com/TagS/horse.ogg" type="audio"/> */}
@@ -61,7 +95,7 @@ export default class Viewer extends React.Component {
           {/* <img className="viewer" src="https://analyticsindiamag.com/wp-content/uploads/2019/07/image_rec_lib_banner.jpg"/> */}
 
           {/*Zip*/}
-          <Zip
+          {/* <Zip
             data={[
               {
                 name: 'hello',
@@ -72,7 +106,7 @@ export default class Viewer extends React.Component {
                 isFolder: false,
               },
             ]}
-          />
+          /> */}
         </div>
 
         <div

@@ -3,21 +3,41 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
+import bytes from 'bytes';
+
 import NotiItem from '../activity/NotiItem';
+
+import filesServices from '../../services/files';
+import moment from 'moment';
 
 export default class Activity extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       detailTab: false,
+      detailData: {
+        file_title: 'Hoang Bao Long.png',
+        file_type: 'image/png',
+        file_tag: [],
+        size: 0,
+        updated_at: '',
+      },
     };
   }
   componentDidMount() {
     this.props.openDetailTab(this.openDetailTab);
- }
+  }
   openDetailTab = () => {
     this.setState({ detailTab: true });
+    filesServices.searchDetails({ file_id: this.props.selectedEntry[0].id }).then(data => {
+      this.setState({
+        detailData: data.result.files[0],
+      });
+      console.log(this.state.detailData);
+    });
   };
+
+
   render() {
     const notiData = [
       {
@@ -66,17 +86,21 @@ export default class Activity extends React.Component {
         >
           <div className="file-info">
             <div className="preview"></div>
-            <span className="file-name">phongcanh.jpg</span>
+        <span className="file-name">{this.state.file_title}</span>
           </div>
           <div className="file-fulldetail">
             <table>
               <tr>
-                <th>Create at:</th>
-                <td>12/11/2019 8:23</td>
+                <th>Update at:</th>
+                <td>{moment(this.state.detailData.updated_at).format('DD/MM/YYYY')}</td>
+              </tr>
+              <tr>
+                <th>Size:</th>
+                <td>{bytes(this.state.detailData.size, { decimalPlaces: 0 })}</td>
               </tr>
               <tr>
                 <th>File type:</th>
-                <td>document/PDF</td>
+                <td>{this.state.detailData.file_type}</td>
               </tr>
               <tr>
                 <th>Location:</th>
@@ -86,10 +110,14 @@ export default class Activity extends React.Component {
                 <th>Owner:</th>
                 <td>Hoang Bao Long</td>
               </tr>
+              <tr>
+                <th>Keyword:</th>
+                <td>{this.state.detailData.file_tag.join(", ")}</td>
+              </tr>
             </table>
           </div>
         </div>
-
+        
         <div
           style={{
             display: !this.state.detailTab ? 'block' : 'none',

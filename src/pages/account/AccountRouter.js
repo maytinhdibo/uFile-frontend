@@ -28,7 +28,7 @@ class AccountRouter extends React.Component {
 
             <div className="form-group">
               <Router>
-                <Route path="/" exact component={() => <Login isLoading={this.state.isLoading} setLoading={this.setLoading} />} />
+                <Route path="/" exact component={() => <Login isLoading={this.state.isLoading} history={this.props.history} setLoading={this.setLoading} />} />
                 <Route path="/signup" exact component={() => <Signup isLoading={this.state.isLoading} setLoading={this.setLoading} />} />
               </Router>
             </div>

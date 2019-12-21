@@ -9,15 +9,18 @@ class ContextMenu extends React.Component {
     return this.props.isTrash;
   };
   isBlockFolder() {
-    return (this.props.isFolder && (this.props.isPhoto || this.props.isFav || this.props.isShared));
+    return this.props.isFolder && (this.props.isPhoto || this.props.isFav || this.props.isShared);
   }
+  download = () => {
+    window.open('/download/' + this.props.selectedEntry[0].id);
+  };
   render() {
     const { position } = this.props;
     return (
       <div
         onClick={this.props.closeContextMenu}
         style={{
-          display: this.props.opened && !this.isBlockFolder()? 'block' : 'none',
+          display: this.props.opened && !this.isBlockFolder() ? 'block' : 'none',
         }}
         className="me-context-menu-overlay"
       >
@@ -37,10 +40,14 @@ class ContextMenu extends React.Component {
                 </div>
               ) : (
                 <div>
-                  <div className="item">Open</div>
-                  <div onClick={this.props.onRename} className="item">
-                    Rename
-                  </div>
+                  {this.props.selectedEntry.length == 1 ? (
+                    <div>
+                      <div className="item">Open</div>
+                      <div onClick={this.props.onRename} className="item">
+                        Rename
+                      </div>
+                    </div>
+                  ) : null}
                   <div onClick={this.props.onCut} className="item">
                     Cut
                   </div>
@@ -48,7 +55,11 @@ class ContextMenu extends React.Component {
                     Copy
                   </div>
                   <div className="item">Paste</div>
-                  <div className="item">Download</div>
+                  {this.props.selectedEntry.length == 1 && this.props.selectedEntry[0].file_type != 'folder' ? (
+                    <div onClick={this.download} className="item">
+                      Download
+                    </div>
+                  ) : null}
                   {this.props.selectedEntry.length == 1 ? (
                     <div onClick={this.props.onShare} className="item">
                       Share or get link

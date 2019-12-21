@@ -1,5 +1,6 @@
 // @flow
 import axios from 'axios';
+import { alertText } from 'components/common/Alert';
 // import { splitMessageToNotification, splitMessageFromServer } from 'helpers/StringProcess';
 // import { SERVER_ERROR } from 'constants/NotificationObj';
 // import { CUSTOM_CODE } from 'constants/CustomCode';
@@ -11,17 +12,23 @@ const customAxios = axios.create({
   withCredentials: true,
 });
 
+const statusAxios = axios.create({
+  baseURL: BASE_API_URL,
+  withCredentials: true,
+});
+
 customAxios.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response) {
-      // const { data } = error.response;
-      // const serverMessage = data.message;
-      // const customCode = data.custom_code;
+      const { data } = error.response;
+      const serverMessage = data.message;
+      const customCode = data.custom_code;
       // Todo: Handle error here
+      alertText(data.message);
     }
     return Promise.reject(error);
   },
 );
 
-export default { customAxios };
+export default { customAxios, statusAxios };
