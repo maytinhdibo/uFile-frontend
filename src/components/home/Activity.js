@@ -92,7 +92,10 @@ export default class Activity extends React.Component {
             <table>
               <tr>
                 <th>Update at:</th>
-                <td>{moment(this.state.detailData.updated_at).format('DD/MM/YYYY')}</td>
+                <td>
+                {this.state.detailData.updated_at}
+                </td>
+                {/* <td>{moment(this.state.detailData.updated_at).format('DD/MM/YYYY')}</td> */}
               </tr>
               <tr>
                 <th>Size:</th>

@@ -33,7 +33,9 @@ class Signup extends React.Component {
         password,
       })
       .then(data => {
-        this.props.history.pushState("/");
+        alertText("Please check email to confirm your account!");
+        this.props.setLoading(false);
+        this.props.history.push("/");
       })
       .catch(()=>{
         this.props.setLoading(false);

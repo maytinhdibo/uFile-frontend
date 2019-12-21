@@ -58,7 +58,7 @@ const files = [
   },
   {
     id: 2,
-    name: 'hinhanh.png',
+    name: 'hinha.nh.png',
     thumbnail: 'http://truyenxuatichcu.com/medias/articles/img/2017/11/di-tich-chua-mot-cot.jpg',
     size: 575303000,
     updated_at: '2017-08-04T00:00:00.000Z',
@@ -125,6 +125,7 @@ class Main extends React.Component {
       sortByName: 0,
       sortByDate: 0,
       entryData: files,
+      editableEntry: true,
     };
   }
 
@@ -143,6 +144,15 @@ class Main extends React.Component {
           console.log(data);
           folderData = data.result.files;
         });
+      this.setState({ editableEntry: false });
+    } else {
+      await folderServices
+        .getDetails({
+          folder_id: this.props.match.params.path == 'home' ? localStorage.user_id : this.props.match.params.path,
+        })
+        .then(data => {
+          folderData = data.children_details;
+        });
     }
 
     folderData = folderData.map(item => {
@@ -151,15 +161,18 @@ class Main extends React.Component {
         name: item.file_title,
         type: item.file_title,
         size: item.size,
+        stared: item.star,
+        isFolder: item.file_type == 'folder',
         updated_at: item.updated_at,
+        thumbnail: item.thumbnail_url ? 'http://112.137.129.216:5000/api/download/thumbnail/' + item.file_id : false,
       };
     });
 
     this.setState({ entryData: folderData });
 
-    await folderServices.getDetails({ folder_id: '3' }).then(data => {
-      console.log(data);
-    });
+    // await folderServices.getDetails({ folder_id: '3' }).then(data => {
+    //   console.log(data);
+    // });
   };
 
   logout = () => {
@@ -204,6 +217,10 @@ class Main extends React.Component {
     this.setState({
       entryData: this.state.entryData.sort((a, b) => (new Date(b.updated_at) - new Date(a.updated_at)) * sortByDate),
     });
+  }
+
+  componentDidMount() {
+    this.loadFolder();
   }
 
   componentDidUpdate(prevProps) {
@@ -382,7 +399,7 @@ class Main extends React.Component {
   //entry action
   onOpen = dataEntry => {
     if (dataEntry.isFolder) {
-      alertText('Folder nè');
+      // alertText('Folder nè');
       this.props.history.push('/drive/' + dataEntry.id);
     } else if (canView(dataEntry.name)) {
       this.setState({
@@ -455,7 +472,12 @@ class Main extends React.Component {
         ) : null}
 
         <RenamePopup onClose={() => this.setState({ renamePopup: false })} visible={this.state.renamePopup} />
-        <NewFolderPopup onClose={() => this.setState({ newFolderPopup: false })} visible={this.state.newFolderPopup} />
+        <NewFolderPopup
+          reloadFolder={this.loadFolder}
+          path={this.props.match.params.path}
+          onClose={() => this.setState({ newFolderPopup: false })}
+          visible={this.state.newFolderPopup}
+        />
 
         <SharePopup onClose={() => this.setState({ sharePopup: false })} visible={this.state.sharePopup} />
 
@@ -476,6 +498,7 @@ class Main extends React.Component {
           onCopy={() => this.onCopy()}
           onCut={() => this.onCut()}
           selectedEntry={this.state.selectedEntry}
+          reloadFolder={this.loadFolder}
         />
 
         <div data-opened={this.state.navOpen} className="sidebar">
@@ -496,7 +519,7 @@ class Main extends React.Component {
             </ul>
           </div>
 
-          <div onClick={() => this.refs.uploadIp.click()} className="upload">
+          <div onClick={() => this.refs.uploadIp.click()} disabled={!this.state.editableEntry} className="upload">
             <button type="button">
               <span className="status">
                 {this.state.uploadProcess >= 0

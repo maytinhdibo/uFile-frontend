@@ -372,6 +372,10 @@ a {
       }
     }
 
+    .upload[disabled] {
+      display: none;
+    }
+
     .upload {
       text-align: center;
       width: 100%;
@@ -395,7 +399,7 @@ a {
         overflow: hidden;
       }
 
-      .status{
+      .status {
         z-index: 1;
         position: relative;
       }
@@ -403,8 +407,8 @@ a {
       .overlay {
         display: block;
         position: absolute;
-        top:0;
-        left:0;
+        top: 0;
+        left: 0;
         right: 0;
         bottom: 0;
         background: rgba(0, 0, 0, 0.32);
@@ -412,7 +416,7 @@ a {
         width: 0%;
         z-index: 0;
       }
-      input{
+      input {
         // display: none;
       }
     }
@@ -439,16 +443,16 @@ a {
         }
       }
 
-      .actived{
+      .actived {
         li {
-        background: rgba(0, 0, 0, 0.1);
+          background: rgba(0, 0, 0, 0.1);
         }
       }
     }
 
     .storage {
       padding: 16px 32px;
-      .info{
+      .info {
         padding: 9px 0;
         font-size: 0.85em;
         opacity: 0.8;
@@ -494,7 +498,7 @@ a {
     .path-breadcrumb {
       color: #555;
       font-weight: 900;
-      a{
+      a {
         text-decoration: none;
         color: #555;
       }
@@ -687,6 +691,7 @@ a {
                 td {
                   text-align: left;
                   padding: 6px;
+                  min-width: 75px;
                 }
               }
             }
@@ -810,11 +815,11 @@ a {
               text-align: right;
             }
 
-            .sort-icon{
+            .sort-icon {
               display: inline-block;
               text-align: right;
               width: 1.2em;
-              font-size:0.7em;
+              font-size: 0.7em;
             }
 
             .name {
@@ -865,12 +870,43 @@ a {
                   border: none;
                   border-radius: 0;
                   padding-top: 100%;
+                  max-width: 100%;
                 }
                 .entry-name {
-                  white-space: nowrap;
-                  display: block;
+                  // white-space: nowrap;
+                  // display: block;
                   background: #eee;
                   padding: 9px;
+                  display: block;
+                  margin: auto;
+                  white-space: nowrap;
+                  width: 100%;
+                  box-sizing: border-box;
+                  .text-line {
+                    max-width: 100%;
+                    position: relative;
+                    display: inline-block;
+                    .name {
+                      position: relative;
+                      display: inline-block;
+                      white-space: nowrap;
+                      /* This padding must match the width set on the .extension below */
+                      padding-right: 28px;
+                      max-width: 100%;
+                      overflow: hidden;
+                      text-overflow: ellipsis;
+                      text-align: left;
+                      box-sizing: border-box;
+                    }
+
+                    .ext {
+                      position: absolute;
+                      top: 0px;
+                      right: 0px;
+                      text-align: left;
+                      width: 28px;
+                    }
+                  }
                 }
               }
             }

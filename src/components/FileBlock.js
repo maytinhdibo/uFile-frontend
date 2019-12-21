@@ -18,9 +18,9 @@ class FileBlock extends React.Component {
     }
   };
 
-  selectEntry = (willSelect) => {
-    if (this.isSelected() ) {
-      if(willSelect) return 0;
+  selectEntry = willSelect => {
+    if (this.isSelected()) {
+      if (willSelect) return 0;
       this.props.selectFile(this.props.data, true);
     } else {
       this.props.selectFile(this.props.data, false);
@@ -60,12 +60,12 @@ class FileBlock extends React.Component {
       backgroundImage: 'url(' + iconParse(this.props.data.name) + ')',
     };
   };
-  
-  isSelected=()=>{
-    return this.props.selectedEntry.some((el)=> {
+
+  isSelected = () => {
+    return this.props.selectedEntry.some(el => {
       return el.id === this.props.data.id;
-    }); 
-  }
+    });
+  };
 
   render() {
     const { data } = this.props;
@@ -80,10 +80,23 @@ class FileBlock extends React.Component {
         >
           <div className="name">
             <span style={this.renderIcon()} className="entry-icon" />
-            <span className="entry-name">{data.name}</span>
+            <span className="entry-name">
+              <span className="text-line">
+                {/* {data.name} */}
+                <span className="name">
+                  {data.name
+                    // .split('.')
+                    // .slice(0, data.name.split('.').length - 1)
+                    // .join('.')
+                  }
+                  {data.name && data.name.split('.').length>1?".":null}
+                </span>
+                <span className="ext">{data.name && data.name.split('.').length>1?data.name.split('.')[data.name.split('.').length-1]:""}</span>
+              </span>
+            </span>
           </div>
           <div className="type">Image</div>
-          <div className="date">{data.updated_at.split(" ")[0]}</div>
+          <div className="date">{data.updated_at.split(' ')[0]}</div>
           <div className="size">{bytes(data.size, { decimalPlaces: 0 })}</div>
         </div>
       </label>

@@ -4,6 +4,8 @@ import React from 'react';
 import '../styles/loader.scss';
 import { alertText } from './common/Alert';
 
+import fileServices from './../services/files';
+
 class ContextMenu extends React.Component {
   isTrash = () => {
     return this.props.isTrash;
@@ -14,7 +16,31 @@ class ContextMenu extends React.Component {
   download = () => {
     window.open('/download/' + this.props.selectedEntry[0].id);
   };
+  moveToTrash = async () => {
+    const list = this.props.selectedEntry.map(item => {
+      return item.id;
+    });
+    await fileServices.moveToTrash({
+      file_ids: list,
+    });
+    this.props.reloadFolder();
+
+  };
+
+  starAction = async () => {
+    if(!this.props.selectedEntry[0].stared){
+      await fileServices.star({
+        file_id: this.props.selectedEntry[0].id,
+      });
+    }else{
+      await fileServices.r_star({
+        file_id: this.props.selectedEntry[0].id,
+      });
+    }
+    this.props.reloadFolder();
+  };
   render() {
+    const aloneEntry = this.props.selectedEntry[0];
     const { position } = this.props;
     return (
       <div
@@ -46,6 +72,9 @@ class ContextMenu extends React.Component {
                       <div onClick={this.props.onRename} className="item">
                         Rename
                       </div>
+                      <div onClick={this.starAction} className="item">
+                        {this.props.selectedEntry[0].stared?"Remove from":"Add to"} favorites
+                      </div>
                     </div>
                   ) : null}
                   <div onClick={this.props.onCut} className="item">
@@ -65,7 +94,9 @@ class ContextMenu extends React.Component {
                       Share or get link
                     </div>
                   ) : null}
-                  <div className="item">Move to trash</div>
+                  <div onClick={this.moveToTrash} className="item">
+                    Move to trash
+                  </div>
                   {this.props.selectedEntry.length == 1 ? (
                     <div onClick={this.props.getInfo} className="item">
                       Get info
