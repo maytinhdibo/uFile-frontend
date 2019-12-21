@@ -1,11 +1,11 @@
 For developer
 ## Available Scripts
 
-In the project directory, you can run:
 
 On first time, create `.env` file
 ### `mv .env.example .env`
 
+In the project directory, you can run:
 
 ### `yarn start`
 
