@@ -19,7 +19,7 @@ export default class Zip extends React.Component {
     return (
       <div className="zip-viewer">
         <header>
-          <h2>file.zip</h2>[{data.length} item{data.length>1?'s':null}]
+          <h2>Zip viewer</h2>[{data.length} item{data.length>1?'s':null}]
         </header>
 
         {data.map((item, key) => {

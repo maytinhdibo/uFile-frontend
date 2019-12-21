@@ -1,6 +1,8 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import fileServices from '../../services/files';
+
 import bytes from 'bytes';
 
 import '../../styles/viewer.scss';
@@ -9,18 +11,54 @@ import Office from './Office';
 
 import { faInfoCircle, faShare, faTimes, faChevronRight, faDownload } from '@fortawesome/free-solid-svg-icons';
 import Zip from './Zip';
+import { BASE_API_URL } from 'services/requests';
 
 export default class Viewer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       openDetail: false,
-      fileName: 'ahihi.mp4',
+      fileId: '',
+      fileName: '',
       fileStream: 'https://analyticsindiamag.com/wp-content/uploads/2019/07/image_rec_lib_banner.jpg',
+      detailData:{
+        updated_at:"",
+        file_title:"",
+        file_type:"",
+        size:0
+      }
     };
   }
+  componentDidMount() {
+    var id;
+    if(this.props.modal){
+      id=this.props.file.id
+      this.setState({
+        fileId: id,
+        fileStream: BASE_API_URL + 'preview/' + this.props.file.id,
+        dataZip:[]
+      });
+    }else{
+      id=this.props.match.params.id
+      this.setState({
+        fileId: id,
+        fileStream: BASE_API_URL + 'preview/' + this.props.match.params.id,
+        dataZip:[]
+      });
+    }
+    fileServices.searchDetails({ file_id: id }).then(data => {
+      this.setState({
+        detailData: data.result.files[0],
+      });
+      this.setState({
+        fileName: data.result.files[0].file_title,
+      });
+      console.log(this.state.detailData);
+    });
+  }
   viewerRender = () => {
-    const name = this.props.file.name;
+    const name = this.props.file?this.props.file.name:this.state.fileName;
+
     const ext = name.split('.')[name.split('.').length - 1];
 
     if (['mp4', 'ogg'].indexOf(ext) != -1) {
@@ -34,20 +72,12 @@ export default class Viewer extends React.Component {
     } else if (ext == 'pdf') {
       return <iframe className="viewer" src={this.state.fileStream}></iframe>;
     } else if (ext == 'zip') {
-      return (
-        <Zip
-          data={[
-            {
-              name: 'hello',
-              isFolder: true,
-            },
-            {
-              name: 'a.mp4',
-              isFolder: false,
-            },
-          ]}
-        />
-      );
+      fileServices.preview("1-3070DAEE59E84ACB9CE9B36701F4B96E").then(data => {
+         console.log(data.files);
+         this.setState({dataZip:data.files})
+      });
+      return <Zip data={this.state.dataZip} />;
+
     }
   };
   render() {
@@ -61,11 +91,13 @@ export default class Viewer extends React.Component {
               </span>
             </div>
           ) : null}
-          <b>{this.props.modal ? this.props.file.name : 'filename.mp4'}</b>
+          <b>{this.props.modal ? this.props.file.name : this.state.fileName}</b>
           <div className="tools">
-            <span>
-              <FontAwesomeIcon icon={faDownload} />
-            </span>
+            <a href={BASE_API_URL + 'download/' + this.state.fileId} target="_blank">
+              <span>
+                <FontAwesomeIcon icon={faDownload} />
+              </span>
+            </a>
             <span
               onClick={() => {
                 this.setState({ openDetail: true });
@@ -130,19 +162,19 @@ export default class Viewer extends React.Component {
           <table>
             <tr>
               <th>Create at:</th>
-              <td>12/11/2019 8:23</td>
+              <td>{this.state.detailData.updated_at}</td>
             </tr>
             <tr>
               <th>Size:</th>
-              <td>{bytes(123443, { decimalPlaces: 0 })}</td>
+              <td>{bytes(this.state.detailData.size, { decimalPlaces: 0 })}</td>
             </tr>
             <tr>
               <th>File type:</th>
-              <td>document/PDF</td>
+              <td>{this.state.detailData.file_type}</td>
             </tr>
             <tr>
               <th>Location:</th>
-              <td>Drive/Shared with me</td>
+              <td>Drive/</td>
             </tr>
             <tr>
               <th>Owner:</th>

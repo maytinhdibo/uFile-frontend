@@ -93,7 +93,7 @@ class Main extends React.Component {
         type: '',
         data: [],
       },
-      uploadProcess: 0.3,
+      uploadProcess: -1,
       isGrid: false,
       navOpen: false,
       notiOpen: false,
@@ -130,6 +130,10 @@ class Main extends React.Component {
   }
 
   loadFolder = async () => {
+    this.setState({
+      selectedEntry: [],
+    });
+
     var folderData = [];
 
     if (this.isPhotoFolder() || this.isFavFolder() || this.isTrashFolder() || this.isSharedFolder()) {

@@ -16,6 +16,9 @@
     color: #fff;
     // background: rgba(255, 255, 255, 0.8);
     .tools {
+      a {
+        color: rgb(255, 255, 255) !important;
+      }
       span {
         height: 30px;
         width: 30px;
@@ -87,8 +90,8 @@
       align-items: baseline;
     }
     .item {
-      &:first-of-type{
-        margin-top:1em;
+      &:first-of-type {
+        margin-top: 1em;
         border-top: 1px solid #ececec;
       }
       display: flex;
