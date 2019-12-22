@@ -10,6 +10,11 @@ const r_star = param => requestServices.customAxios.post('/files/remove_star', p
 const putback = param => requestServices.customAxios.post('/files/restore', param).then(res => res.data);
 const moveToTrash = param => requestServices.customAxios.post('/files/temp_del', param).then(res => res.data);
 
+const move = param => requestServices.customAxios.post('/files/move', param).then(res => res.data);
+const copy = param => requestServices.customAxios.post('/files/copy', param).then(res => res.data);
+
+const share = param => requestServices.customAxios.post('/files/share', param).then(res => res.data);
+
 const upload = (data, config) => requestServices.statusAxios.put('/upload', data, {
 
   headers: {
@@ -30,5 +35,8 @@ export default {
   r_star,
   moveToTrash,
   putback,
-  preview
+  preview,
+  move, 
+  copy,
+  share
 };

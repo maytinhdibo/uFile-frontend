@@ -23,16 +23,29 @@ class ContextMenu extends React.Component {
     await fileServices.moveToTrash({
       file_ids: list,
     });
-    this.props.reloadFolder();
+    setTimeout(() => {
+      this.props.reloadFolder();
+    }, 1000);
+  };
 
+  putBack = async () => {
+    const list = this.props.selectedEntry.map(item => {
+      return item.id;
+    });
+    await fileServices.putback({
+      file_ids: list,
+    });
+    setTimeout(() => {
+      this.props.reloadFolder();
+    }, 1000);
   };
 
   starAction = async () => {
-    if(!this.props.selectedEntry[0].stared){
+    if (!this.props.selectedEntry[0].stared) {
       await fileServices.star({
         file_id: this.props.selectedEntry[0].id,
       });
-    }else{
+    } else {
       await fileServices.r_star({
         file_id: this.props.selectedEntry[0].id,
       });
@@ -61,7 +74,9 @@ class ContextMenu extends React.Component {
             <div>
               {this.isTrash() ? (
                 <div>
-                  <div className="item">Put back</div>
+                  <div onClick={this.putBack} className="item">
+                    Put back
+                  </div>
                   <div className="item">Get info</div>
                 </div>
               ) : (
@@ -73,7 +88,7 @@ class ContextMenu extends React.Component {
                         Rename
                       </div>
                       <div onClick={this.starAction} className="item">
-                        {this.props.selectedEntry[0].stared?"Remove from":"Add to"} favorites
+                        {this.props.selectedEntry[0].stared ? 'Remove from' : 'Add to'} favorites
                       </div>
                     </div>
                   ) : null}

@@ -21,29 +21,29 @@ export default class Viewer extends React.Component {
       fileId: '',
       fileName: '',
       fileStream: 'https://analyticsindiamag.com/wp-content/uploads/2019/07/image_rec_lib_banner.jpg',
-      detailData:{
-        updated_at:"",
-        file_title:"",
-        file_type:"",
-        size:0
-      }
+      detailData: {
+        updated_at: '',
+        file_title: '',
+        file_type: '',
+        size: 0,
+      },
     };
   }
   componentDidMount() {
     var id;
-    if(this.props.modal){
-      id=this.props.file.id
+    if (this.props.modal) {
+      id = this.props.file.id;
       this.setState({
         fileId: id,
         fileStream: BASE_API_URL + 'preview/' + this.props.file.id,
-        dataZip:[]
+        dataZip: [],
       });
-    }else{
-      id=this.props.match.params.id
+    } else {
+      id = this.props.match.params.id;
       this.setState({
         fileId: id,
         fileStream: BASE_API_URL + 'preview/' + this.props.match.params.id,
-        dataZip:[]
+        dataZip: [],
       });
     }
     fileServices.searchDetails({ file_id: id }).then(data => {
@@ -57,7 +57,7 @@ export default class Viewer extends React.Component {
     });
   }
   viewerRender = () => {
-    const name = this.props.file?this.props.file.name:this.state.fileName;
+    const name = this.props.file ? this.props.file.name : this.state.fileName;
 
     const ext = name.split('.')[name.split('.').length - 1];
 
@@ -72,12 +72,11 @@ export default class Viewer extends React.Component {
     } else if (ext == 'pdf') {
       return <iframe className="viewer" src={this.state.fileStream}></iframe>;
     } else if (ext == 'zip') {
-      fileServices.preview("1-3070DAEE59E84ACB9CE9B36701F4B96E").then(data => {
-         console.log(data.files);
-         this.setState({dataZip:data.files})
+      fileServices.preview(this.state.fileId).then(data => {
+        console.log(data.files);
+        this.setState({ dataZip: data.files });
       });
       return <Zip data={this.state.dataZip} />;
-
     }
   };
   render() {
@@ -161,8 +160,8 @@ export default class Viewer extends React.Component {
           </header>
           <table>
             <tr>
-              <th>Create at:</th>
-              <td>{this.state.detailData.updated_at}</td>
+              <th>Update at:</th>
+              <td>{this.state.detailData && this.state.detailData.updated_at}</td>
             </tr>
             <tr>
               <th>Size:</th>

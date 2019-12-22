@@ -126,12 +126,14 @@ class Main extends React.Component {
       sortByDate: 0,
       entryData: files,
       editableEntry: true,
+      isStar: true,
     };
   }
 
   loadFolder = async () => {
     this.setState({
       selectedEntry: [],
+      entryData: [],
     });
 
     var folderData = [];
@@ -386,17 +388,20 @@ class Main extends React.Component {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
-      onUploadProgress: progressEvent => console.log(progressEvent.loaded),
+      onUploadProgress: progressEvent => {
+        this.setState({ uploadProcess: progressEvent.loaded });
+      },
     };
 
     console.log(evt.target.files[0]);
 
     const formData = new FormData();
-    formData.set('parent_id', '3456rty');
+    formData.set('parent_id', '1-C718F1803C2949348AE92A3DF16F0841');
     formData.append('in_file', evt.target.files[0]);
 
     fileServices.upload(formData, config).then(data => {
       console.log(data);
+      this.setState({ uploadProcess: -1 });
     });
   };
 
@@ -415,9 +420,34 @@ class Main extends React.Component {
     }
   };
 
+  folderParse = () => {
+    return this.props.match.params.path == 'home' ? localStorage.user_id : this.props.match.params.path;
+  };
+
   onPaste = () => {
-    console.log(this.state.clipboard);
-    alertText('Pasted');
+    const data = this.state.clipboard.data.map(item => {
+      return item.id;
+    });
+    if ((this.state.clipboard.type = 'CUT')) {
+      fileServices
+        .move({
+          file_ids: data,
+          new_parent: this.folderParse(),
+        })
+        .then(() => {
+          this.loadFolder();
+        });
+    } else {
+      fileServices
+        .copy({
+          file_ids: data,
+          new_parent: this.folderParse(),
+        })
+        .then(() => {
+          this.loadFolder();
+        });
+    }
+
     this.setState({
       clipboard: {
         type: 'NONE',
@@ -483,7 +513,11 @@ class Main extends React.Component {
           visible={this.state.newFolderPopup}
         />
 
-        <SharePopup onClose={() => this.setState({ sharePopup: false })} visible={this.state.sharePopup} />
+        <SharePopup
+          selectedEntry={this.state.selectedEntry.length >= 1 ? this.state.selectedEntry[0] : null}
+          onClose={() => this.setState({ sharePopup: false })}
+          visible={this.state.sharePopup}
+        />
 
         <ContextMenu
           isTrash={this.isTrashFolder()}
@@ -655,7 +689,12 @@ class Main extends React.Component {
 
               {!this.isTrashFolder() && !this.isPhotoFolder() && !this.isSharedFolder() && !this.isFavFolder() ? (
                 <span>
-                  <span className="me-mini-btn me-hidden-mobile">
+                  <span
+                    style={{
+                      color: this.state.isStar ? '#fcba03' : 'auto',
+                    }}
+                    className="me-mini-btn me-hidden-mobile"
+                  >
                     <FontAwesomeIcon icon={faStar} />
                   </span>
 

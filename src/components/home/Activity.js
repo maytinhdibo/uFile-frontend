@@ -115,7 +115,7 @@ export default class Activity extends React.Component {
               </tr>
               <tr>
                 <th>Keyword:</th>
-                <td>{this.state.detailData.file_tag.join(", ")}</td>
+                <td>{this.state.detailData.file_tag && this.state.detailData.file_tag.join(", ")}</td>
               </tr>
             </table>
           </div>

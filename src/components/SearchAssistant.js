@@ -12,7 +12,7 @@ class SearchAssistant extends React.Component {
     super(props);
     this.state = {
       inputValue: '',
-      results:[]
+      results: [],
     };
   }
   componentDidUpdate() {
@@ -20,7 +20,11 @@ class SearchAssistant extends React.Component {
   }
 
   onOpen = item => {
-    this.props.onOpen(item);
+    this.props.onOpen({
+      id: item.file_id,
+      name: item.file_title,
+      isFolder: item.file_type == 'folder',
+    });
     this.props.close();
   };
 
@@ -34,7 +38,7 @@ class SearchAssistant extends React.Component {
       })
       .then(data => {
         console.log(data);
-        this.setState({results:data.result.files});
+        this.setState({ results: data.result.files });
       });
   };
 
@@ -101,7 +105,10 @@ class SearchAssistant extends React.Component {
                 return (
                   <div onClick={() => this.onOpen(item)} class="file-item">
                     <div class="name">
-                      <span class="entry-icon" style={this.renderIcon(item.file_title, item.file_type=="folder", item.thumbnail)}></span>
+                      <span
+                        class="entry-icon"
+                        style={this.renderIcon(item.file_title, item.file_type == 'folder', item.thumbnail)}
+                      ></span>
                       <span class="entry-name">{item.file_title}</span>
                     </div>
                   </div>

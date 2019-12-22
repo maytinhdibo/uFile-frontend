@@ -14,6 +14,8 @@ const fetchUserStatus = () => requestServices.statusAxios.get(API_FETCH_USER).th
 
 const submitLogoutRequest = () => requestServices.customAxios.post(API_LOGOUT).then((res) => res.data);
 
+const findByIds = (param) => requestServices.customAxios.post("/users/info", param).then((res) => res.data);
+
 const submitForgotPasswordRequest = (param) =>
   requestServices.customAxios.post(API_FORGOT_PASSWORD, param).then((res) => res.data);
 
@@ -24,4 +26,5 @@ export default {
   fetchUserStatus,
   submitLogoutRequest,
   submitForgotPasswordRequest,
+  findByIds
 };
