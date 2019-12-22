@@ -15,18 +15,7 @@ const copy = param => requestServices.customAxios.post('/files/copy', param).the
 
 const share = param => requestServices.customAxios.post('/files/share', param).then(res => res.data);
 
-const upload = (data, config) => requestServices.statusAxios.put('/upload', data, {
-
-  headers: {
-    'crossDomain': 'true',
-    'Content-Type': 'multipart/form-data',
-  },
-
-  // onUploadProgress (progressEvent) {
-  //   console.log({ progressEvent });
-  // }
-
-}).then(res => res.data);
+const upload = (data, config) => requestServices.statusAxios.put('/upload/', data, config).then(res => res.data);
 
 export default {
   searchDetails,

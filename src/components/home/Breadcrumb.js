@@ -18,17 +18,17 @@ export default class Breadcrumb extends React.Component {
     return (
       <div className="path-breadcrumb block">
         <Link to="/drive/home">My drive</Link>
-        {data.map(item => {
+        {this.props.parse_path.map(item => {
           return (
             <Link className="item" to={"/drive/"+item.id}>
               <span className="icon">
                 <FontAwesomeIcon icon={faChevronRight} />
               </span>
-              {item.name}
+              {item.title}
             </Link>
           );
         })}
-        [id: {this.props.path}]
+        {/* [id: {this.props.path}] */}
       </div>
     );
   }

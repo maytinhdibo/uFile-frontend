@@ -85,14 +85,21 @@ export default class SharePopup extends React.Component {
 
     let data = {
       file_id: this.props.selectedEntry.id,
-      share_by_link: this.state.share_mode == 2,
-      private: this.state.share_mode == 0 || this.state.usersShare.length == 0,
     };
+
+    if (this.state.share_mode == 2) {
+      data.share_by_link = true;
+    }
+    if (this.state.share_mode == 0 || (this.state.usersShare.length == 0 && this.state.share_mode == 1)) {
+      data.private = true;
+    }
+
     if (this.state.usersShare.length > 0 && this.state.share_mode == 1) {
       data.emails = this.state.usersShare.map(item => {
         return item.email;
       });
     }
+
     fileServices.share(data);
   };
 
@@ -102,7 +109,6 @@ export default class SharePopup extends React.Component {
       console.log(this.state.share_mode);
       this.share();
     });
-
   };
 
   addShareUser = item => {

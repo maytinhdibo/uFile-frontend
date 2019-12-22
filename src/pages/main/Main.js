@@ -127,6 +127,7 @@ class Main extends React.Component {
       entryData: files,
       editableEntry: true,
       isStar: true,
+      parse_path: [],
     };
   }
 
@@ -158,6 +159,7 @@ class Main extends React.Component {
         })
         .then(data => {
           folderData = data.children_details;
+          this.setState({ parse_path: data.parse_urls });
         });
     }
 
@@ -389,19 +391,20 @@ class Main extends React.Component {
         'Content-Type': 'multipart/form-data',
       },
       onUploadProgress: progressEvent => {
-        this.setState({ uploadProcess: progressEvent.loaded });
+        console.log(progressEvent.loaded);
+        this.setState({ uploadProcess: progressEvent.loaded / progressEvent.total });
       },
     };
 
     console.log(evt.target.files[0]);
 
     const formData = new FormData();
-    formData.set('parent_id', '1-C718F1803C2949348AE92A3DF16F0841');
+    formData.set('parent_id', this.folderParse());
     formData.append('in_file', evt.target.files[0]);
 
     fileServices.upload(formData, config).then(data => {
-      console.log(data);
       this.setState({ uploadProcess: -1 });
+      this.loadFolder();
     });
   };
 
@@ -561,11 +564,12 @@ class Main extends React.Component {
             <button type="button">
               <span className="status">
                 {this.state.uploadProcess >= 0
-                  ? 'Uploading ' + this.state.uploadProcess * 100 + '%...'
+                  ?this.state.uploadProcess==1?"Processing...":'Uploading ' + Math.round(this.state.uploadProcess* 100)  + '%...'
                   : 'Upload new file'}
               </span>
               <span
                 style={{
+                  display: this.state.uploadProcess == -1 ? 'none' : 'block',
                   width: this.state.uploadProcess * 100 + '%',
                 }}
                 className="overlay"
@@ -748,7 +752,21 @@ class Main extends React.Component {
               </div>
             </div>
           </div>
-          <Breadcumb path={this.props.match.params.path} />
+          <Breadcumb parse_path={this.state.parse_path} path={this.props.match.params.path} />
+          {/* [
+              {
+                id: '1',
+                title: 'home',
+              },
+              {
+                id: '1-64540B0D31204201897FEE5EAF1E6219',
+                title: 'jhbkj',
+              },
+              {
+                id: '1D2E638A32F684260B63B195BB7423E7B',
+                title: 'srfd',
+              },
+            ] */}
           {/* <button
             onClick={() =>
               this.setState({
