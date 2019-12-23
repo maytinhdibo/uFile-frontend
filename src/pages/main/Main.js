@@ -733,11 +733,11 @@ class Main extends React.Component {
                 </span>
               ) : null}
 
-              {!this.isPhotoFolder() && !this.isSharedFolder() && !this.isFavFolder() ? (
+              {this.isTrashFolder() ? (
                 <span className="me-h-seperate me-hidden-mobile" />
               ) : null}
 
-              {!this.isTrashFolder() && !this.isPhotoFolder() && !this.isSharedFolder() && !this.isFavFolder() ? (
+              {/* {!this.isTrashFolder() && !this.isPhotoFolder() && !this.isSharedFolder() && !this.isFavFolder() ? (
                 <span>
                   <span
                     style={{
@@ -752,7 +752,7 @@ class Main extends React.Component {
                     <FontAwesomeIcon icon={faShare} />
                   </span>
                 </span>
-              ) : null}
+              ) : null} */}
 
               {this.isTrashFolder() ? (
                 <span className="me-mini-btn">
@@ -781,7 +781,7 @@ class Main extends React.Component {
                 </div>
                 {!this.isTrashFolder() && !this.isPhotoFolder() && !this.isSharedFolder() && !this.isFavFolder() ? (
                   <div>
-                    <div className="item">
+                    {/* <div className="item">
                       <span style={{ marginLeft: '-2px' }} className="icon">
                         <FontAwesomeIcon icon={faStar} />
                       </span>
@@ -792,7 +792,7 @@ class Main extends React.Component {
                         <FontAwesomeIcon icon={faShare} />
                       </span>
                       <span>Share this folder</span>
-                    </div>
+                    </div> */}
                   </div>
                 ) : null}
               </div>

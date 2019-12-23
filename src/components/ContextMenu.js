@@ -88,7 +88,7 @@ class ContextMenu extends React.Component {
                 <div>
                   {this.props.selectedEntry.length == 1 ? (
                     <div>
-                      <div className="item">Open</div>
+                      {/* <div className="item">Open</div> */}
                       <div onClick={this.props.onRename} className="item">
                         Rename
                       </div>
