@@ -287,7 +287,7 @@ class Main extends React.Component {
     userServices
       .fetchUserStatus()
       .then(data => {
-        this.setState({ not: data.notifications });
+        this.setState({ noti: data.notifications });
         if (data.is_admin === true) {
           this.props.history.push('/admin/dashboard');
         } else {
