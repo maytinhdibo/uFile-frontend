@@ -13,7 +13,7 @@ class FileBlock extends React.Component {
   };
 
   dbClickEntry = () => {
-    if(this.props.isTrash) return;
+    if (this.props.isTrash) return;
     if (!('ontouchstart' in window || navigator.msMaxTouchPoints)) {
       this.openEntry();
     }
@@ -85,18 +85,21 @@ class FileBlock extends React.Component {
               <span className="text-line">
                 {/* {data.name} */}
                 <span className="name">
-                  {data.name && data.name.split('.').length==1?data.name:data.name
-                    .split('.')
-                    .slice(0, data.name.split('.').length - 1)
-                    .join('.')
-                  }
-                  {data.name && data.name.split('.').length>1?".":null}
+                  {data.name && data.name.split('.').length == 1
+                    ? data.name
+                    : data.name
+                        .split('.')
+                        .slice(0, data.name.split('.').length - 1)
+                        .join('.')}
+                  {data.name && data.name.split('.').length > 1 ? '.' : null}
                 </span>
-                <span className="ext">{data.name && data.name.split('.').length>1?data.name.split('.').pop():""}</span>
+                <span className="ext">
+                  {data.name && data.name.split('.').length > 1 ? data.name.split('.').pop() : ''}
+                </span>
               </span>
             </span>
           </div>
-          <div className="type">Image</div>
+          <div className="type">{data.type && data.type.split("/")[0]}</div>
           <div className="date">{data.updated_at.split(' ')[0]}</div>
           <div className="size">{bytes(data.size, { decimalPlaces: 0 })}</div>
         </div>

@@ -170,7 +170,7 @@ class Main extends React.Component {
       return {
         id: item.file_id,
         name: item.file_title,
-        type: item.file_title,
+        type: item.file_type,
         size: item.size,
         stared: item.star,
         isFolder: item.file_type == 'folder',

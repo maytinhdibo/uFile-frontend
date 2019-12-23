@@ -662,6 +662,9 @@ a {
             height: 100%;
             border-radius: 9px;
             overflow-y: auto;
+            *{
+              overflow-wrap: break-word;
+            }
           }
           .detail {
             padding: 16px 9px;
@@ -689,6 +692,7 @@ a {
             .file-fulldetail {
               margin-top: 32px;
               table {
+                max-width: 100%;
                 width: 100%;
                 margin: auto;
                 th,
@@ -696,6 +700,7 @@ a {
                   text-align: left;
                   padding: 6px;
                   min-width: 75px;
+                  
                 }
               }
             }
@@ -809,13 +814,16 @@ a {
             align-items: center;
 
             .type {
-              flex-basis: 120px;
+              min-width: 120px;
+              max-width: 120px;
+              overflow: hidden;
+              padding-left: 6px;
             }
             .date {
-              flex-basis: 75px;
+              min-width: 75px;
             }
             .size {
-              flex-basis: 70px;
+              min-width: 70px;
               text-align: right;
             }
 

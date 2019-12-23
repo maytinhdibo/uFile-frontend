@@ -53,8 +53,16 @@ export default class Viewer extends React.Component {
       this.setState({
         fileName: data.result.files[0].file_title,
       });
-      console.log(this.state.detailData);
+      
+      if(this.state.fileName.indexOf(".zip")!=-1){
+        fileServices.preview(this.state.fileId).then(data => {
+          // console.log(data.files);
+          this.setState({ dataZip: data.files });
+        });
+      }
     });
+
+    
   }
   viewerRender = () => {
     const name = this.props.file ? this.props.file.name : this.state.fileName;
@@ -72,10 +80,6 @@ export default class Viewer extends React.Component {
     } else if (ext == 'pdf') {
       return <iframe className="viewer" src={this.state.fileStream}></iframe>;
     } else if (ext == 'zip') {
-      fileServices.preview(this.state.fileId).then(data => {
-        console.log(data.files);
-        this.setState({ dataZip: data.files });
-      });
       return <Zip data={this.state.dataZip} />;
     }
   };
