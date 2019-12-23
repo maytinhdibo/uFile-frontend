@@ -117,6 +117,14 @@ export default class Dashboard extends React.Component {
               </tr>
             </table>
             <button
+            style={{
+                padding:"9px",
+                background:"#ccc",
+                color:"#eee",
+                fontWeight:"700",
+                borderRadius:"5px",
+                backgroundColor: this.state.selectedUser.is_active?"#f55":"#22a3ff"
+            }}
               onClick={() => {
                 this.switchBlockStatus(this.state.selectedUser, this.state.selectedUser.email);
               }}
