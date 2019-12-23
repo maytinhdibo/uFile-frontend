@@ -563,12 +563,12 @@ a {
           height: 70px;
           margin: auto;
         }
-        .nothing{
-          display:block;
-          text-align:center;
-          img{
-            display:block;
-            margin:1em auto;
+        .nothing {
+          display: block;
+          text-align: center;
+          img {
+            display: block;
+            margin: 1em auto;
           }
         }
         .recent {
@@ -605,6 +605,9 @@ a {
                 padding: 6px 9px;
                 color: #fff;
                 transition: 0.25s;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
                 .size {
                   font-weight: 700;
                 }
@@ -670,7 +673,7 @@ a {
             height: 100%;
             border-radius: 9px;
             overflow-y: auto;
-            *{
+            * {
               overflow-wrap: break-word;
             }
           }
@@ -708,7 +711,6 @@ a {
                   text-align: left;
                   padding: 6px;
                   min-width: 75px;
-                  
                 }
               }
             }
