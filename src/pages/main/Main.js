@@ -51,6 +51,7 @@ import fileServices from '../../services/files';
 import { canView } from '../../helpers/fileViewer';
 import Loader from 'components/Loader';
 import bytes from 'bytes';
+import { BASE_API_URL } from 'services/requests';
 
 const files = [
   {
@@ -222,7 +223,7 @@ class Main extends React.Component {
         stared: item.star,
         isFolder: item.file_type == 'folder',
         updated_at: item.updated_at,
-        thumbnail: item.thumbnail_url ? 'http://112.137.129.216:5000/api/download/thumbnail/' + item.file_id : false,
+        thumbnail: item.thumbnail_url ? BASE_API_URL + 'download/thumbnail/' + item.file_id : false,
       };
     });
 
@@ -323,7 +324,7 @@ class Main extends React.Component {
               isFolder: item.file_type == 'folder',
               updated_at: item.updated_at,
               thumbnail: item.thumbnail_url
-                ? 'http://112.137.129.216:5000/api/download/thumbnail/' + item.file_id
+                ? BASE_API_URL + 'download/thumbnail/' + item.file_id
                 : false,
             };
           }),

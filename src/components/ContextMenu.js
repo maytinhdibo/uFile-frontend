@@ -5,6 +5,7 @@ import '../styles/loader.scss';
 import { alertText } from './common/Alert';
 
 import fileServices from './../services/files';
+import { BASE_API_URL } from 'services/requests';
 
 class ContextMenu extends React.Component {
   isTrash = () => {
@@ -14,7 +15,7 @@ class ContextMenu extends React.Component {
     return this.props.isFolder && (this.props.isPhoto || this.props.isFav || this.props.isShared);
   }
   download = () => {
-    window.open('/download/' + this.props.selectedEntry[0].id);
+    window.open(BASE_API_URL + 'download/' + this.props.selectedEntry[0].id);
   };
   moveToTrash = async () => {
     const list = this.props.selectedEntry.map(item => {
