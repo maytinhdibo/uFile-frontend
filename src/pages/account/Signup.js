@@ -7,6 +7,8 @@ import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import userServices from '../../services/users';
 import { alertText } from 'components/common/Alert';
 
+import { usernameValidator, fullnameValidator, emailValidator, passwordValidator } from './../../helpers/validator';
+
 class Signup extends React.Component {
   constructor(props) {
     super(props);
@@ -25,6 +27,22 @@ class Signup extends React.Component {
       alertText('Please type same two password!');
       return;
     }
+    if (usernameValidator(username)) {
+      alertText('Please enter username minimum 8 character');
+      return;
+    }
+    if (emailValidator(email)) {
+      alertText('Please enter a correct email');
+      return;
+    }
+    if (fullname(fullname)) {
+      alertText('Please enter a correct name');
+      return;
+    }
+    if (password(password)) {
+      alertText('Please enter a password minimum 8 character and invalid character');
+      return;
+    }
     userServices
       .submitRegister({
         email,
@@ -33,11 +51,11 @@ class Signup extends React.Component {
         password,
       })
       .then(data => {
-        alertText("Please check email to confirm your account!");
+        alertText('Please check email to confirm your account!');
         this.props.setLoading(false);
-        this.props.history.push("/");
+        this.props.history.push('/');
       })
-      .catch(()=>{
+      .catch(() => {
         this.props.setLoading(false);
       });
   };

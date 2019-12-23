@@ -16,6 +16,8 @@ const submitLogoutRequest = () => requestServices.customAxios.post(API_LOGOUT).t
 
 const findByIds = (param) => requestServices.customAxios.post("/users/info", param).then((res) => res.data);
 
+const changePass = (param) => requestServices.customAxios.post("/profile/change_password", param).then((res) => res.data);
+
 const submitForgotPasswordRequest = (param) =>
   requestServices.customAxios.post(API_FORGOT_PASSWORD, param).then((res) => res.data);
 
@@ -26,5 +28,6 @@ export default {
   fetchUserStatus,
   submitLogoutRequest,
   submitForgotPasswordRequest,
-  findByIds
+  findByIds,
+  changePass
 };
