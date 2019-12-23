@@ -67,7 +67,7 @@ export default class Viewer extends React.Component {
       return <Media src={this.state.fileStream} type="audio" />;
     } else if (['docx', 'doc', 'ppt', 'pptx', 'xls', 'xlsx'].indexOf(ext) != -1) {
       return <iframe className="viewer" src={this.state.fileStream}></iframe>;
-    } else if (['png', 'jpg', 'svg'].indexOf(ext) != -1) {
+    } else if (['png', 'jpg', 'svg', 'jpeg'].indexOf(ext) != -1) {
       return <img className="viewer" src={this.state.fileStream} />;
     } else if (ext == 'pdf') {
       return <iframe className="viewer" src={this.state.fileStream}></iframe>;

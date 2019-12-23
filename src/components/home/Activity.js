@@ -9,6 +9,7 @@ import NotiItem from '../activity/NotiItem';
 
 import filesServices from '../../services/files';
 import moment from 'moment';
+import { iconParse } from 'helpers/iconParse';
 
 export default class Activity extends React.Component {
   constructor(props) {
@@ -21,11 +22,24 @@ export default class Activity extends React.Component {
         file_tag: [],
         size: 0,
         updated_at: '',
+        owner:{
+          id:"",
+          fullname:""
+        }
       },
     };
   }
   componentDidMount() {
     this.props.openDetailTab(this.openDetailTab);
+  }
+  componentDidUpdate(prevProps, prevState){
+    if(prevState.detailTab!=this.state.detailTab && this.props.folder){
+      filesServices.searchDetails({ file_id: this.props.folder}).then(data => {
+        this.setState({
+          detailData: data.result.files[0],
+        });
+      });
+    }
   }
   openDetailTab = () => {
     this.setState({ detailTab: true });
@@ -85,8 +99,10 @@ export default class Activity extends React.Component {
           className="detail tab"
         >
           <div className="file-info">
-            <div className="preview"></div>
-        <span className="file-name">{this.state.file_title}</span>
+            <div style={{
+              backgroundImage: "url("+iconParse(this.state.detailData.file_title)+")"
+            }} className="preview"></div>
+        <span className="file-name">{this.state.detailData.file_title}</span>
           </div>
           <div className="file-fulldetail">
             <table>
@@ -105,13 +121,13 @@ export default class Activity extends React.Component {
                 <th>File type:</th>
                 <td>{this.state.detailData.file_type}</td>
               </tr>
-              <tr>
+              {/* <tr>
                 <th>Location:</th>
                 <td>Drive/Shared with me</td>
-              </tr>
+              </tr> */}
               <tr>
                 <th>Owner:</th>
-                <td>Hoang Bao Long</td>
+                <td>{this.state.detailData.owner.fullname}</td>
               </tr>
               <tr>
                 <th>Keyword:</th>

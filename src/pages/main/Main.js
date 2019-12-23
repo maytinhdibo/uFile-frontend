@@ -48,6 +48,7 @@ import folderServices from '../../services/folders';
 import fileServices from '../../services/files';
 
 import { canView } from '../../helpers/fileViewer';
+import Loader from 'components/Loader';
 
 const files = [
   {
@@ -128,6 +129,7 @@ class Main extends React.Component {
       editableEntry: true,
       isStar: true,
       parse_path: [],
+      loading: false,
     };
   }
 
@@ -135,6 +137,7 @@ class Main extends React.Component {
     this.setState({
       selectedEntry: [],
       entryData: [],
+      loading: true,
     });
 
     var folderData = [];
@@ -151,7 +154,7 @@ class Main extends React.Component {
           console.log(data);
           folderData = data.result.files;
         });
-      this.setState({ editableEntry: false });
+      this.setState({ editableEntry: false, loading: false });
     } else {
       await folderServices
         .getDetails({
@@ -176,7 +179,7 @@ class Main extends React.Component {
       };
     });
 
-    this.setState({ entryData: folderData });
+    this.setState({ entryData: folderData, loading: false });
 
     // await folderServices.getDetails({ folder_id: '3' }).then(data => {
     //   console.log(data);
@@ -424,6 +427,7 @@ class Main extends React.Component {
   };
 
   folderParse = () => {
+    if (this.isFavFolder() || this.isPhotoFolder() || this.isTrashFolder() || this.isSharedFolder()) return null;
     return this.props.match.params.path == 'home' ? localStorage.user_id : this.props.match.params.path;
   };
 
@@ -564,7 +568,9 @@ class Main extends React.Component {
             <button type="button">
               <span className="status">
                 {this.state.uploadProcess >= 0
-                  ?this.state.uploadProcess==1?"Processing...":'Uploading ' + Math.round(this.state.uploadProcess* 100)  + '%...'
+                  ? this.state.uploadProcess == 1
+                    ? 'Processing...'
+                    : 'Uploading ' + Math.round(this.state.uploadProcess * 100) + '%...'
                   : 'Upload new file'}
               </span>
               <span
@@ -843,6 +849,7 @@ AHihi
                     />
                   );
                 })}
+                {this.state.loading ? <img className="gif-loading" src="/img/loading.gif" /> : null}
               </div>
               {/* </div> */}
 
@@ -851,7 +858,7 @@ AHihi
                 notiOpen={this.state.notiOpen}
                 closeNoti={this.closeNoti}
                 selectedEntry={this.state.selectedEntry}
-                folder={23233}
+                folder={this.folderParse()}
               />
             </div>
           </div>

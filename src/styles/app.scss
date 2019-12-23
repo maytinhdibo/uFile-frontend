@@ -558,7 +558,11 @@ a {
       .explore {
         position: relative;
         height: 100%;
-
+        .gif-loading {
+          display: block;
+          height: 70px;
+          margin: auto;
+        }
         .recent {
           padding: 6px;
           .flex-row {

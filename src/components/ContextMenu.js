@@ -66,7 +66,12 @@ class ContextMenu extends React.Component {
         <div
           className="me-context-menu"
           style={{
-            top: position.y,
+            top: position.y / window.innerHeight < 0.5 ? position.y : 'auto',
+            bottom:
+              position.y / window.innerHeight >= 0.5
+                ? 'calc(' + window.innerHeight + 'px - ' + position.y + 'px)'
+                : 'auto',
+
             left: position.x,
           }}
         >
