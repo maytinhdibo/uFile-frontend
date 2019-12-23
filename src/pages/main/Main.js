@@ -135,6 +135,7 @@ class Main extends React.Component {
       pageFolder: 1,
       loadEnd: false,
       rootSize: 0,
+      isDraging:false
     };
   }
 
@@ -174,6 +175,7 @@ class Main extends React.Component {
           only_photo: this.isPhotoFolder(),
           star: this.isFavFolder(),
           trash: this.isTrashFolder(),
+          share:this.isSharedFolder(),
           basic_info: false,
           _limit: 12,
           _page: this.state.pageFolder,
@@ -475,6 +477,14 @@ class Main extends React.Component {
     return this.props.match.params.path == 'home' ? localStorage.user_id : this.props.match.params.path;
   };
 
+  clearTrash=()=>{
+    fileServices
+    .clearTrash()
+    .then(() => {
+      setTimeout(()=>this.loadFolder(),500)
+    });
+  }
+
   onPaste = () => {
     const data = this.state.clipboard.data.map(item => {
       return item.id;
@@ -763,7 +773,7 @@ class Main extends React.Component {
               ) : null} */}
 
               {this.isTrashFolder() ? (
-                <span className="me-mini-btn">
+                <span onClick={this.clearTrash} className="me-mini-btn">
                   <FontAwesomeIcon icon={faTrash} />
                 </span>
               ) : null}
@@ -831,7 +841,13 @@ AHihi
 
           </button> */}
 
-          <div className="filebrowser">
+          <div 
+          // onDragStart={()=>this.setState({isDraging:true})}
+          // onDragOverCapture={()=>this.setState({isDraging:false})}
+          style={{
+            backgroundColor:this.state.isDraging?"#543":"auto"
+          }}
+          className="filebrowser">
             <div className="explore">
               <div
                 onScroll={evt => this.scrollMore(evt)}
