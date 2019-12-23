@@ -21,9 +21,23 @@ export default class Dashboard extends React.Component {
         };
     }
 
+    switchBlockStatus = () => {
+        if (this.state.selectedUser.is_active) {
+            adminServices.unBlockUser(this.state.selectedUser.email).then(data => {
+                console.log(data);
+            });
+        } else {
+            adminServices.blockUser(this.state.selectedUser.email).then(data => {
+                console.log(data);
+            })
+        }
+
+    };
+
     componentDidMount() {
         this.searchUser('', 1, 10);
     }
+
     searchUser = () => {
         adminServices.searchUser(this.state.q, this.state.page, this.state.ipp).then(data => {
             this.setState({users: data.data.users})
@@ -38,6 +52,7 @@ export default class Dashboard extends React.Component {
     handleChange = e => {
         this.setState({q: e.target.value})
     };
+
     render() {
         return (
             <div id="adm-page">
@@ -121,10 +136,20 @@ export default class Dashboard extends React.Component {
                                 <td className="center">{user.updated_at}</td>
                                 <td>
                   <span className="icon">
-                    <FontAwesomeIcon icon={user.is_active ? faUnlock : faLock}/>
+                    <FontAwesomeIcon
+                        icon={user.is_active ? faUnlock : faLock}
+                        onClick={
+                            () => {
+                                user.is_active = !user.is_active;
+                                this.setState({selectedUser: user, users: this.state.users});
+                                this.switchBlockStatus();
+                            }
+                        }
+                    />
                   </span>
                                     <span className="icon">
-                    <FontAwesomeIcon onClick={() => this.setState({infoModal: true, selectedUser: user})} icon={faInfoCircle} />
+                    <FontAwesomeIcon onClick={() => this.setState({infoModal: true, selectedUser: user})}
+                                     icon={faInfoCircle}/>
                   </span>
                                 </td>
                             </tr>
