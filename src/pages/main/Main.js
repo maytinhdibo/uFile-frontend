@@ -679,7 +679,7 @@ class Main extends React.Component {
               </li>
             </NavLink>
 
-            <button onClick={this.loadFolder}>reload</button>
+            {/* <button onClick={this.loadFolder}>reload</button> */}
           </ul>
 
           <div className="storage">
