@@ -563,6 +563,14 @@ a {
           height: 70px;
           margin: auto;
         }
+        .nothing{
+          display:block;
+          text-align:center;
+          img{
+            display:block;
+            margin:1em auto;
+          }
+        }
         .recent {
           padding: 6px;
           .flex-row {

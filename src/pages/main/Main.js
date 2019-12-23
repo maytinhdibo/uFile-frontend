@@ -31,6 +31,7 @@ import RecentItem from '../../components/RecentItem';
 import FileBlock from '../../components/FileBlock';
 import ContextMenu from '../../components/ContextMenu';
 import Activity from 'components/home/Activity';
+import Nothing from 'components/home/Nothing';
 import Viewer from 'pages/viewer/Viewer';
 
 import { Link, NavLink } from 'react-router-dom';
@@ -127,18 +128,41 @@ class Main extends React.Component {
       sortByDate: 0,
       entryData: files,
       editableEntry: true,
-      isStar: true,
+      isStar: false,
       parse_path: [],
       loading: false,
+      pageFolder: 1,
+      loadEnd: false,
     };
   }
 
-  loadFolder = async () => {
-    this.setState({
-      selectedEntry: [],
-      entryData: [],
-      loading: true,
-    });
+  scrollMore = event => {
+    var node = event.target;
+    const bottom = node.scrollHeight - node.scrollTop === node.clientHeight;
+    if (bottom && !this.state.loading && !this.state.loadEnd) {
+      this.loadFolder(true);
+      console.log('BOTTOM REACHED:', bottom);
+    }
+  };
+
+  loadFolder = async loadMore => {
+    if (loadMore) {
+      let { pageFolder } = this.state;
+      await this.setState({
+        // selectedEntry: [],
+        // entryData: [],
+        loading: true,
+        pageFolder: ++pageFolder,
+      });
+    } else {
+      await this.setState({
+        selectedEntry: [],
+        entryData: [],
+        loading: true,
+        pageFolder: 1,
+        loadEnd: false,
+      });
+    }
 
     var folderData = [];
 
@@ -149,20 +173,26 @@ class Main extends React.Component {
           star: this.isFavFolder(),
           trash: this.isTrashFolder(),
           basic_info: false,
+          _limit: 12,
+          _page: this.state.pageFolder,
         })
         .then(data => {
           console.log(data);
           folderData = data.result.files;
+          if (data.result.files.length < 12) this.setState({ loadEnd: true });
         });
       this.setState({ editableEntry: false, loading: false });
     } else {
       await folderServices
         .getDetails({
           folder_id: this.props.match.params.path == 'home' ? localStorage.user_id : this.props.match.params.path,
+          _limit: 12,
+          _page: this.state.pageFolder,
         })
         .then(data => {
           folderData = data.children_details;
-          this.setState({ parse_path: data.parse_urls, editableEntry: data.editable });
+          this.setState({ parse_path: data.parse_urls, editableEntry: data.editable, isStar: data.star });
+          if (data.children_details.length < 12) this.setState({ loadEnd: true });
         });
     }
 
@@ -178,6 +208,11 @@ class Main extends React.Component {
         thumbnail: item.thumbnail_url ? 'http://112.137.129.216:5000/api/download/thumbnail/' + item.file_id : false,
       };
     });
+
+    if (loadMore) {
+      let moreData = this.state.entryData;
+      folderData = moreData.concat(folderData);
+    }
 
     this.setState({ entryData: folderData, loading: false });
 
@@ -786,6 +821,7 @@ AHihi
           <div className="filebrowser">
             <div className="explore">
               <div
+                onScroll={evt => this.scrollMore(evt)}
                 onContextMenu={evt => this.folderMenu(evt)}
                 className={this.state.isGrid ? 'file-list grid' : 'file-list list'}
               >
@@ -851,6 +887,7 @@ AHihi
                   );
                 })}
                 {this.state.loading ? <img className="gif-loading" src="/img/loading.gif" /> : null}
+                {!this.state.loading && this.state.loadEnd && this.state.entryData && this.state.entryData.length==0?<Nothing/>:null}
               </div>
               {/* </div> */}
 
