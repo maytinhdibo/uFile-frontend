@@ -26,6 +26,10 @@ export default class Viewer extends React.Component {
         file_title: '',
         file_type: '',
         size: 0,
+        owner: {
+          id: '',
+          fullname: '',
+        },
       },
     };
   }
@@ -53,16 +57,14 @@ export default class Viewer extends React.Component {
       this.setState({
         fileName: data.result.files[0].file_title,
       });
-      
-      if(this.state.fileName.indexOf(".zip")!=-1){
+
+      if (this.state.fileName.indexOf('.zip') != -1) {
         fileServices.preview(this.state.fileId).then(data => {
           // console.log(data.files);
           this.setState({ dataZip: data.files });
         });
       }
     });
-
-    
   }
   viewerRender = () => {
     const name = this.props.file ? this.props.file.name : this.state.fileName;
@@ -181,7 +183,7 @@ export default class Viewer extends React.Component {
             </tr>
             <tr>
               <th>Owner:</th>
-              <td>Hoang Bao Long</td>
+              <td>{this.state.detailData && this.state.detailData.owner.fullname}</td>
             </tr>
           </table>
         </div>

@@ -22,19 +22,19 @@ export default class Activity extends React.Component {
         file_tag: [],
         size: 0,
         updated_at: '',
-        owner:{
-          id:"",
-          fullname:""
-        }
+        owner: {
+          id: '',
+          fullname: '',
+        },
       },
     };
   }
   componentDidMount() {
     this.props.openDetailTab(this.openDetailTab);
   }
-  componentDidUpdate(prevProps, prevState){
-    if(prevState.detailTab!=this.state.detailTab && this.props.folder){
-      filesServices.searchDetails({ file_id: this.props.folder}).then(data => {
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.detailTab != this.state.detailTab && this.props.folder) {
+      filesServices.searchDetails({ file_id: this.props.folder }).then(data => {
         this.setState({
           detailData: data.result.files[0],
         });
@@ -50,7 +50,6 @@ export default class Activity extends React.Component {
       console.log(this.state.detailData);
     });
   };
-
 
   render() {
     const notiData = [
@@ -99,18 +98,22 @@ export default class Activity extends React.Component {
           className="detail tab"
         >
           <div className="file-info">
-            <div style={{
-              backgroundImage: "url("+iconParse(this.state.detailData.file_title)+")"
-            }} className="preview"></div>
-        <span className="file-name">{this.state.detailData.file_title}</span>
+            <div
+              style={{
+                backgroundImage:
+                  'url(' +
+                  iconParse(this.state.detailData.file_title, this.state.detailData.file_type == 'folder') +
+                  ')',
+              }}
+              className="preview"
+            ></div>
+            <span className="file-name">{this.state.detailData.file_title}</span>
           </div>
           <div className="file-fulldetail">
             <table>
               <tr>
                 <th>Update at:</th>
-                <td>
-                {this.state.detailData.updated_at}
-                </td>
+                <td>{this.state.detailData.updated_at}</td>
                 {/* <td>{moment(this.state.detailData.updated_at).format('DD/MM/YYYY')}</td> */}
               </tr>
               <tr>
@@ -131,12 +134,12 @@ export default class Activity extends React.Component {
               </tr>
               <tr>
                 <th>Keyword:</th>
-                <td>{this.state.detailData.file_tag && this.state.detailData.file_tag.join(", ")}</td>
+                <td>{this.state.detailData.file_tag && this.state.detailData.file_tag.join(', ')}</td>
               </tr>
             </table>
           </div>
         </div>
-        
+
         <div
           style={{
             display: !this.state.detailTab ? 'block' : 'none',
