@@ -291,7 +291,7 @@ class Main extends React.Component {
         if (data.is_admin === true) {
           this.props.history.push('/admin/dashboard');
         } else {
-          this.props.history.push('/drive/home');
+          // this.props.history.push('/drive/home');
         }
       })
       .catch(() => {
