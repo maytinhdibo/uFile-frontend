@@ -28,22 +28,22 @@ class Signup extends React.Component {
       this.props.setLoading(false);
       return;
     }
-    if (usernameValidator(username)) {
+    if (!usernameValidator(username)) {
       alertText('Please enter username minimum 8 character');
       this.props.setLoading(false);
       return;
     }
-    if (emailValidator(email)) {
+    if (!emailValidator(email)) {
       alertText('Please enter a correct email');
       this.props.setLoading(false);
       return;
     }
-    if (fullname(fullname)) {
+    if (!fullnameValidator(fullname)) {
       alertText('Please enter a correct name');
       this.props.setLoading(false);
       return;
     }
-    if (password(password)) {
+    if (!passwordValidator(password)) {
       alertText('Please enter a password minimum 8 character and invalid character');
       this.props.setLoading(false);
       return;
