@@ -12,11 +12,14 @@ class Login extends React.Component {
   }
   componentWillMount() {
     userServices.fetchUserStatus().then(data => {
-      this.props.history.push('/drive/home');
+      if (data.is_admin === true) {
+          this.props.history.push('/admin/dashboard')
+      } else {
+          this.props.history.push('/drive/home');
+      }
     });
   }
   login = e => {
-    console.log('asdrtft');
     const { username, password } = this.state;
     this.props.setLoading(true);
     setTimeout(() => {
@@ -26,7 +29,15 @@ class Login extends React.Component {
           localStorage.avatar_url = data.avatar_url;
           localStorage.user_id = data.user_id;
           localStorage.fullname = data.fullname;
-          this.props.history.push('/drive/home');
+          localStorage.username = data.username;
+          localStorage.email = data.email;
+          localStorage.created_at = data.created_at;
+          localStorage.updated_at = data.updated_at;
+          if (data.is_admin === true) {
+              this.props.history.push('/admin/dashboard')
+          } else {
+              this.props.history.push('/drive/home');
+          }
         })
         .catch(() => {
           this.props.setLoading(false);
@@ -37,7 +48,6 @@ class Login extends React.Component {
   };
   render() {
     const { state } = this;
-
     return (
       <form>
         <h1>Login</h1>
