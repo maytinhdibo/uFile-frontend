@@ -135,7 +135,8 @@ class Main extends React.Component {
       pageFolder: 1,
       loadEnd: false,
       rootSize: 0,
-      isDraging:false
+      isDraging: false,
+      recentFiles:[]
     };
   }
 
@@ -175,7 +176,7 @@ class Main extends React.Component {
           only_photo: this.isPhotoFolder(),
           star: this.isFavFolder(),
           trash: this.isTrashFolder(),
-          share:this.isSharedFolder(),
+          share: this.isSharedFolder(),
           basic_info: false,
           _limit: 12,
           _page: this.state.pageFolder,
@@ -278,6 +279,31 @@ class Main extends React.Component {
       .then(data => {
         this.setState({ rootSize: data.result.files[0].size });
       });
+
+    fileServices
+      .searchDetails({
+        only_photo: true,
+        _limit: 4,
+      })
+      .then(data => {
+        this.setState({ recentFiles: 
+        
+     data.result.files.map(item => {
+      return {
+        id: item.file_id,
+        name: item.file_title,
+        type: item.file_type,
+        size: item.size,
+        stared: item.star,
+        isFolder: item.file_type == 'folder',
+        updated_at: item.updated_at,
+        thumbnail: item.thumbnail_url ? 'http://112.137.129.216:5000/api/download/thumbnail/' + item.file_id : false,
+      };
+    })
+        })
+     });
+
+
   }
 
   componentDidUpdate(prevProps) {
@@ -477,13 +503,11 @@ class Main extends React.Component {
     return this.props.match.params.path == 'home' ? localStorage.user_id : this.props.match.params.path;
   };
 
-  clearTrash=()=>{
-    fileServices
-    .clearTrash()
-    .then(() => {
-      setTimeout(()=>this.loadFolder(),500)
+  clearTrash = () => {
+    fileServices.clearTrash().then(() => {
+      setTimeout(() => this.loadFolder(), 500);
     });
-  }
+  };
 
   onPaste = () => {
     const data = this.state.clipboard.data.map(item => {
@@ -707,7 +731,7 @@ class Main extends React.Component {
             <p className="info">{bytes(this.state.rootSize, { decimalPlaces: 2 })} of 15GB used</p>
 
             <ProgressBar
-              value={this.state.rootSize/(15*1024*1024*1024)}
+              value={this.state.rootSize / (15 * 1024 * 1024 * 1024)}
               style={{
                 width: '100%',
               }}
@@ -841,13 +865,14 @@ AHihi
 
           </button> */}
 
-          <div 
-          // onDragStart={()=>this.setState({isDraging:true})}
-          // onDragOverCapture={()=>this.setState({isDraging:false})}
-          style={{
-            backgroundColor:this.state.isDraging?"#543":"auto"
-          }}
-          className="filebrowser">
+          <div
+            // onDragStart={()=>this.setState({isDraging:true})}
+            // onDragOverCapture={()=>this.setState({isDraging:false})}
+            style={{
+              backgroundColor: this.state.isDraging ? '#543' : 'auto',
+            }}
+            className="filebrowser"
+          >
             <div className="explore">
               <div
                 onScroll={evt => this.scrollMore(evt)}
@@ -856,10 +881,13 @@ AHihi
               >
                 <div className="recent">
                   <div className="flex-row">
-                    <RecentItem onOpen={this.onOpen} data={recent} />
+                    {/* <RecentItem onOpen={this.onOpen} data={recent} />
                     <RecentItem onOpen={this.onOpen} data={recentFile} />
                     <RecentItem onOpen={this.onOpen} data={recentAudio} />
-                    <RecentItem onOpen={this.onOpen} data={recent} />
+                    <RecentItem onOpen={this.onOpen} data={recent} /> */}
+                    {this.state.recentFiles.map(item => {
+                      return <RecentItem onOpen={() => this.onOpen(item)} data={item} />;
+                    })}
                   </div>
                 </div>
                 {/* <div
