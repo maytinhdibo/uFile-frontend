@@ -1,5 +1,14 @@
 import React from 'react';
 import moment from 'moment';
+import { iconParse } from 'helpers/iconParse';
+// id: 1,
+// viewed: false,
+// owner: 2,
+// file_id: '2AC4AC4E86A0C46F7AA7FAE55409B7FBA',
+// file_title: 'uFile .pptx',
+// file_type: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+// owner_avatar: 'http://bit.ly/defaultAvatar',
+// created_at: 1577120846,
 
 export default class NotiItem extends React.Component {
   render() {
@@ -9,19 +18,20 @@ export default class NotiItem extends React.Component {
         <div
           className="noti-thumb"
           style={{
-            backgroundImage: 'url(https://c.tribune.com.pk/2018/10/1830234-emmadirfani-1540029568.png)',
+            backgroundImage: 'url('+iconParse(data.file_title, data.file_type=="folder")+')',
           }}
         />
         <span>
-          {data.user && data.user.name} <b>{data.action}</b> {data.suffix}
-        <span className="time">{moment(data.time).fromNow()}</span>
+          {/* {data.user && data.user.name} <b>{data.action}</b> {data.suffix} */}
+          {data.owner && data.owner.fullname} shared <b>{data.file_title}</b> with you
+        <span className="time">{moment(data.created_at*1000).fromNow()}</span>
         </span>
-        {data.type == 'CONFIRM' ? (
+        {/* {data.type == 'CONFIRM' ? (
           <div className="noti-action">
             <button className="confirm">Accept</button>
             <button>Decline</button>
           </div>
-        ) : null}
+        ) : null} */}
       </div>
     );
   }

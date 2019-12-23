@@ -33,11 +33,11 @@ export default class Account extends React.Component {
           <table>
             <tr>
               <td>Fullname</td>
-              <td>Cuong Tran</td>
+              <td>{localStorage.fullname}</td>
             </tr>
             <tr>
               <td>Email</td>
-              <td>iammaytinhdibo@gmail.com</td>
+              <td>{localStorage.email}</td>
             </tr>
             <tr>
               <td>Storage package</td>

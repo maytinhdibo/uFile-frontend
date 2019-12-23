@@ -722,7 +722,9 @@ a {
                 background: rgba(0, 0, 0, 0.03);
               }
               .noti-thumb {
-                background-size: cover;
+                background-size: 50% 50%;
+                background-color: #eee;
+                background-repeat: no-repeat;
                 background-position: center;
                 height: 40px;
                 width: 40px;

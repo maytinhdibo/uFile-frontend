@@ -148,7 +148,7 @@ export default class Activity extends React.Component {
           }}
           className="noti tab"
         >
-          {notiData.map(item => {
+          {this.props.notiData.map(item => {
             return <NotiItem data={item} />;
           })}
         </div>

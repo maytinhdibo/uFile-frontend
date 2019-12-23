@@ -77,9 +77,9 @@ class Login extends React.Component {
           Login
         </button>
 
-        <button type="button" className="me-btn invert">
+        {/* <button type="button" className="me-btn invert">
           <a href="/drive/home">Login with Google ID</a>
-        </button>
+        </button> */}
         <p className="signup-text">
           Don&apos;t have an account?&nbsp;
           <Link to="/signup">Signup</Link>

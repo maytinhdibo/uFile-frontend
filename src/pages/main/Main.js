@@ -136,7 +136,19 @@ class Main extends React.Component {
       loadEnd: false,
       rootSize: 0,
       isDraging: false,
-      recentFiles:[]
+      recentFiles: [],
+      noti: [
+        {
+          id: 1,
+          viewed: false,
+          owner: 2,
+          file_id: '2AC4AC4E86A0C46F7AA7FAE55409B7FBA',
+          file_title: 'uFile .pptx',
+          file_type: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+          owner_avatar: 'http://bit.ly/defaultAvatar',
+          created_at: 1577120846,
+        },
+      ],
     };
   }
 
@@ -271,6 +283,20 @@ class Main extends React.Component {
   }
 
   componentDidMount() {
+    userServices
+      .fetchUserStatus()
+      .then(data => {
+        this.setState({ not: data.notifications });
+        if (data.is_admin === true) {
+          this.props.history.push('/admin/dashboard');
+        } else {
+          this.props.history.push('/drive/home');
+        }
+      })
+      .catch(() => {
+        this.props.history.push('/');
+      });
+
     this.loadFolder();
     fileServices
       .searchDetails({
@@ -286,24 +312,23 @@ class Main extends React.Component {
         _limit: 4,
       })
       .then(data => {
-        this.setState({ recentFiles: 
-        
-     data.result.files.map(item => {
-      return {
-        id: item.file_id,
-        name: item.file_title,
-        type: item.file_type,
-        size: item.size,
-        stared: item.star,
-        isFolder: item.file_type == 'folder',
-        updated_at: item.updated_at,
-        thumbnail: item.thumbnail_url ? 'http://112.137.129.216:5000/api/download/thumbnail/' + item.file_id : false,
-      };
-    })
-        })
-     });
-
-
+        this.setState({
+          recentFiles: data.result.files.map(item => {
+            return {
+              id: item.file_id,
+              name: item.file_title,
+              type: item.file_type,
+              size: item.size,
+              stared: item.star,
+              isFolder: item.file_type == 'folder',
+              updated_at: item.updated_at,
+              thumbnail: item.thumbnail_url
+                ? 'http://112.137.129.216:5000/api/download/thumbnail/' + item.file_id
+                : false,
+            };
+          }),
+        });
+      });
   }
 
   componentDidUpdate(prevProps) {
@@ -959,6 +984,7 @@ AHihi
                 closeNoti={this.closeNoti}
                 selectedEntry={this.state.selectedEntry}
                 folder={this.folderParse()}
+                notiData={this.state.noti}
               />
             </div>
           </div>
