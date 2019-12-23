@@ -323,9 +323,7 @@ class Main extends React.Component {
               stared: item.star,
               isFolder: item.file_type == 'folder',
               updated_at: item.updated_at,
-              thumbnail: item.thumbnail_url
-                ? BASE_API_URL + 'download/thumbnail/' + item.file_id
-                : false,
+              thumbnail: item.thumbnail_url ? BASE_API_URL + 'download/thumbnail/' + item.file_id : false,
             };
           }),
         });
