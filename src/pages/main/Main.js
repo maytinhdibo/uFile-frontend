@@ -191,7 +191,7 @@ class Main extends React.Component {
         })
         .then(data => {
           folderData = data.children_details;
-          this.setState({ parse_path: data.parse_urls, editableEntry: data.editable, isStar: data.star });
+          this.setState({ parse_path: data.parse_urls, editableEntry: data.editable, isStar: !!data.star });
           if (data.children_details.length < 12) this.setState({ loadEnd: true });
         });
     }
@@ -547,7 +547,12 @@ class Main extends React.Component {
           <Viewer modal={true} file={this.state.isViewing} closeModal={this.closeViewerModal} />
         ) : null}
 
-        <RenamePopup onClose={() => this.setState({ renamePopup: false })} visible={this.state.renamePopup} />
+        <RenamePopup
+          selectedEntry={this.state.selectedEntry.length >= 1 ? this.state.selectedEntry[0] : null}
+          onClose={() => this.setState({ renamePopup: false })}
+          visible={this.state.renamePopup}
+          reloadFolder={this.loadFolder}
+        />
         <NewFolderPopup
           reloadFolder={this.loadFolder}
           path={this.props.match.params.path}
@@ -887,7 +892,12 @@ AHihi
                   );
                 })}
                 {this.state.loading ? <img className="gif-loading" src="/img/loading.gif" /> : null}
-                {!this.state.loading && this.state.loadEnd && this.state.entryData && this.state.entryData.length==0?<Nothing/>:null}
+                {!this.state.loading &&
+                this.state.loadEnd &&
+                this.state.entryData &&
+                this.state.entryData.length == 0 ? (
+                  <Nothing />
+                ) : null}
               </div>
               {/* </div> */}
 

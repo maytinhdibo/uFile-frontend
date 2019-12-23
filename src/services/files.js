@@ -14,6 +14,8 @@ const move = param => requestServices.customAxios.post('/files/move', param).the
 const copy = param => requestServices.customAxios.post('/files/copy', param).then(res => res.data);
 
 const share = param => requestServices.customAxios.post('/files/share', param).then(res => res.data);
+const rename = param => requestServices.customAxios.post('/files/rename', param).then(res => res.data);
+
 
 const upload = (data, config) => requestServices.statusAxios.put('/upload/', data, config).then(res => res.data);
 
@@ -27,5 +29,6 @@ export default {
   preview,
   move, 
   copy,
-  share
+  share,
+  rename
 };
