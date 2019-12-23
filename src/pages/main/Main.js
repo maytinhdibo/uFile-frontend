@@ -593,6 +593,7 @@ class Main extends React.Component {
           onCut={() => this.onCut()}
           selectedEntry={this.state.selectedEntry}
           reloadFolder={this.loadFolder}
+          clipboard={this.state.clipboard}
         />
 
         <div data-opened={this.state.navOpen} className="sidebar">
