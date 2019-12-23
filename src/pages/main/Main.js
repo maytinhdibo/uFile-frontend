@@ -470,7 +470,7 @@ class Main extends React.Component {
     const data = this.state.clipboard.data.map(item => {
       return item.id;
     });
-    if ((this.state.clipboard.type = 'CUT')) {
+    if ((this.state.clipboard.type == 'CUT')) {
       fileServices
         .move({
           file_ids: data,
