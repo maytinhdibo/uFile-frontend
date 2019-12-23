@@ -85,12 +85,12 @@ class FileBlock extends React.Component {
               <span className="text-line">
                 {/* {data.name} */}
                 <span className="name">
-                  {data.name && data.name.split('.').length == 1
+                  {data.name && (data.name && data.name.split('.').length == 1
                     ? data.name
                     : data.name
                         .split('.')
                         .slice(0, data.name.split('.').length - 1)
-                        .join('.')}
+                        .join('.'))}
                   {data.name && data.name.split('.').length > 1 ? '.' : null}
                 </span>
                 <span className="ext">
