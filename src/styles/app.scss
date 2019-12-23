@@ -719,6 +719,7 @@ a {
             overflow: hidden;
             .noti-item {
               padding: 16px 1em;
+              cursor: pointer;
               transition: 0.25s;
               &:hover {
                 background: rgba(0, 0, 0, 0.03);

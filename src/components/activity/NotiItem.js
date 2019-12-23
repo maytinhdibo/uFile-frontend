@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import { iconParse } from 'helpers/iconParse';
+import { BASE_API_URL } from 'services/requests';
 // id: 1,
 // viewed: false,
 // owner: 2,
@@ -14,17 +15,17 @@ export default class NotiItem extends React.Component {
   render() {
     const { data } = this.props;
     return (
-      <div className="noti-item">
+      <div className="noti-item" onClick={() => window.open('/viewer/' + data.file_id)}>
         <div
           className="noti-thumb"
           style={{
-            backgroundImage: 'url('+iconParse(data.file_title, data.file_type=="folder")+')',
+            backgroundImage: 'url(' + iconParse(data.file_title, data.file_type == 'folder') + ')',
           }}
         />
         <span>
           {/* {data.user && data.user.name} <b>{data.action}</b> {data.suffix} */}
           {data.owner && data.owner.fullname} shared <b>{data.file_title}</b> with you
-        <span className="time">{moment(data.created_at*1000).fromNow()}</span>
+          <span className="time">{moment(data.created_at * 1000).fromNow()}</span>
         </span>
         {/* {data.type == 'CONFIRM' ? (
           <div className="noti-action">
