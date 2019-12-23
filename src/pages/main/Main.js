@@ -50,6 +50,7 @@ import fileServices from '../../services/files';
 
 import { canView } from '../../helpers/fileViewer';
 import Loader from 'components/Loader';
+import bytes from 'bytes';
 
 const files = [
   {
@@ -133,6 +134,7 @@ class Main extends React.Component {
       loading: false,
       pageFolder: 1,
       loadEnd: false,
+      rootSize: 0,
     };
   }
 
@@ -267,6 +269,13 @@ class Main extends React.Component {
 
   componentDidMount() {
     this.loadFolder();
+    fileServices
+      .searchDetails({
+        file_id: localStorage.user_id,
+      })
+      .then(data => {
+        this.setState({ rootSize: data.result.files[0].size });
+      });
   }
 
   componentDidUpdate(prevProps) {
@@ -470,7 +479,7 @@ class Main extends React.Component {
     const data = this.state.clipboard.data.map(item => {
       return item.id;
     });
-    if ((this.state.clipboard.type == 'CUT')) {
+    if (this.state.clipboard.type == 'CUT') {
       fileServices
         .move({
           file_ids: data,
@@ -684,10 +693,10 @@ class Main extends React.Component {
 
           <div className="storage">
             <h3>Storage</h3>
-            <p className="info">5.4GB of 15GB used</p>
+            <p className="info">{bytes(this.state.rootSize, { decimalPlaces: 2 })} of 15GB used</p>
 
             <ProgressBar
-              value={0.4}
+              value={this.state.rootSize/(15*1024*1024*1024)}
               style={{
                 width: '100%',
               }}
@@ -733,9 +742,7 @@ class Main extends React.Component {
                 </span>
               ) : null}
 
-              {this.isTrashFolder() ? (
-                <span className="me-h-seperate me-hidden-mobile" />
-              ) : null}
+              {this.isTrashFolder() ? <span className="me-h-seperate me-hidden-mobile" /> : null}
 
               {/* {!this.isTrashFolder() && !this.isPhotoFolder() && !this.isSharedFolder() && !this.isFavFolder() ? (
                 <span>

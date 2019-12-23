@@ -25,7 +25,7 @@ export default class Zip extends React.Component {
         {data.map((item, key) => {
           return (
             <div key={key} class="item">
-              <span style={this.renderIcon(item.name, item.isFolder)} className="entry-icon" />
+              <span style={this.renderIcon(item.name, item.name.substr(item.name.length - 1)=="/")} className="entry-icon" />
               {item.name}
             </div>
           );
