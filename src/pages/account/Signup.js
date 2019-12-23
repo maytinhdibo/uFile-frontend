@@ -25,22 +25,27 @@ class Signup extends React.Component {
     const { email, username, fullname, password, rePassword } = this.state;
     if (password !== rePassword) {
       alertText('Please type same two password!');
+      this.props.setLoading(false);
       return;
     }
     if (usernameValidator(username)) {
       alertText('Please enter username minimum 8 character');
+      this.props.setLoading(false);
       return;
     }
     if (emailValidator(email)) {
       alertText('Please enter a correct email');
+      this.props.setLoading(false);
       return;
     }
     if (fullname(fullname)) {
       alertText('Please enter a correct name');
+      this.props.setLoading(false);
       return;
     }
     if (password(password)) {
       alertText('Please enter a password minimum 8 character and invalid character');
+      this.props.setLoading(false);
       return;
     }
     userServices

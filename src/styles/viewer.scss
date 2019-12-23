@@ -15,6 +15,10 @@
     padding: 9px 16px;
     color: #fff;
     // background: rgba(255, 255, 255, 0.8);
+    b{
+      max-width: calc( 100% - 90px);
+    overflow: hidden;
+    }
     .tools {
       a {
         color: rgb(255, 255, 255) !important;
@@ -32,6 +36,9 @@
         }
       }
     }
+  }
+  .alert{
+    color:rgba(238, 238, 238, 0.6);
   }
   .info {
     position: absolute;
