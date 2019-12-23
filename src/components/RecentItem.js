@@ -1,11 +1,12 @@
 import React from 'react';
 import '../styles/loader.scss';
+import bytes from 'bytes';
 
 class RecentItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      class: '',
+      class: 'media',
       thumbmail: '',
     };
   }
@@ -26,7 +27,7 @@ class RecentItem extends React.Component {
     const { data } = this.props;
     return (
       <div
-        style={this.state.class === 'media' ? { backgroundImage: `url(${this.state.thumbmail})` } : {}}
+        style={this.state.class === 'media' ? { backgroundImage: `url(${this.props.data.thumbnail})` } : {}}
         className={['recent-item', this.state.class].join(' ')}
         onContextMenu={e => {
           this.stopContext(e);
@@ -35,7 +36,8 @@ class RecentItem extends React.Component {
       >
         <div className="info">
           <div className="name">{data.name}</div>
-          <div className="size">{data.size}</div>
+          <div className="size">
+          {bytes(data.size, { decimalPlaces: 0 })}</div>
         </div>
       </div>
     );

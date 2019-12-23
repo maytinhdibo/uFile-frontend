@@ -134,10 +134,12 @@ class ContextMenu extends React.Component {
                   <div onClick={this.props.onNewFolder} className="item">
                     New folder
                   </div>
-                  <div onClick={this.props.onPaste} className="item">
-                    Paste
-                  </div>
-                  <div className="item">Share this folder</div>
+                  {this.props.clipboard && this.props.clipboard.data.length > 0 ? (
+                    <div onClick={this.props.onPaste} className="item">
+                      Paste
+                    </div>
+                  ) : null}
+                  {/* <div className="item">Share this folder</div> */}
                   <div onClick={this.props.getInfo} className="item">
                     Get info
                   </div>

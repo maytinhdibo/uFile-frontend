@@ -58,6 +58,9 @@ export default class Viewer extends React.Component {
         fileName: data.result.files[0].file_title,
       });
 
+      if (data.result.files[0].file_type == 'folder')
+        window.location.href = window.location.origin + '/drive/' + data.result.files[0].file_id;
+
       if (this.state.fileName.indexOf('.zip') != -1) {
         fileServices.preview(this.state.fileId).then(data => {
           // console.log(data.files);
@@ -83,6 +86,8 @@ export default class Viewer extends React.Component {
       return <iframe className="viewer" src={this.state.fileStream}></iframe>;
     } else if (ext == 'zip') {
       return <Zip data={this.state.dataZip} />;
+    } else {
+      return <h2 className="alert">This type can not preview! Please download the file.</h2>;
     }
   };
   render() {

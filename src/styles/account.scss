@@ -37,5 +37,21 @@
       margin-top: 1em;
       align-self: flex-end;
     }
+    label{
+      font-size: 0.9em;
+      font-weight: 700;
+      margin-top: 6px;
+    }
+    input[type="password"]{
+      width: 400px;
+      max-width: 100%;
+      padding:6px;
+      font-size: 14px;
+      border-radius: 6px;
+      box-sizing: border-box;
+      border:1px solid #eee;
+      outline: none;
+      margin:3px 0;
+    }
   }
 }

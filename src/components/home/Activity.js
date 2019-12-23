@@ -33,7 +33,7 @@ export default class Activity extends React.Component {
     this.props.openDetailTab(this.openDetailTab);
   }
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.detailTab != this.state.detailTab && this.props.folder) {
+    if (prevState.detailTab != this.state.detailTab && this.props.folder && this.props.selectedEntry.length == 0) {
       filesServices.searchDetails({ file_id: this.props.folder }).then(data => {
         this.setState({
           detailData: data.result.files[0],
@@ -132,10 +132,12 @@ export default class Activity extends React.Component {
                 <th>Owner:</th>
                 <td>{this.state.detailData.owner.fullname}</td>
               </tr>
-              <tr>
-                <th>Keyword:</th>
-                <td>{this.state.detailData.file_tag && this.state.detailData.file_tag.join(', ')}</td>
-              </tr>
+              {this.state.detailData.file_tag && this.state.detailData.file_tag.length > 0 ? (
+                <tr>
+                  <th>Keyword:</th>
+                  <td>{this.state.detailData.file_tag && this.state.detailData.file_tag.join(', ')}</td>
+                </tr>
+              ) : null}
             </table>
           </div>
         </div>
