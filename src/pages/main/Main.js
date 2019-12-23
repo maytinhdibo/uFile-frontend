@@ -162,7 +162,7 @@ class Main extends React.Component {
         })
         .then(data => {
           folderData = data.children_details;
-          this.setState({ parse_path: data.parse_urls });
+          this.setState({ parse_path: data.parse_urls, editableEntry: data.editable });
         });
     }
 
@@ -844,6 +844,7 @@ AHihi
                       selectFile={this.selectEntry}
                       openContextMenu={this.openContextMenu}
                       isTouchSelector={this.state.isTouchSelector}
+                      isTrash={this.isTrashFolder()}
                       data={ele}
                       onOpen={this.onOpen}
                     />

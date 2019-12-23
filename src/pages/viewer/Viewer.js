@@ -165,11 +165,11 @@ export default class Viewer extends React.Component {
             </tr>
             <tr>
               <th>Size:</th>
-              <td>{bytes(this.state.detailData.size, { decimalPlaces: 0 })}</td>
+              <td>{this.state.detailData && bytes(this.state.detailData.size, { decimalPlaces: 0 })}</td>
             </tr>
             <tr>
               <th>File type:</th>
-              <td>{this.state.detailData.file_type}</td>
+              <td>{this.state.detailData && this.state.detailData.file_type}</td>
             </tr>
             <tr>
               <th>Location:</th>

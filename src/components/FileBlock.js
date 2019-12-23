@@ -13,6 +13,7 @@ class FileBlock extends React.Component {
   };
 
   dbClickEntry = () => {
+    if(this.props.isTrash) return;
     if (!('ontouchstart' in window || navigator.msMaxTouchPoints)) {
       this.openEntry();
     }
