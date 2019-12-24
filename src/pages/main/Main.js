@@ -52,6 +52,7 @@ import { canView } from '../../helpers/fileViewer';
 import Loader from 'components/Loader';
 import bytes from 'bytes';
 import { BASE_API_URL } from 'services/requests';
+import moment from 'moment';
 
 const files = [
   {
@@ -276,10 +277,13 @@ class Main extends React.Component {
     let sortByDate = this.state.sortByDate;
     if (sortByDate == 0) sortByDate = 1;
     else sortByDate = -sortByDate;
+
+    console.log(this.state.entryData);
+
     this.removeSortState();
     this.setState({ sortByDate });
     this.setState({
-      entryData: this.state.entryData.sort((a, b) => (new Date(b.updated_at) - new Date(a.updated_at)) * sortByDate),
+      entryData: this.state.entryData.sort((a, b) => (new Date(moment(b.updated_at, "DD/MM/YYYY h:mm A")) - new Date(moment(a.updated_at, "DD/MM/YYYY h:mm A"))) * sortByDate),
     });
   }
 
