@@ -61,7 +61,7 @@ export default class Viewer extends React.Component {
       if (data.result.files[0].file_type == 'folder')
         window.location.href = window.location.origin + '/drive/' + data.result.files[0].file_id;
 
-      if (this.state.fileName.indexOf('.zip') != -1) {
+      if (this.state.fileName.toLowerCase().indexOf('.zip') != -1) {
         fileServices.preview(this.state.fileId).then(data => {
           // console.log(data.files);
           this.setState({ dataZip: data.files });
@@ -72,7 +72,7 @@ export default class Viewer extends React.Component {
   viewerRender = () => {
     const name = this.props.file ? this.props.file.name : this.state.fileName;
 
-    const ext = name.split('.')[name.split('.').length - 1];
+    const ext = name.split('.').pop().toLowerCase();
 
     if (['mp4', 'ogg'].indexOf(ext) != -1) {
       return <Media src={this.state.fileStream} type="video" />;

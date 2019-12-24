@@ -148,6 +148,9 @@ export default class Activity extends React.Component {
           }}
           className="noti tab"
         >
+          {this.props.notiData && this.props.notiData.length == 0 ? (
+            <span class="null-noti">Nothing to show....</span>
+          ) : null}
           {this.props.notiData.map(item => {
             return <NotiItem data={item} />;
           })}

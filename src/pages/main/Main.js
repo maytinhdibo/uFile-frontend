@@ -283,22 +283,7 @@ class Main extends React.Component {
     });
   }
 
-  componentDidMount() {
-    userServices
-      .fetchUserStatus()
-      .then(data => {
-        this.setState({ noti: data.notifications });
-        if (data.is_admin === true) {
-          this.props.history.push('/admin/dashboard');
-        } else {
-          // this.props.history.push('/drive/home');
-        }
-      })
-      .catch(() => {
-        this.props.history.push('/');
-      });
-
-    this.loadFolder();
+  loadFirst = () => {
     fileServices
       .searchDetails({
         file_id: localStorage.user_id,
@@ -328,6 +313,26 @@ class Main extends React.Component {
           }),
         });
       });
+  };
+
+  componentDidMount() {
+    userServices
+      .fetchUserStatus()
+      .then(data => {
+        this.setState({ noti: data.notifications });
+        if (data.is_admin === true) {
+          this.props.history.push('/admin/dashboard');
+        } else {
+          // this.props.history.push('/drive/home');
+        }
+      })
+      .catch(() => {
+        this.props.history.push('/');
+      });
+
+    this.loadFolder();
+
+    this.loadFirst();
   }
 
   componentDidUpdate(prevProps) {
@@ -501,10 +506,15 @@ class Main extends React.Component {
     formData.set('parent_id', this.folderParse());
     formData.append('in_file', evt.target.files[0]);
 
-    fileServices.upload(formData, config).then(data => {
-      this.setState({ uploadProcess: -1 });
-      this.loadFolder();
-    });
+    fileServices
+      .upload(formData, config)
+      .then(data => {
+        this.setState({ uploadProcess: -1 });
+        this.loadFolder();
+      })
+      .then(() => {
+        this.loadFirst();
+      });
   };
 
   //entry action
