@@ -84,7 +84,7 @@ export default class Viewer extends React.Component {
       return <img className="viewer" src={this.state.fileStream} />;
     } else if (ext == 'pdf') {
       return <iframe className="viewer" src={this.state.fileStream}></iframe>;
-    } else if (ext == 'zip') {
+    } else if (['zip', 'tar', 'gtar'].indexOf(ext) != -1) {
       return <Zip data={this.state.dataZip} />;
     } else {
       return <h2 className="alert">This type can not preview! Please download the file.</h2>;
