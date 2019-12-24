@@ -27,18 +27,7 @@ export default class SharePopup extends React.Component {
       searchValue: '',
       share_mode: 0,
       usersSearch: [],
-      usersShare: [
-        {
-          id: 1234,
-          name: 'Tran Cuong',
-          email: 'iammaytinhdibo@gmail.com',
-        },
-        {
-          id: 3234,
-          name: 'Long Hoang',
-          email: 'longhoang@gmail.com',
-        },
-      ],
+      usersShare: [],
     };
   }
 
