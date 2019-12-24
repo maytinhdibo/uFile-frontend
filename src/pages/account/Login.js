@@ -13,9 +13,9 @@ class Login extends React.Component {
   componentWillMount() {
     userServices.fetchUserStatus().then(data => {
       if (data.is_admin === true) {
-          this.props.history.push('/admin/dashboard')
+        this.props.history.push('/admin/dashboard');
       } else {
-          this.props.history.push('/drive/home');
+        this.props.history.push('/drive/home');
       }
     });
   }
@@ -34,9 +34,9 @@ class Login extends React.Component {
           localStorage.created_at = data.created_at;
           localStorage.updated_at = data.updated_at;
           if (data.is_admin === true) {
-              this.props.history.push('/admin/dashboard')
+            this.props.history.push('/admin/dashboard');
           } else {
-              this.props.history.push('/drive/home');
+            this.props.history.push('/drive/home');
           }
         })
         .catch(() => {
@@ -49,7 +49,7 @@ class Login extends React.Component {
   render() {
     const { state } = this;
     return (
-      <form>
+      <form onSubmit={e => this.login(e)}>
         <h1>Login</h1>
         <p>To access awesome things</p>
         <br />
@@ -73,9 +73,7 @@ class Login extends React.Component {
           />
         </div>
 
-        <button type="button" onClick={e => this.login(e)} className="me-btn">
-          Login
-        </button>
+        <input type="submit" value="Login" onClick={e => this.login(e)} className="me-btn" />
 
         {/* <button type="button" className="me-btn invert">
           <a href="/drive/home">Login with Google ID</a>
