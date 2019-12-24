@@ -71,10 +71,16 @@ export default class SharePopup extends React.Component {
 
   searchUser = e => {
     this.setState({ searchValue: e.target.value });
+    let listEmail = this.state.usersShare.map(item => {
+      return item.email;
+    });
+
+    // console.log(listEmail);
+
     adminServices.searchUser(this.state.searchValue, 0, 3).then(data => {
       // console.log(data);
       this.setState({
-        usersSearch: data.data.users,
+        usersSearch: data.data.users.filter(item => listEmail.indexOf(item.email) == -1),
       });
       console.log(this.state.usersSearch);
     });
@@ -119,6 +125,7 @@ export default class SharePopup extends React.Component {
       name: item.fullname,
     });
     this.setState({ usersShare: list });
+    this.setState({ searchValue: '', usersSearch: [] });
     this.share();
   };
 
