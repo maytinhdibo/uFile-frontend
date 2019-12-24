@@ -28,8 +28,8 @@ class SearchAssistant extends React.Component {
     this.props.close();
   };
 
-  inputChange = e => {
-    this.setState({ inputValue: e.target.value });
+  inputChange = async e => {
+    await this.setState({ inputValue: e.target.value });
     fileServices
       .searchDetails({
         q: this.state.inputValue,
