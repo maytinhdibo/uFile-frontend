@@ -69,13 +69,13 @@ export default class Dashboard extends React.Component {
             </a>
 
             <ul>
-              <li>Account setting</li>
+              {/* <li>Account setting</li> */}
               <li onClick={this.logout}>Logout</li>
             </ul>
           </span>
         </header>
         <div className="adm-search-form  me-input">
-          <input value={this.state.q} onChange={this.handleChange} />
+          <input placeholder="Enter username or email...." value={this.state.q} onChange={this.handleChange} />
           <button onClick={this.searchUser}>Search</button>
         </div>
 
