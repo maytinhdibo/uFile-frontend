@@ -58,8 +58,8 @@ export default class SharePopup extends React.Component {
     }
   }
 
-  searchUser = e => {
-    this.setState({ searchValue: e.target.value });
+  searchUser = async (e) => {
+   await this.setState({ searchValue: e.target.value });
     let listEmail = this.state.usersShare.map(item => {
       return item.email;
     });
